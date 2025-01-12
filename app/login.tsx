@@ -6,9 +6,11 @@ import { Headings } from "@/components/Heading/headings"
 import { Colors } from "@/constants/Colors"
 import { AntDesign, Octicons } from "@expo/vector-icons"
 import { Link } from "expo-router"
+import { useTranslation } from "react-i18next"
 import { StyleSheet, Text, TextInput, View } from "react-native"
 
 const Login:React.FC = () => {
+        const {t,i18n}= useTranslation()
     return(
         <View style={styles.container}>
             <View>
@@ -16,18 +18,18 @@ const Login:React.FC = () => {
             </View>
             <View style={styles.inputContent}>
                 <View style={styles.inputTexts}>
-                    <Headings heading="Login To Cicaeda!" tagLine="Predicting Kidney Health for a Better Tomorrow"/>
+                    <Headings heading={t('login.title')} tagLine={t('login.tagline')}/>
                 </View>
                 <View style={styles.inputForms}>
 
                     <View style={styles.marginLayer}>
-                        <InputLayout label="Email Address" placeholder="Email Address" icon="mail"/>
+                        <InputLayout label={t('login.emailAddress')} placeholder={t('login.emailAddress')} icon="mail"/>
                     </View>
                     <View style={styles.marginLayer}>
-                        <InputLayout label="Password" placeholder="Password" icon="key"/>
+                        <InputLayout label={t('login.password')} placeholder={t('login.password')} icon="key"/>
                     </View>
                     <View style={[styles.marginLayer,{marginVertical:10,marginLeft:5}]}>
-                        <Text style={{fontFamily:"Poppins-Light",color:Colors.light.primary}}>Forgot Password?</Text>
+                        <Text style={{fontFamily:"Poppins-Light",color:Colors.light.primary}}>{t('login.forgotPassword')}</Text>
                     </View>
                 </View>
                 <View style={styles.button}>
@@ -42,7 +44,7 @@ const Login:React.FC = () => {
                     <SocialLogin/>
                 </View>
                 <View style={{marginVertical:10}}>
-                    <Text style={{fontFamily:"Poppins-Light",textAlign:"center"}}>Don't Have An Account? Register Now</Text>
+                    <Text style={{fontFamily:"Poppins-Light",textAlign:"center"}}>{t('login.unRegistered')}</Text>
                 </View>
 
             </View>
@@ -56,14 +58,14 @@ const styles = StyleSheet.create({
     container:{
         backgroundColor:"#fff",
         paddingVertical:10,
-        paddingHorizontal:25,
+        paddingHorizontal:20,
         height:"100%"
     },
     inputContent:{
         paddingVertical:15
     },
     inputTexts:{
-
+        width:"100%"
     },
     inputForms:{
         paddingVertical:10

@@ -1,0 +1,19 @@
+{
+    "landing":{
+        "welcome":"WELCOME TO CICAEDA!",
+        "description":"Stay one step ahead with early detection of chronic kidney disease. Empowering you with insights for a healthier future."
+    },
+    "selectLangauge":{
+        "heading":"Select Langauge",
+        "tagline":"Choose your preferred language for a better experience.",
+        "continue":"Continue"
+    },
+    "login":{
+        "title":"Login To Cicaeda",
+        "tagline":"Predicting Kidney Health for a Better Tomorrow",
+        "emailAddress":"Email Address",
+        "password":"Password",
+        "forgotPassword":"Forgot Password ?",
+        "unRegistered":"Don't Have An Account? Register Now"
+    }
+}
