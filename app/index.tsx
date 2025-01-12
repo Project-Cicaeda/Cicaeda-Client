@@ -1,19 +1,24 @@
 import { Colors } from "@/constants/Colors"
+import { Entypo } from "@expo/vector-icons"
 import { router } from "expo-router"
+import { useTranslation } from "react-i18next"
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 
 const {width:SCREEN_WIDTH} = Dimensions.get('window')
 export default function Index(){
+    const {t,i18n}= useTranslation()
     return(
         <View style={styles.container}>
+                <TouchableOpacity style={styles.globeIcon} onPress={() => router.push("/selectLanguage")}>
+                    <Entypo name="globe" size={24} color="black" />
+                </TouchableOpacity>
             <View style={styles.centerContent}>
                 <View>
                     <Image source={require('../assets/images/landing.jpg')} style={{width:SCREEN_WIDTH,height:250}}/>
                 </View>
                 <View style={styles.headings}>
-                    <Text style={[styles.fontColor,{fontFamily:"Poppins-Bold",fontSize:20}]}>WELCOME TO CICAEDA!</Text>
-                    <Text style={[styles.fontColor,{fontFamily:"Poppins-Light", fontSize:13,textAlign:"center",marginVertical:5}]}>Stay one step ahead with early detection of chronic kidney disease. 
-                    Empowering you with insights for a healthier future.</Text>
+                    <Text style={[styles.fontColor,{fontFamily:"Poppins-Bold",fontSize:20,textAlign:"center"}]}>{t('landing.welcome')}</Text>
+                    <Text style={[styles.fontColor,{fontFamily:"Poppins-Light", fontSize:13,textAlign:"center",marginVertical:5}]}>{t('landing.description')}</Text>
                 </View>
                 <View style={styles.buttons}>
                     <TouchableOpacity style={styles.button} onPress={() => router.push("/login")}>
@@ -34,7 +39,7 @@ const styles = StyleSheet.create({
         height:"100%"
     },
     centerContent:{
-        height:"100%",
+        height:"80%",
         justifyContent:"center",
         alignItems:"center"
     },
@@ -62,6 +67,17 @@ const styles = StyleSheet.create({
         fontFamily:"Poppins-Bold",
         textAlign:"center",
         fontSize:15
+    },
+    globeIcon:{
+        width:40,
+        height:40,
+        alignSelf:"flex-end",
+        margin:20,
+        backgroundColor:"#E4E4E4",
+        justifyContent:"center",
+        alignItems:"center",
+        borderRadius:50,
+        position:"relative"
     }
 })
 
