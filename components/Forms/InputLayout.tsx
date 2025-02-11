@@ -29,7 +29,7 @@ export const InputLayout: React.FC<InputLayoutProps> = ({
         <TextInput
           placeholder={placeholder}
           style={{ fontFamily: "Poppins-Light", marginHorizontal: 5 }}
-          //   onChangeText={(text) => (inputRef.current = text)}
+          onChangeText={(text) => (inputRef.current = text)}
           onBlur={() => onBlur?.(inputRef.current)}
         />
       </View>
