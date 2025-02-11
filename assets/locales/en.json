@@ -1,19 +1,43 @@
 {
-    "landing":{
-        "welcome":"WELCOME TO CICAEDA!",
-        "description":"Stay one step ahead with early detection of chronic kidney disease. Empowering you with insights for a healthier future."
-    },
-    "selectLangauge":{
-        "heading":"Select Langauge",
-        "tagline":"Choose your preferred language for a better experience.",
-        "continue":"Continue"
-    },
-    "login":{
-        "title":"Login To Cicaeda",
-        "tagline":"Predicting Kidney Health for a Better Tomorrow",
-        "emailAddress":"Email Address",
-        "password":"Password",
-        "forgotPassword":"Forgot Password ?",
-        "unRegistered":"Don't Have An Account? Register Now"
-    }
+  "landing": {
+    "welcome": "WELCOME TO CICAEDA!",
+    "description": "Stay one step ahead with early detection of chronic kidney disease. Empowering you with insights for a healthier future."
+  },
+  "selectLangauge": {
+    "heading": "Select Langauge",
+    "tagline": "Choose your preferred language for a better experience.",
+    "continue": "Continue"
+  },
+  "login": {
+    "title": "Login To Cicaeda",
+    "tagline": "Predicting Kidney Health for a Better Tomorrow",
+    "emailAddress": "Email Address",
+    "password": "Password",
+    "forgotPassword": "Forgot Password ?",
+    "unRegistered": "Don't Have An Account? Register Now"
+  },
+  "Questionnaire1": {
+    "question1": "What is your age?",
+    "question2": "Sex (Male, Female, Other):",
+    "question3": "Do you have anemia?",
+    "question4": "Do you have high blood pressure?"
+  },
+  "Questionnaire2": {
+    "question1": "Are you diabetic?",
+    "question2": "Do you have a history of heart attack or stroke?",
+    "question3": "Do you have a history of congestive heart failure or heart failure?",
+    "question4": "Do you have circulation disease in your legs?"
+  },
+  "Questionnaire3": {
+    "question1": "Do you have a family history of kidney disease?",
+    "question2": "Do you have protein in your urine?",
+    "question3": "Do you experience foamy or bubbly urine?",
+    "question4": "Do you frequently wake up at night to urinate?"
+  },
+  "Questionnaire4": {
+    "question1": "Do you experience frequent swelling in your legs, ankles, or feet?",
+    "question2": "Do you often feel tired or have low energy levels?",
+    "question3": "Do you have difficulty concentrating or experience brain fog?",
+    "question4": "Have you had unexplained weight loss recently?"
+  }
 }
