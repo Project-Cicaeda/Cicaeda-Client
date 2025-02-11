@@ -15,8 +15,12 @@ export const InputLayout:React.FC<InputLayoutProps> =({label,placeholder,icon}) 
                 <Text style={styles.textProps}>{label}</Text>
             </View>
             <View style={styles.textinput}>
-                <AntDesign name={icon} size={24} color="black" />
-                <TextInput placeholder={placeholder} style={{fontFamily:"Poppins-Light",marginHorizontal:5}}/>
+                <View>
+                    <AntDesign name={icon} size={20} color="black" />
+                </View>
+                <View style={{flex:1}}>
+                    <TextInput placeholder={placeholder} style={{fontFamily:"Poppins-Light",marginHorizontal:5}}/>
+                </View>
             </View>
         </View>
     )
@@ -30,6 +34,7 @@ const styles = StyleSheet.create({
         fontFamily:"Poppins-Light"
     },
     textinput:{
+        width:"100%",
         flexDirection:"row",
         alignItems:"center",
         backgroundColor:"#D9D9D9",
