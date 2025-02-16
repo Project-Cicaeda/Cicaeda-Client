@@ -31,7 +31,7 @@ const MedicalForm = () => {
   const handleProceed = () => {
     console.log("Procceded to page 2");
     console.log("Form Data :" + formData);
-    router.push("/Questionnaire2");
+    router.push("/Questionnaire3");
   };
 
   return (
@@ -46,32 +46,32 @@ const MedicalForm = () => {
       </Text>
 
       {/* Progress Bar */}
-      <ProgressBar progress={0.25} />
+      <ProgressBar progress={0.5} />
 
       {/* Input Fields */}
       <View style={styles.inputContainer}>
         <InputLayout
           label="Age"
-          placeholder={t("Questionnaire1.question1")}
+          placeholder={t("Questionnaire2.question1")}
           icon="user"
           onBlur={(text) => handleInputChange("age", text)}
         />
 
         <InputLayout
           label="Gender"
-          placeholder={t("Questionnaire1.question2")}
+          placeholder={t("Questionnaire2.question2")}
           icon="user"
           onBlur={(text) => handleInputChange("gender", text)}
         />
         <InputLayout
           label="Question 3"
-          placeholder={t("Questionnaire1.question3")}
+          placeholder={t("Questionnaire2.question3")}
           icon="user"
           onBlur={(text) => handleInputChange("question3", text)}
         />
         <InputLayout
           label="Question 4"
-          placeholder={t("Questionnaire1.question4")}
+          placeholder={t("Questionnaire2.question4")}
           icon="user"
           onBlur={(text) => {
             handleInputChange("question4", text);
