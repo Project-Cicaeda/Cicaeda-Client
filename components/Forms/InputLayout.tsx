@@ -8,6 +8,7 @@ interface InputLayoutProps{
     icon:any
 }
 
+<<<<<<< Updated upstream
 export const InputLayout:React.FC<InputLayoutProps> =({label,placeholder,icon}) =>{
     return(
         <View>
@@ -25,6 +26,39 @@ export const InputLayout:React.FC<InputLayoutProps> =({label,placeholder,icon}) 
         </View>
     )
 }
+=======
+
+export const InputLayout: React.FC<InputLayoutProps> = ({
+  label,
+  placeholder,
+  icon,
+
+  onBlur,
+}) => {
+  let inputRef = useRef("");
+
+  return (
+    <View>
+      <View style={styles.textContainer}>
+        <Text style={styles.textProps}>{label}</Text>
+      </View>
+      <View style={styles.textinput}>
+        <View>
+            <AntDesign name={icon} size={24} color="black" />
+        </View>
+        <View style={{flex:1}}>
+            <TextInput
+            placeholder={placeholder}
+            style={{ fontFamily: "Poppins-Light", marginHorizontal: 5 }}
+            onChangeText={(text) => (inputRef.current = text)}
+            onBlur={() => onBlur?.(inputRef.current)}
+            />
+        </View>
+      </View>
+    </View>
+  );
+};
+>>>>>>> Stashed changes
 
 const styles = StyleSheet.create({
     textContainer:{
@@ -44,4 +78,9 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderColor:Colors.light.primary
     }
+<<<<<<< Updated upstream
 })
+=======
+});
+
+>>>>>>> Stashed changes
