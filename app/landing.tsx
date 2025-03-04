@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React from "react";
 import {
   View,
@@ -6,6 +7,10 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+
+const handleProceed = () => {
+  router.push("/Questionnaire");
+};
 
 const LandingPage = () => {
   return (
@@ -40,7 +45,7 @@ const LandingPage = () => {
         </View>
 
         {/* Get Your Prediction Button */}
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleProceed}>
           <Text style={styles.buttonText}>Get Your Prediction</Text>
         </TouchableOpacity>
       </ScrollView>
