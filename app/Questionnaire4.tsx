@@ -29,10 +29,9 @@ const MedicalForm = () => {
   };
 
   const handleProceed = () => {
-    console.log("Proceeded to Landing Page");
     console.log("Form Data:", formData);
 
-    router.push("/landing");
+    router.push("/Prediction");
   };
 
   return (
