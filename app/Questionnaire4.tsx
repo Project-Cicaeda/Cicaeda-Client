@@ -7,12 +7,10 @@ import BackArrow from "@/components/Common/backArrow";
 import { ProgressBar } from "@/components/Forms/ProgressBar";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "expo-router";
-import { useLocalSearchParams } from "expo-router";
 
 const MedicalForm = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
-  const params = useLocalSearchParams();
 
   const [formData, setFormData] = useState({
     age: "",
@@ -33,7 +31,7 @@ const MedicalForm = () => {
   const handleProceed = () => {
     console.log("Form Data:", formData);
 
-    router.push({ pathname: "/Prediction", params: { score: 50 } });
+    router.push("/Prediction");
   };
 
   return (
