@@ -1,14 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { Colors } from "@/constants/Colors";
 
-interface CKDPredictionProps {
-  score: number;
-}
-
-const CKDPrediction: React.FC<CKDPredictionProps> = ({ score }) => {
-  const router = useRouter();
+const CKDPrediction: React.FC = () => {
+  const params = useLocalSearchParams();
+  const score = Number(params.score) || 0; // Ensure score is a number
 
   let riskLevel = "Low Risk";
   let bgColor = Colors.light.success;
@@ -41,14 +38,6 @@ const CKDPrediction: React.FC<CKDPredictionProps> = ({ score }) => {
           <View style={styles.metricBox}>
             <Text style={styles.metricLabel}>Blood Pressure</Text>
             <Text style={styles.metricValue}>112 mmHG</Text>
-          </View>
-          <View style={styles.metricBox}>
-            <Text style={styles.metricLabel}>Heart Rate</Text>
-            <Text style={styles.metricValue}>97 bpm</Text>
-          </View>
-          <View style={styles.metricBox}>
-            <Text style={styles.metricLabel}>Heart Rate</Text>
-            <Text style={styles.metricValue}>97 bpm</Text>
           </View>
         </View>
       </View>
