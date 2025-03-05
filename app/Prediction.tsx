@@ -5,7 +5,7 @@ import { Colors } from "@/constants/Colors";
 import BackArrow from "@/components/Common/backArrow";
 
 const CKDPrediction: React.FC = () => {
-  const score = 77.2; // Example score
+  const score = 20.2; // Example score
 
   let riskLevel = "Low Risk";
   let bgColor = Colors.light.success;
@@ -18,7 +18,7 @@ const CKDPrediction: React.FC = () => {
     },
     {
       title: "Hydration Level",
-      value: "You drank 2L today, which is optimal for kidney health.",
+      value: "You need to drink 2L today, which is optimal for kidney health.",
     },
     {
       title: "Lifestyle & Diet Tips",
@@ -69,7 +69,7 @@ const CKDPrediction: React.FC = () => {
       {
         title: "Hydration Level",
         value:
-          "You're drinking 1.5L daily. Increase to 2L for better kidney function.",
+          "You're not drinking enough water daily. Increase to 2L for better kidney function.",
       },
       {
         title: "Lifestyle & Diet Tips",
@@ -85,7 +85,7 @@ const CKDPrediction: React.FC = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         keyboardShouldPersistTaps="handled"
@@ -109,14 +109,14 @@ const CKDPrediction: React.FC = () => {
               <Text style={styles.listValue}>{item.value}</Text>
             </View>
           ))}
-        </View>
 
-        {/* Button */}
-        <View style={styles.buttonContainer}>
-          <Button title="Get Recommendations" color={Colors.light.primary} />
+          {/* Button */}
+          <View style={styles.buttonContainer}>
+            <Button title="Get Recommendations" color={Colors.light.primary} />
+          </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 15,
     marginBottom: 20,
+    height: "100%",
   },
   summaryTitle: {
     fontSize: 18,
@@ -192,7 +193,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 40,
     borderRadius: 20,
   },
   arrow: {
