@@ -5,7 +5,7 @@ import { Colors } from "@/constants/Colors";
 import BackArrow from "@/components/Common/backArrow";
 
 const CKDPrediction: React.FC = () => {
-  const score = 20.2; // Example score
+  const score = 60.2; // Example score
 
   let riskLevel = "Low Risk";
   let bgColor = Colors.light.success;

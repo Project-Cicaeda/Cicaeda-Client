@@ -1,5 +1,12 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { InputLayout } from "@/components/Forms/InputLayout";
 import { Colors } from "@/constants/Colors";
 import { useState } from "react";
@@ -7,9 +14,10 @@ import BackArrow from "@/components/Common/backArrow";
 import { ProgressBar } from "@/components/Forms/ProgressBar";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const MedicalForm = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const router = useRouter();
 
   const [formData, setFormData] = useState({
@@ -19,8 +27,7 @@ const MedicalForm = () => {
     question4: "",
   });
 
-  //function to handle questionnaire inputs
-
+  // Function to handle questionnaire inputs
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
       ...prev,
@@ -30,60 +37,70 @@ const MedicalForm = () => {
 
   const handleProceed = () => {
     console.log("Form Data:", formData);
-
     router.push("/Prediction");
   };
 
   return (
-    <View style={styles.container}>
-      {/* Back Button */}
-      <BackArrow />
+    <SafeAreaView style={styles.safeContainer}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.keyboardContainer}
+      >
+        <ScrollView
+          style={styles.container}
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+        >
+          {/* Back Button */}
+          <BackArrow />
 
-      {/* Heading */}
-      <Text style={styles.heading}>Fill The Below Inputs</Text>
-      <Text style={styles.subheading}>
-        Enter your medical related data for the below questions.
-      </Text>
+          {/* Heading */}
+          <Text style={styles.heading}>Fill The Below Inputs</Text>
+          <Text style={styles.subheading}>
+            Enter your medical related data for the below questions.
+          </Text>
 
-      {/* Progress Bar */}
-      <ProgressBar progress={1} />
+          {/* Progress Bar */}
+          <ProgressBar progress={0.75} />
 
-      {/* Input Fields */}
-      <View style={styles.inputContainer}>
-        <InputLayout
-          label="Age"
-          placeholder={t("Questionnaire4.question1")}
-          icon="user"
-          onBlur={(text) => handleInputChange("age", text)}
-        />
+          {/* Input Fields */}
+          <View style={styles.inputContainer}>
+            <InputLayout
+              label="Age"
+              placeholder={t("Questionnaire4.question1")}
+              icon="user"
+              onBlur={(text) => handleInputChange("age", text)}
+            />
 
-        <InputLayout
-          label="Gender"
-          placeholder={t("Questionnaire4.question2")}
-          icon="user"
-          onBlur={(text) => handleInputChange("gender", text)}
-        />
-        <InputLayout
-          label="Question 3"
-          placeholder={t("Questionnaire4.question3")}
-          icon="user"
-          onBlur={(text) => handleInputChange("question3", text)}
-        />
-        <InputLayout
-          label="Question 4"
-          placeholder={t("Questionnaire4.question4")}
-          icon="user"
-          onBlur={(text) => {
-            handleInputChange("question4", text);
-          }}
-        />
-      </View>
+            <InputLayout
+              label="Gender"
+              placeholder={t("Questionnaire4.question2")}
+              icon="user"
+              onBlur={(text) => handleInputChange("gender", text)}
+            />
+            <InputLayout
+              label="Question 3"
+              placeholder={t("Questionnaire4.question3")}
+              icon="user"
+              onBlur={(text) => handleInputChange("question3", text)}
+            />
+            <InputLayout
+              label="Question 4"
+              placeholder={t("Questionnaire4.question4")}
+              icon="user"
+              onBlur={(text) => {
+                handleInputChange("question4", text);
+              }}
+            />
+          </View>
 
-      {/* Proceed Button */}
-      <TouchableOpacity style={styles.button} onPress={handleProceed}>
-        <Text style={styles.buttonText}>Proceed</Text>
-      </TouchableOpacity>
-    </View>
+          {/* Proceed Button */}
+          <TouchableOpacity style={styles.button} onPress={handleProceed}>
+            <Text style={styles.buttonText}>Proceed</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -91,9 +108,19 @@ export default MedicalForm;
 
 // Styles
 const styles = StyleSheet.create({
+  safeContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  keyboardContainer: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  scrollContent: {
+    flexGrow: 1,
     padding: 20,
   },
   heading: {

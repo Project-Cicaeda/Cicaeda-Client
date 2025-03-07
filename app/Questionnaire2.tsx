@@ -46,7 +46,7 @@ const MedicalForm = () => {
       </Text>
 
       {/* Progress Bar */}
-      <ProgressBar progress={0.5} />
+      <ProgressBar progress={0.25} />
 
       {/* Input Fields */}
       <View style={styles.inputContainer}>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    padding: 20,
+    padding: 15,
   },
   heading: {
     fontSize: 22,

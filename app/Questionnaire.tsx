@@ -7,6 +7,7 @@ import BackArrow from "@/components/Common/backArrow";
 import { ProgressBar } from "@/components/Forms/ProgressBar";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "expo-router";
+import { ScrollView } from "react-native-reanimated/lib/typescript/Animated";
 
 const MedicalForm = () => {
   const { t, i18n } = useTranslation();
@@ -46,7 +47,7 @@ const MedicalForm = () => {
       </Text>
 
       {/* Progress Bar */}
-      <ProgressBar progress={0.25} />
+      <ProgressBar progress={0} />
 
       {/* Input Fields */}
       <View style={styles.inputContainer}>
