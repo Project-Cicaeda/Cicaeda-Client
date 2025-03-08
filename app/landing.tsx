@@ -39,9 +39,9 @@ const LandingPage = () => {
           </Text>
         </View>
 
-        {/* Get Your Prediction Button */}
+        {/* Go To Questionnaire Button */}
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Get Your Prediction</Text>
+          <Text style={styles.buttonText}>Go To Questionnaire</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
