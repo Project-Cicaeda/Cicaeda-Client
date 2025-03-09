@@ -1,4 +1,13 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { InputLayout } from "@/components/Forms/InputLayout";
 import { Colors } from "@/constants/Colors";
@@ -35,55 +44,62 @@ const MedicalForm = () => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Back Button */}
-      <BackArrow />
+    <SafeAreaView style={styles.safeContainer}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.keyboardContainer}
+      >
+        <ScrollView style={styles.container}>
+          {/* Back Button */}
+          <BackArrow />
 
-      {/* Heading */}
-      <Text style={styles.heading}>Fill The Below Inputs</Text>
-      <Text style={styles.subheading}>
-        Enter your medical related data for the below questions.
-      </Text>
+          {/* Heading */}
+          <Text style={styles.heading}>Fill The Below Inputs</Text>
+          <Text style={styles.subheading}>
+            Enter your medical related data for the below questions.
+          </Text>
 
-      {/* Progress Bar */}
-      <ProgressBar progress={0.75} />
+          {/* Progress Bar */}
+          <ProgressBar progress={0.5} />
 
-      {/* Input Fields */}
-      <View style={styles.inputContainer}>
-        <InputLayout
-          label="Age"
-          placeholder={t("Questionnaire3.question1")}
-          icon="user"
-          onBlur={(text) => handleInputChange("age", text)}
-        />
+          {/* Input Fields */}
+          <View style={styles.inputContainer}>
+            <InputLayout
+              label="Age"
+              placeholder={t("Questionnaire3.question1")}
+              icon="user"
+              onBlur={(text) => handleInputChange("age", text)}
+            />
 
-        <InputLayout
-          label="Gender"
-          placeholder={t("Questionnaire3.question2")}
-          icon="user"
-          onBlur={(text) => handleInputChange("gender", text)}
-        />
-        <InputLayout
-          label="Question 3"
-          placeholder={t("Questionnaire3.question3")}
-          icon="user"
-          onBlur={(text) => handleInputChange("question3", text)}
-        />
-        <InputLayout
-          label="Question 4"
-          placeholder={t("Questionnaire3.question4")}
-          icon="user"
-          onBlur={(text) => {
-            handleInputChange("question4", text);
-          }}
-        />
-      </View>
+            <InputLayout
+              label="Gender"
+              placeholder={t("Questionnaire3.question2")}
+              icon="user"
+              onBlur={(text) => handleInputChange("gender", text)}
+            />
+            <InputLayout
+              label="Question 3"
+              placeholder={t("Questionnaire3.question3")}
+              icon="user"
+              onBlur={(text) => handleInputChange("question3", text)}
+            />
+            <InputLayout
+              label="Question 4"
+              placeholder={t("Questionnaire3.question4")}
+              icon="user"
+              onBlur={(text) => {
+                handleInputChange("question4", text);
+              }}
+            />
+          </View>
 
-      {/* Proceed Button */}
-      <TouchableOpacity style={styles.button} onPress={handleProceed}>
-        <Text style={styles.buttonText}>Proceed</Text>
-      </TouchableOpacity>
-    </View>
+          {/* Proceed Button */}
+          <TouchableOpacity style={styles.button} onPress={handleProceed}>
+            <Text style={styles.buttonText}>Proceed</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -95,6 +111,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 20,
+  },
+  safeContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+
+  keyboardContainer: {
+    flex: 1,
   },
   heading: {
     fontSize: 22,

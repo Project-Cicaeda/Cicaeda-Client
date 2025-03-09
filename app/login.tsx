@@ -7,7 +7,14 @@ import { Colors } from "@/constants/Colors";
 import { AntDesign, Octicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 
@@ -67,15 +74,17 @@ const Login: React.FC = () => {
           </View>
         </View>
         <View style={styles.button}>
-          <Text
-            style={{
-              color: "#fff",
-              fontFamily: "Poppins-Bold",
-              textAlign: "center",
-            }}
-          >
-            Login
-          </Text>
+          <TouchableOpacity onPress={() => router.push("/landing")}>
+            <Text
+              style={{
+                color: "#fff",
+                fontFamily: "Poppins-Bold",
+                textAlign: "center",
+              }}
+            >
+              Login
+            </Text>
+          </TouchableOpacity>
         </View>
         <View>
           <OrSeparator />
@@ -90,12 +99,6 @@ const Login: React.FC = () => {
             {t("login.unRegistered")}
           </Text>
         </View>
-      </View>
-      <View>
-        <Button
-          title="Go to Questionnaire"
-          onPress={() => router.push("/Questionnaire")}
-        />
       </View>
     </View>
   );

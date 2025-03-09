@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React from "react";
 import {
   View,
@@ -22,6 +23,10 @@ const Card: React.FC<CardProps> = ({ title, description, children }) => {
       <Text style={styles.description}>{description}</Text>
     </TouchableOpacity>
   );
+};
+
+const handleProceed = () => {
+  router.push("/Questionnaire");
 };
 
 const LandingPage = () => {
@@ -66,6 +71,7 @@ const LandingPage = () => {
           onPress={() => router.push("/Questionnaire")} // Navigate using expo-router
         >
           <Text style={styles.buttonText}>Go to Questionnaire</Text>
+          
         </TouchableOpacity>
       </ScrollView>
     </View>
