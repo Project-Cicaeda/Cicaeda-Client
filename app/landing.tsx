@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import { useRouter } from "expo-router";
 
 interface CardProps {
   title: string;
@@ -24,6 +25,7 @@ const Card: React.FC<CardProps> = ({ title, description, children }) => {
 };
 
 const LandingPage = () => {
+  const router = useRouter();
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
@@ -59,7 +61,10 @@ const LandingPage = () => {
           </View>
         </Card>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push("/Questionnaire")} // Navigate using expo-router
+        >
           <Text style={styles.buttonText}>Go to Questionnaire</Text>
         </TouchableOpacity>
       </ScrollView>
