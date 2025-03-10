@@ -1,8 +1,8 @@
 import BackArrow from "@/components/Common/backArrow"
 import { InputLayout } from "@/components/Forms/InputLayout"
 import { SocialLogin } from "@/components/Forms/socialLogin"
-import { Link } from "expo-router"
-import { StyleSheet, View,Text, TouchableOpacity } from "react-native"
+import { Link, router } from "expo-router"
+import { StyleSheet, View,Text, TouchableOpacity,ToastAndroid} from "react-native"
 import { Colors } from "@/constants/Colors"
 import { Headings } from "@/components/Heading/headings"
 import { OrSeparator } from "@/components/Forms/OrSeparator"
@@ -24,15 +24,19 @@ const Register:React.FC = () =>{
     }
 
     async function RegisterClick(){
-        console.log(formData)
-        if(formData){
+        if(formData.email && formData.name && formData.password){
                 try{
                 const response = await axios.post(`http://${ipAddress}:3000/auth/signup`,formData)
-                console.log(response.data)
+                ToastAndroid.show("Registration Successful!",ToastAndroid.SHORT)
+                router.replace("/login")
                 }
                 catch(error){
-                    console.log(error)
+                    console.log(error,"ERROR")
                 }
+        }
+        else{
+            ToastAndroid.show("All The Fields Are Required",ToastAndroid.SHORT)
+        
         }
     }
 
