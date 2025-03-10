@@ -18,8 +18,10 @@ import {
   View,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { storeItem } from "@/components/Common/StorageOperations";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -37,17 +39,28 @@ const Login: React.FC = () => {
     }
 
   async function LoginClick(){
-    console.log(formData)
     if(formData){
             try{
             const response = await axios.post(`http://${ipAddress}:3000/auth/login`,formData)
             console.log(response.data)
+            const storeUser = await storeItem(response.data)
             }
             catch(error){
                 console.log(error)
             }
     }
 }
+
+useEffect(() =>{
+  const fetchData = async() =>{
+      const storedItems:any = await AsyncStorage.getItem("user")
+      if(storeItem != null){
+        const jsonParse = JSON.parse(storedItems)
+      }
+
+  }
+  fetchData()
+},[])
 
   return (
     <View style={styles.container}>
@@ -103,11 +116,6 @@ const Login: React.FC = () => {
         </View>
         <View>
           <OrSeparator />
-        </View>
-        <View style={styles.socialLogins}>
-          <SocialLogin />
-          <SocialLogin />
-          <SocialLogin />
         </View>
         <View style={{ marginVertical: 10 }}>
           <Text style={{ fontFamily: "Poppins-Light", textAlign: "center" }}>
