@@ -7,6 +7,8 @@ import { Colors } from "@/constants/Colors";
 import { AntDesign, Octicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { ipAddress } from "@/components/Common/ipAddress";
+
 import {
   Button,
   StyleSheet,
@@ -17,22 +19,35 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import axios from "axios";
 
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
+  const [formData,setFormData] = useState({
+    "email":"",
+    "password":"",
+})
 
-  //State to store email and password inputs
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+    function handleInputChange(field:string,value:string){
+      setFormData((prev) =>({
+          ...prev,
+          [field] : value
+      }))
+    }
 
-  //function to handle login
-  const handleLogin = () => {
-    console.log("Email :", email);
-    console.log("Password :", password);
-
-    //authentication logic here
-  };
+  async function LoginClick(){
+    console.log(formData)
+    if(formData){
+            try{
+            const response = await axios.post(`http://${ipAddress}:3000/auth/login`,formData)
+            console.log(response.data)
+            }
+            catch(error){
+                console.log(error)
+            }
+    }
+}
 
   return (
     <View style={styles.container}>
@@ -49,7 +64,7 @@ const Login: React.FC = () => {
               label={t("login.emailAddress")}
               placeholder={t("login.emailAddress")}
               icon="mail"
-              onBlur={(text) => setEmail(text)}
+              onBlur={(text) => handleInputChange("email",text)}
             />
           </View>
           <View style={styles.marginLayer}>
@@ -57,7 +72,7 @@ const Login: React.FC = () => {
               label={t("login.password")}
               placeholder={t("login.password")}
               icon="key"
-              onBlur={(text) => setPassword(text)}
+              onBlur={(text) => handleInputChange("password",text)}
             />
           </View>
           <View
@@ -74,7 +89,7 @@ const Login: React.FC = () => {
           </View>
         </View>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => router.push("/landing")}>
+          <TouchableOpacity onPress={LoginClick}>
             <Text
               style={{
                 color: "#fff",

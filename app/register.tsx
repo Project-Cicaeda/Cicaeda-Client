@@ -24,7 +24,7 @@ const Register:React.FC = () =>{
     }
 
     async function RegisterClick(){
-        console.log(formData,"FORMDATA")
+        console.log(formData)
         if(formData){
                 try{
                 const response = await axios.post(`http://${ipAddress}:3000/auth/signup`,formData)
