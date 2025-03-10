@@ -55,9 +55,9 @@ const MedicalForm = () => {
           <BackArrow />
 
           {/* Heading */}
-          <Text style={styles.heading}>Fill The Below Inputs</Text>
+          <Text style={styles.heading}>{t("Questionnaire4.heading")}</Text>
           <Text style={styles.subheading}>
-            Enter your medical related data for the below questions.
+            {t("Questionnaire4.subheading")}
           </Text>
 
           {/* Progress Bar */}

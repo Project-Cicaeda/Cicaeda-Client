@@ -16,18 +16,18 @@
     "forgotPassword": "Forgot Password ?",
     "unRegistered": "Don't Have An Account? Register Now"
   },
-  "forgetPassword":{
+  "forgetPassword": {
     "title": "Forgot Password?",
-    "tagline":"Lost access? Enter your email and let’s get you back in with a secure reset code!",
-    "emailAddress":"Enter Your Email Address"
+    "tagline": "Lost access? Enter your email and let’s get you back in with a secure reset code!",
+    "emailAddress": "Enter Your Email Address"
   },
-  "resetPassword":{
+  "resetPassword": {
     "title": "Reset Password",
-    "tagline":"Set a fresh start! Enter your new password to regain access securely.",
-    "password":"New Password",
-    "confirmPassword":"Confirm New Password",
-    "newPassword":"Enter Your New Password",
-    "confirmNewPassword":"Confirm Your New Password"
+    "tagline": "Set a fresh start! Enter your new password to regain access securely.",
+    "password": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "newPassword": "Enter Your New Password",
+    "confirmNewPassword": "Confirm Your New Password"
   },
   "Questionnaire1": {
     "heading": "Fill The Below Input",
@@ -46,12 +46,16 @@
     "question4": "Do you have circulation disease in your legs?"
   },
   "Questionnaire3": {
+    "heading": "Fill The Below Input",
+    "subHeading": "Enter your medical related data for the below questions.",
     "question1": "Do you have a family history of kidney disease?",
     "question2": "Do you have protein in your urine?",
     "question3": "Do you experience foamy or bubbly urine?",
     "question4": "Do you frequently wake up at night to urinate?"
   },
   "Questionnaire4": {
+    "heading": "Fill The Below Input",
+    "subHeading": "Enter your medical related data for the below questions.",
     "question1": "Do you experience frequent swelling in your legs, ankles, or feet?",
     "question2": "Do you often feel tired or have low energy levels?",
     "question3": "Do you have difficulty concentrating or experience brain fog?",
