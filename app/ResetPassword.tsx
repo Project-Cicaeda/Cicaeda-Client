@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -36,13 +37,20 @@ const ForgotPassword: React.FC = () => {
     }
 
     async function SendResetCode(){
-      const data = {"oldPassword":"123456789","newPassword":"012345678"}
-      try{
-        const response = await API.put("/auth/change-password",data)
-        console.log(response)
+      if(formData.newPassword && formData.oldPassword){
+          try{
+          const data = {"oldPassword":formData.oldPassword,"newPassword":formData.newPassword}
+          const response = await API.put("/auth/change-password",data)
+          ToastAndroid.show("Password Changed Successfully!", ToastAndroid.SHORT)
+          router.push("/login")
+          
+        }
+        catch(error:any){
+          console.log(error.response.data)
+        }
       }
-      catch(error:any){
-        console.log(error.response.data)
+      else{
+        ToastAndroid.show("All Fields Are Required!", ToastAndroid.SHORT)
       }
 
     }   
