@@ -28,7 +28,6 @@ const ForgotPassword: React.FC = () => {
   const router = useRouter();
   const [formData,setFormData] = useState({
     "email":"",
-    "password":"",
 })
 
     function handleInputChange(field:string,value:string){
@@ -38,29 +37,10 @@ const ForgotPassword: React.FC = () => {
       }))
     }
 
-  async function LoginClick(){
-    if(formData){
-            try{
-            const response = await axios.post(`http://${ipAddress}:3000/auth/login`,formData)
-            console.log(response.data)
-            const storeUser = await storeItem(response.data)
-            }
-            catch(error){
-                console.log(error)
-            }
-    }
-}
+    function SendResetCode(){
+        router.navigate("/ResetPassword")
+    }   
 
-useEffect(() =>{
-  const fetchData = async() =>{
-      const storedItems:any = await AsyncStorage.getItem("user")
-      if(storeItem != null){
-        const jsonParse = JSON.parse(storedItems)
-      }
-
-  }
-  fetchData()
-},[])
 
   return (
     <View style={styles.container}>
@@ -82,7 +62,7 @@ useEffect(() =>{
           </View>
         </View>
         <View style={styles.button}>
-          <TouchableOpacity onPress={LoginClick}>
+          <TouchableOpacity onPress={SendResetCode}>
             <Text
               style={{
                 color: "#fff",

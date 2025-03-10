@@ -21,6 +21,14 @@
     "tagline":"Lost access? Enter your email and let’s get you back in with a secure reset code!",
     "emailAddress":"Enter Your Email Address"
   },
+  "resetPassword":{
+    "title": "Reset Password",
+    "tagline":"Set a fresh start! Enter your new password to regain access securely.",
+    "password":"New Password",
+    "confirmPassword":"Confirm New Password",
+    "newPassword":"Enter Your New Password",
+    "confirmNewPassword":"Confirm Your New Password"
+  },
   "Questionnaire1": {
     "question1": "What is your age?",
     "question2": "Sex (Male, Female, Other):",
