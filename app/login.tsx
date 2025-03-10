@@ -10,18 +10,18 @@ import { useTranslation } from "react-i18next";
 import { ipAddress } from "@/components/Common/ipAddress";
 
 import {
-  Button,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
+  ToastAndroid
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { storeItem } from "@/components/Common/StorageOperations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import API from "@/components/Common/UpdateTokens";
 
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -39,15 +39,24 @@ const Login: React.FC = () => {
     }
 
   async function LoginClick(){
-    if(formData){
+    if(formData.email && formData.password){
             try{
-            const response = await axios.post(`http://${ipAddress}:3000/auth/login`,formData)
-            console.log(response.data)
+            const response = await API.post(`/auth/login`,formData)
             const storeUser = await storeItem(response.data)
+            ToastAndroid.show("Login Successful!",ToastAndroid.SHORT)
+            router.replace("/landing")
             }
-            catch(error){
-                console.log(error)
+            catch(error:any){
+                console.log(error.response.data.message)
+                if(error.response.data?.statusCode == 401){
+                  ToastAndroid.show(error.response.data.message,ToastAndroid.SHORT)
+                  return
+                }
+                ToastAndroid.show(error.response.data.message[0],ToastAndroid.SHORT)
             }
+    }
+    else{
+      ToastAndroid.show("All The Fields Are Required",ToastAndroid.SHORT)
     }
 }
 
@@ -56,6 +65,7 @@ useEffect(() =>{
       const storedItems:any = await AsyncStorage.getItem("user")
       if(storeItem != null){
         const jsonParse = JSON.parse(storedItems)
+        console.log(jsonParse)
       }
 
   }
