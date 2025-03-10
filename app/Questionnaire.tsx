@@ -1,4 +1,13 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { InputLayout } from "@/components/Forms/InputLayout";
 import { Colors } from "@/constants/Colors";
@@ -7,7 +16,6 @@ import BackArrow from "@/components/Common/backArrow";
 import { ProgressBar } from "@/components/Forms/ProgressBar";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "expo-router";
-import { ScrollView } from "react-native-reanimated/lib/typescript/Animated";
 
 const MedicalForm = () => {
   const { t, i18n } = useTranslation();
@@ -31,58 +39,68 @@ const MedicalForm = () => {
 
   const handleProceed = () => {
     console.log("Procceded to page 2");
-    console.log("Form Data :" + formData);
+    console.log("Form Data:", JSON.stringify(formData));
+
     router.push("/Questionnaire2");
   };
 
   return (
-    <View style={styles.container}>
-      {/* Back Button */}
-      <BackArrow />
+    <SafeAreaView style={styles.safeContainer}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.keyboardContainer}
+      >
+        <ScrollView style={styles.container}>
+          {/* Back Button */}
+          <BackArrow />
 
-      {/* Heading */}
-      <Text style={styles.heading}>{t("Questionnaire1.heading")}</Text>
-      <Text style={styles.subheading}>{t("Questionnaire1.subHeading")}</Text>
+          {/* Heading */}
+          <Text style={styles.heading}>{t("Questionnaire1.heading")}</Text>
+          <Text style={styles.subheading}>
+            {t("Questionnaire1.subHeading")}
+          </Text>
 
-      {/* Progress Bar */}
-      <ProgressBar progress={0} />
+          {/* Progress Bar */}
+          <ProgressBar progress={0} />
 
-      {/* Input Fields */}
-      <View style={styles.inputContainer}>
-        <InputLayout
-          label="Age"
-          placeholder={t("Questionnaire1.question1")}
-          icon="user"
-          onBlur={(text) => handleInputChange("age", text)}
-        />
+          {/* Input Fields */}
+          <View style={styles.inputContainer}>
+            <InputLayout
+              label="Age"
+              placeholder={t("Questionnaire1.question1")}
+              icon="user"
+              onBlur={(text) => handleInputChange("age", text)}
+            />
 
-        <InputLayout
-          label="Gender"
-          placeholder={t("Questionnaire1.question2")}
-          icon="user"
-          onBlur={(text) => handleInputChange("gender", text)}
-        />
-        <InputLayout
-          label="Question 3"
-          placeholder={t("Questionnaire1.question3")}
-          icon="user"
-          onBlur={(text) => handleInputChange("question3", text)}
-        />
-        <InputLayout
-          label="Question 4"
-          placeholder={t("Questionnaire1.question4")}
-          icon="user"
-          onBlur={(text) => {
-            handleInputChange("question4", text);
-          }}
-        />
-      </View>
+            <InputLayout
+              label="Gender"
+              placeholder={t("Questionnaire1.question2")}
+              icon="user"
+              onBlur={(text) => handleInputChange("gender", text)}
+            />
+            <InputLayout
+              label="Question 3"
+              placeholder={t("Questionnaire1.question3")}
+              icon="user"
+              onBlur={(text) => handleInputChange("question3", text)}
+            />
+            <InputLayout
+              label="Question 4"
+              placeholder={t("Questionnaire1.question4")}
+              icon="user"
+              onBlur={(text) => {
+                handleInputChange("question4", text);
+              }}
+            />
+          </View>
 
-      {/* Proceed Button */}
-      <TouchableOpacity style={styles.button} onPress={handleProceed}>
-        <Text style={styles.buttonText}>Proceed</Text>
-      </TouchableOpacity>
-    </View>
+          {/* Proceed Button */}
+          <TouchableOpacity style={styles.button} onPress={handleProceed}>
+            <Text style={styles.buttonText}>Proceed</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -94,6 +112,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 20,
+  },
+  safeContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+
+  keyboardContainer: {
+    flex: 1,
   },
   heading: {
     fontSize: 22,

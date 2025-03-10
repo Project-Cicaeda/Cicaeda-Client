@@ -36,7 +36,7 @@ const MedicalForm = () => {
   };
 
   const handleProceed = () => {
-    console.log("Form Data:", formData);
+    console.log("Form Data:", JSON.stringify(formData));
     router.push("/Prediction");
   };
 
