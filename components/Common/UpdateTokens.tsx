@@ -28,7 +28,8 @@ API.interceptors.response.use(
 
       try {
         const user:any = await AsyncStorage.getItem('user');
-        const data = {"refreshToken":user?.refreshToken}
+        const userString = user? JSON.parse(user) : null
+        const data = {"refreshToken":userString?.refreshToken}
         const response = await axios.post(`http://${ipAddress}:3000/auth/refresh`, data);
 
         const { accessToken, refreshToken: newRefreshToken } = response.data;
@@ -41,7 +42,6 @@ API.interceptors.response.use(
       } catch (err) {
         console.log('Refresh token expired or invalid. Logging out...');
         await AsyncStorage.removeItem('accessToken');
-        await AsyncStorage.removeItem('refreshToken');
         return Promise.reject(err);
       }
     }

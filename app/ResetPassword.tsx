@@ -18,12 +18,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { storeItem } from "@/components/Common/StorageOperations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import API from "@/components/Common/UpdateTokens";
 
 const ForgotPassword: React.FC = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
   const [formData,setFormData] = useState({
-    "email":"",
+    "oldPassword":"",
+    "newPassword":""
 })
 
     function handleInputChange(field:string,value:string){
@@ -33,7 +35,15 @@ const ForgotPassword: React.FC = () => {
       }))
     }
 
-    function SendResetCode(){
+    async function SendResetCode(){
+      const data = {"oldPassword":"123456789","newPassword":"012345678"}
+      try{
+        const response = await API.put("/auth/change-password",data)
+        console.log(response)
+      }
+      catch(error:any){
+        console.log(error.response.data)
+      }
 
     }   
 
@@ -53,7 +63,7 @@ const ForgotPassword: React.FC = () => {
               label={t("resetPassword.password")}
               placeholder={t("resetPassword.newPassword")}
               icon="mail"
-              onBlur={(text) => handleInputChange("email",text)}
+              onBlur={(text) => handleInputChange("oldPassword",text)}
             />
           </View>
           <View style={styles.marginLayer}>
@@ -61,7 +71,7 @@ const ForgotPassword: React.FC = () => {
               label={t("resetPassword.confirmPassword")}
               placeholder={t("resetPassword.confirmNewPassword")}
               icon="mail"
-              onBlur={(text) => handleInputChange("email",text)}
+              onBlur={(text) => handleInputChange("newPassword",text)}
             />
           </View>
         </View>
