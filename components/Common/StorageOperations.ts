@@ -9,3 +9,11 @@ export const storeItem = async(items:any) => {
         console.log(error)
     }
 }
+
+export const fetchData = async() =>{
+    const storedItems:any = await AsyncStorage.getItem("user")
+    if(storeItem != null){
+      const jsonParse = JSON.parse(storedItems)
+    }
+
+}

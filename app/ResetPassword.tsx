@@ -1,13 +1,9 @@
 import BackArrow from "@/components/Common/backArrow";
 import { InputLayout } from "@/components/Forms/InputLayout";
-import { OrSeparator } from "@/components/Forms/OrSeparator";
-import { SocialLogin } from "@/components/Forms/socialLogin";
 import { Headings } from "@/components/Heading/headings";
 import { Colors } from "@/constants/Colors";
-import { AntDesign, Octicons } from "@expo/vector-icons";
-import { Link } from "expo-router";
+
 import { useTranslation } from "react-i18next";
-import { ipAddress } from "@/components/Common/ipAddress";
 
 import {
   Button,
@@ -23,12 +19,11 @@ import axios from "axios";
 import { storeItem } from "@/components/Common/StorageOperations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Login: React.FC = () => {
+const ForgotPassword: React.FC = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
   const [formData,setFormData] = useState({
     "email":"",
-    "password":"",
 })
 
     function handleInputChange(field:string,value:string){
@@ -38,29 +33,10 @@ const Login: React.FC = () => {
       }))
     }
 
-  async function LoginClick(){
-    if(formData){
-            try{
-            const response = await axios.post(`http://${ipAddress}:3000/auth/login`,formData)
-            console.log(response.data)
-            const storeUser = await storeItem(response.data)
-            }
-            catch(error){
-                console.log(error)
-            }
-    }
-}
+    function SendResetCode(){
 
-useEffect(() =>{
-  const fetchData = async() =>{
-      const storedItems:any = await AsyncStorage.getItem("user")
-      if(storeItem != null){
-        const jsonParse = JSON.parse(storedItems)
-      }
+    }   
 
-  }
-  fetchData()
-},[])
 
   return (
     <View style={styles.container}>
@@ -69,42 +45,28 @@ useEffect(() =>{
       </View>
       <View style={styles.inputContent}>
         <View style={styles.inputTexts}>
-          <Headings heading={t("login.title")} tagLine={t("login.tagline")} />
+          <Headings heading={t("resetPassword.title")} tagLine={t("resetPassword.tagline")} />
         </View>
         <View style={styles.inputForms}>
           <View style={styles.marginLayer}>
             <InputLayout
-              label={t("login.emailAddress")}
-              placeholder={t("login.emailAddress")}
+              label={t("resetPassword.password")}
+              placeholder={t("resetPassword.newPassword")}
               icon="mail"
               onBlur={(text) => handleInputChange("email",text)}
             />
           </View>
           <View style={styles.marginLayer}>
             <InputLayout
-              label={t("login.password")}
-              placeholder={t("login.password")}
-              icon="key"
-              onBlur={(text) => handleInputChange("password",text)}
+              label={t("resetPassword.confirmPassword")}
+              placeholder={t("resetPassword.confirmNewPassword")}
+              icon="mail"
+              onBlur={(text) => handleInputChange("email",text)}
             />
-          </View>
-          <View
-            style={[styles.marginLayer, { marginVertical: 10, marginLeft: 5 }]}
-          >
-            <Link href='/ForgotPassword'>           
-              <Text
-                style={{
-                  fontFamily: "Poppins-Light",
-                  color: Colors.light.primary,
-                }}
-              >
-                {t("login.forgotPassword")}
-              </Text>
-            </Link>
           </View>
         </View>
         <View style={styles.button}>
-          <TouchableOpacity onPress={LoginClick}>
+          <TouchableOpacity onPress={SendResetCode}>
             <Text
               style={{
                 color: "#fff",
@@ -112,24 +74,16 @@ useEffect(() =>{
                 textAlign: "center",
               }}
             >
-              Login
+              Reset Password
             </Text>
           </TouchableOpacity>
-        </View>
-        <View>
-          <OrSeparator />
-        </View>
-        <View style={{ marginVertical: 10 }}>
-            <Text style={{ fontFamily: "Poppins-Light", textAlign: "center" }}>
-              {t("login.unRegistered")}
-            </Text>
         </View>
       </View>
     </View>
   );
 };
 
-export default Login;
+export default ForgotPassword;
 
 const styles = StyleSheet.create({
   container: {
