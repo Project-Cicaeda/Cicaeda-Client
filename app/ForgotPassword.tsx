@@ -23,7 +23,7 @@ import axios from "axios";
 import { storeItem } from "@/components/Common/StorageOperations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Login: React.FC = () => {
+const ForgotPassword: React.FC = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
   const [formData,setFormData] = useState({
@@ -69,38 +69,16 @@ useEffect(() =>{
       </View>
       <View style={styles.inputContent}>
         <View style={styles.inputTexts}>
-          <Headings heading={t("login.title")} tagLine={t("login.tagline")} />
+          <Headings heading={t("forgetPassword.title")} tagLine={t("forgetPassword.tagline")} />
         </View>
         <View style={styles.inputForms}>
           <View style={styles.marginLayer}>
             <InputLayout
               label={t("login.emailAddress")}
-              placeholder={t("login.emailAddress")}
+              placeholder={t("forgetPassword.emailAddress")}
               icon="mail"
               onBlur={(text) => handleInputChange("email",text)}
             />
-          </View>
-          <View style={styles.marginLayer}>
-            <InputLayout
-              label={t("login.password")}
-              placeholder={t("login.password")}
-              icon="key"
-              onBlur={(text) => handleInputChange("password",text)}
-            />
-          </View>
-          <View
-            style={[styles.marginLayer, { marginVertical: 10, marginLeft: 5 }]}
-          >
-            <Link href='/ForgotPassword'>           
-              <Text
-                style={{
-                  fontFamily: "Poppins-Light",
-                  color: Colors.light.primary,
-                }}
-              >
-                {t("login.forgotPassword")}
-              </Text>
-            </Link>
           </View>
         </View>
         <View style={styles.button}>
@@ -112,24 +90,16 @@ useEffect(() =>{
                 textAlign: "center",
               }}
             >
-              Login
+              Send Email / SMS
             </Text>
           </TouchableOpacity>
-        </View>
-        <View>
-          <OrSeparator />
-        </View>
-        <View style={{ marginVertical: 10 }}>
-            <Text style={{ fontFamily: "Poppins-Light", textAlign: "center" }}>
-              {t("login.unRegistered")}
-            </Text>
         </View>
       </View>
     </View>
   );
 };
 
-export default Login;
+export default ForgotPassword;
 
 const styles = StyleSheet.create({
   container: {

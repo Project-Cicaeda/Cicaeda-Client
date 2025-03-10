@@ -46,6 +46,7 @@ export default function RootLayout() {
         <Stack.Screen name="register" />
         <Stack.Screen name="selectLanguage" />
         <Stack.Screen name="questionnaire" />
+        <Stack.Screen name="ForgetPassword" />
       </Stack>
     </I18nextProvider>
   );
