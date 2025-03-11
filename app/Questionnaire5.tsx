@@ -37,7 +37,7 @@ const MedicalForm = () => {
 
   const handleProceed = () => {
     console.log("Form Data:", JSON.stringify(formData));
-    router.push("/Questionnaire5");
+    router.push("/Prediction");
   };
 
   return (
@@ -55,38 +55,38 @@ const MedicalForm = () => {
           <BackArrow />
 
           {/* Heading */}
-          <Text style={styles.heading}>{t("Questionnaire4.heading")}</Text>
+          <Text style={styles.heading}>{t("Questionnaire5.heading")}</Text>
           <Text style={styles.subheading}>
-            {t("Questionnaire4.subheading")}
+            {t("Questionnaire5.subheading")}
           </Text>
 
           {/* Progress Bar */}
-          <ProgressBar progress={0.75} />
+          <ProgressBar progress={1} />
 
           {/* Input Fields */}
           <View style={styles.inputContainer}>
             <InputLayout
               label="Age"
-              placeholder={t("Questionnaire4.question1")}
+              placeholder={t("Questionnaire5.question1")}
               icon="user"
               onBlur={(text) => handleInputChange("age", text)}
             />
 
             <InputLayout
               label="Gender"
-              placeholder={t("Questionnaire4.question2")}
+              placeholder={t("Questionnaire5.question2")}
               icon="user"
               onBlur={(text) => handleInputChange("gender", text)}
             />
             <InputLayout
               label="Question 3"
-              placeholder={t("Questionnaire4.question3")}
+              placeholder={t("Questionnaire5.question3")}
               icon="user"
               onBlur={(text) => handleInputChange("question3", text)}
             />
             <InputLayout
               label="Question 4"
-              placeholder={t("Questionnaire4.question4")}
+              placeholder={t("Questionnaire5.question4")}
               icon="user"
               onBlur={(text) => {
                 handleInputChange("question4", text);

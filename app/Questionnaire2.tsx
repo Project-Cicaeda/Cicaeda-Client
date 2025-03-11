@@ -13,10 +13,10 @@ const MedicalForm = () => {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
-    age: "",
-    gender: "",
-    question3: "",
-    question4: "",
+    quetion5: "",
+    question6: "",
+    question7: "",
+    question8: "",
   });
 
   //function to handle questionnaire inputs
@@ -29,8 +29,9 @@ const MedicalForm = () => {
   };
 
   const handleProceed = () => {
-    console.log("Procceded to page 2");
-    console.log("Form Data :" + formData);
+    console.log("Procceded to page 3");
+    console.log("Form Data:", JSON.stringify(formData));
+
     router.push("/Questionnaire3");
   };
 
@@ -40,10 +41,8 @@ const MedicalForm = () => {
       <BackArrow />
 
       {/* Heading */}
-      <Text style={styles.heading}>Fill The Below Inputs</Text>
-      <Text style={styles.subheading}>
-        Enter your medical related data for the below questions.
-      </Text>
+      <Text style={styles.heading}>{t("Questionnaire2.heading")}</Text>
+      <Text style={styles.subheading}>{t("Questionnaire2.subHeading")}</Text>
 
       {/* Progress Bar */}
       <ProgressBar progress={0.25} />

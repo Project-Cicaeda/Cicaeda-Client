@@ -1,4 +1,4 @@
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import React from "react";
 import {
   View,
@@ -10,10 +10,30 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import { useRouter } from "expo-router";
 
 const LandingPage = () => {
   const router = useRouter();
+
+interface CardProps {
+  title: string;
+  description: string;
+  children: React.ReactNode;
+}
+
+const Card: React.FC<CardProps> = ({ title, description, children }) => {
+  return (
+    <TouchableOpacity style={styles.card} activeOpacity={0.8}>
+      {children}
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.description}>{description}</Text>
+    </TouchableOpacity>
+  );
+};
+
+
+  const handleProceed = () => {
+    router.push("/Questionnaire");
+  };
 
   return (
     <View style={styles.container}>
@@ -29,6 +49,19 @@ const LandingPage = () => {
             style={styles.logo}
             resizeMode="contain"
           />
+        <View style={styles.headerContainer}>
+          <Text style={styles.projectTitle}>Project Cicaeda</Text>
+          <View style={styles.profileIcon}></View>
+        </View>
+        <View style={styles.profileSection}>
+          <View style={styles.profilePlaceholder}></View>
+          <Text style={styles.welcomeText}>Hello User</Text>
+          <TouchableOpacity style={styles.buttonSmall}></TouchableOpacity>
+        </View>
+        <View style={styles.descriptionBox}>
+          <Text style={styles.descriptionText}>
+            Your ultimate companion for a better Kidney Health
+          </Text>
         </View>
       </ImageBackground>
 
@@ -73,7 +106,6 @@ const LandingPage = () => {
       <View style={styles.navButtons}>
         <TouchableOpacity style={styles.navButton}>
           <Text style={styles.navText}>Chat</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.navButton}>
           <Text style={styles.navText}>Profile</Text>
         </TouchableOpacity>
@@ -97,6 +129,9 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: "center",
+  projectTitle: {
+    fontSize: 19,
+    fontFamily: "Poppins-Light",
   },
   logo: {
     width: 100,
@@ -124,15 +159,28 @@ const styles = StyleSheet.create({
     width: "48%",
     padding: 20,
     borderRadius: 15,
+  card: {
+    backgroundColor: "#E4F8FA",
+    borderRadius: 15,
+    padding: 15, // Reduced padding for smaller card size
+    marginVertical: 10,
+    width: "90%", // Reduced width for smaller card size
     alignItems: "center",
   },
   featureTitle: {
     fontSize: 18,
+  title: {
+    fontSize: 16, // Smaller font size for title
     fontWeight: "bold",
   },
   featureSubtitle: {
     fontSize: 14,
     color: "#666",
+  description: {
+    fontSize: 12, // Smaller font size for description
+    color: "#464E56",
+    textAlign: "center",
+    marginTop: 5,
   },
   healthSection: {
     flexDirection: "row",
@@ -144,12 +192,28 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: "#FFF",
     borderRadius: 15,
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  iconContainer: {
+    height: 40,
+    width: 40,
+    backgroundColor: "#333",
+    borderRadius: 10,
     alignItems: "center",
     elevation: 2,
   },
   healthLabel: {
     fontSize: 14,
     color: "#666",
+  icon: {
+    fontSize: 20,
+    color: "#4CAF50",
+  },
+  languageContainer: {
+    alignItems: "center",
   },
   healthValue: {
     fontSize: 22,
@@ -173,6 +237,9 @@ const styles = StyleSheet.create({
   navText: {
     color: "#fff",
     fontSize: 16,
+  language: {
+    color: "#384C3F",
+    fontSize: 14, // Smaller font size for languages
   },
 });
 

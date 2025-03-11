@@ -7,32 +7,70 @@ import { Colors } from "@/constants/Colors";
 import { AntDesign, Octicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { ipAddress } from "@/components/Common/ipAddress";
+
 import {
-  Button,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
+  ToastAndroid,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { storeItem } from "@/components/Common/StorageOperations";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import API from "@/components/Common/UpdateTokens";
 
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-  //State to store email and password inputs
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  function handleInputChange(field: string, value: string) {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  }
 
-  //function to handle login
-  const handleLogin = () => {
-    console.log("Email :", email);
-    console.log("Password :", password);
+  async function LoginClick(){
+    if(formData.email && formData.password){
+            try{
+            const response = await axios.post(`http://${ipAddress}:3000/auth/login`,formData)
+            const storeUser = await storeItem(response.data)
+            ToastAndroid.show("Login Successful!",ToastAndroid.SHORT)
+            router.replace("/landing")
+            }
+            catch(error:any){
+                console.log(error.response)
+                if(error.response.data?.statusCode == 401){
+                  ToastAndroid.show(error.response.data.message,ToastAndroid.SHORT)
+                  return
+                }
+                ToastAndroid.show(error.response.data.message[0],ToastAndroid.SHORT)
+            }
+    }
+    else{
+      ToastAndroid.show("All The Fields Are Required",ToastAndroid.SHORT)
+    }
+  }
 
-    //authentication logic here
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const storedItems: any = await AsyncStorage.getItem("user");
+      if (storeItem != null) {
+        const jsonParse = JSON.parse(storedItems);
+        console.log(jsonParse);
+      }
+    };
+    fetchData();
+  }, []);
+
 
   return (
     <View style={styles.container}>
@@ -49,7 +87,7 @@ const Login: React.FC = () => {
               label={t("login.emailAddress")}
               placeholder={t("login.emailAddress")}
               icon="mail"
-              onBlur={(text) => setEmail(text)}
+              onBlur={(text) => handleInputChange("email", text)}
             />
           </View>
           <View style={styles.marginLayer}>
@@ -57,31 +95,33 @@ const Login: React.FC = () => {
               label={t("login.password")}
               placeholder={t("login.password")}
               icon="key"
-              onBlur={(text) => setPassword(text)}
+              onBlur={(text) => handleInputChange("password", text)}
             />
           </View>
           <View
             style={[styles.marginLayer, { marginVertical: 10, marginLeft: 5 }]}
           >
-            <Text
-              style={{
-                fontFamily: "Poppins-Light",
-                color: Colors.light.primary,
-              }}
-            >
-              {t("login.forgotPassword")}
-            </Text>
+            <Link href="/ForgotPassword">
+              <Text
+                style={{
+                  fontFamily: "Poppins-Light",
+                  color: Colors.light.primary,
+                }}
+              >
+                {t("login.forgotPassword")}
+              </Text>
+            </Link>
           </View>
         </View>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => router.push("/landing")}>
+          <TouchableOpacity onPress={LoginClick}>
             <Text
               style={{
                 color: "#fff",
                 fontFamily: "Poppins-Bold",
                 textAlign: "center",
               }}
-            >
+              >
               Login
             </Text>
           </TouchableOpacity>
@@ -89,15 +129,12 @@ const Login: React.FC = () => {
         <View>
           <OrSeparator />
         </View>
-        <View style={styles.socialLogins}>
-          <SocialLogin />
-          <SocialLogin />
-          <SocialLogin />
-        </View>
         <View style={{ marginVertical: 10 }}>
-          <Text style={{ fontFamily: "Poppins-Light", textAlign: "center" }}>
-            {t("login.unRegistered")}
-          </Text>
+              <Link href='/register'>           
+            <Text style={{ fontFamily: "Poppins-Light", textAlign: "center" }}>
+              {t("login.unRegistered")}
+            </Text>
+              </Link>
         </View>
       </View>
     </View>

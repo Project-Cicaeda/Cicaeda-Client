@@ -18,7 +18,7 @@ export default function Index(){
                 </View>
                 <View style={styles.headings}>
                     <Text style={[styles.fontColor,{fontFamily:"Poppins-Bold",fontSize:20,textAlign:"center"}]}>{t('landing.welcome')}</Text>
-                    <Text style={[styles.fontColor,{fontFamily:"Poppins-Light", fontSize:13,textAlign:"center",marginVertical:5}]}>{t('landing.description')}</Text>
+                    <Text style={[styles.fontColor,{fontFamily:"Poppins-Light", fontSize:13,textAlign:"center",marginVertical:5,marginHorizontal:10}]}>{t('landing.description')}</Text>
                 </View>
                 <View style={styles.buttons}>
                     <TouchableOpacity style={styles.button} onPress={() => router.push("/login")}>
