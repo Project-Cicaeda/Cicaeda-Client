@@ -14,7 +14,7 @@ import {
   Text,
   TouchableOpacity,
   View,
-  ToastAndroid
+  ToastAndroid,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
@@ -26,17 +26,17 @@ import API from "@/components/Common/UpdateTokens";
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
-  const [formData,setFormData] = useState({
-    "email":"",
-    "password":"",
-})
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-    function handleInputChange(field:string,value:string){
-      setFormData((prev) =>({
-          ...prev,
-          [field] : value
-      }))
-    }
+  function handleInputChange(field: string, value: string) {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  }
 
   async function LoginClick(){
     if(formData.email && formData.password){
@@ -58,19 +58,18 @@ const Login: React.FC = () => {
     else{
       ToastAndroid.show("All The Fields Are Required",ToastAndroid.SHORT)
     }
-}
-
-useEffect(() =>{
-  const fetchData = async() =>{
-      const storedItems:any = await AsyncStorage.getItem("user")
-      if(storeItem != null){
-        const jsonParse = JSON.parse(storedItems)
-        console.log(jsonParse)
-      }
-
   }
-  fetchData()
-},[])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const storedItems: any = await AsyncStorage.getItem("user");
+      if (storeItem != null) {
+        const jsonParse = JSON.parse(storedItems);
+        console.log(jsonParse);
+      }
+    };
+    fetchData();
+  }, []);
 
 
   return (
@@ -88,7 +87,7 @@ useEffect(() =>{
               label={t("login.emailAddress")}
               placeholder={t("login.emailAddress")}
               icon="mail"
-              onBlur={(text) => handleInputChange("email",text)}
+              onBlur={(text) => handleInputChange("email", text)}
             />
           </View>
           <View style={styles.marginLayer}>
@@ -96,13 +95,13 @@ useEffect(() =>{
               label={t("login.password")}
               placeholder={t("login.password")}
               icon="key"
-              onBlur={(text) => handleInputChange("password",text)}
+              onBlur={(text) => handleInputChange("password", text)}
             />
           </View>
           <View
             style={[styles.marginLayer, { marginVertical: 10, marginLeft: 5 }]}
           >
-            <Link href='/ForgotPassword'>           
+            <Link href="/ForgotPassword">
               <Text
                 style={{
                   fontFamily: "Poppins-Light",
