@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import { useRouter } from "expo-router";
 
@@ -33,6 +34,25 @@ const LandingPage = () => {
   const router = useRouter();
   return (
     <View style={styles.container}>
+      <ImageBackground
+        source={{ uri: "https://example.com/background.jpg" }}
+        style={styles.backgroundImage}
+      >
+        <View style={styles.headerContainer}>
+          <Text style={styles.projectTitle}>Project Cicaeda</Text>
+          <View style={styles.profileIcon}></View>
+        </View>
+        <View style={styles.profileSection}>
+          <View style={styles.profilePlaceholder}></View>
+          <Text style={styles.welcomeText}>Hello User</Text>
+          <TouchableOpacity style={styles.buttonSmall}></TouchableOpacity>
+        </View>
+        <View style={styles.descriptionBox}>
+          <Text style={styles.descriptionText}>
+            Your ultimate companion for daily productivity and fun
+          </Text>
+        </View>
+      </ImageBackground>
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.header}>Features of Project Cicada</Text>
 
@@ -68,10 +88,9 @@ const LandingPage = () => {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push("/Questionnaire")} // Navigate using expo-router
+          onPress={() => router.push("/Questionnaire")}
         >
           <Text style={styles.buttonText}>Go to Questionnaire</Text>
-          
         </TouchableOpacity>
       </ScrollView>
     </View>
@@ -85,6 +104,58 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 16,
+  },
+  backgroundImage: {
+    width: "100%",
+    height: 250,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 10,
+  },
+  projectTitle: {
+    fontSize: 19,
+    // fontWeight: "bold",
+    fontFamily: "Poppins-Light",
+  },
+  profileIcon: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: "#ccc",
+  },
+  profileSection: {
+    alignItems: "center",
+    marginTop: 20,
+  },
+  profilePlaceholder: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: "#aaa",
+  },
+  welcomeText: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  buttonSmall: {
+    width: 40,
+    height: 10,
+    backgroundColor: "#ddd",
+    borderRadius: 5,
+    marginTop: 5,
+  },
+  descriptionBox: {
+    marginTop: 10,
+    padding: 15,
+    backgroundColor: "#E4F8FA",
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  descriptionText: {
+    fontSize: 16,
+    textAlign: "center",
   },
   content: {
     alignItems: "center",
@@ -121,6 +192,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 5,
   },
+  button: {
+    backgroundColor: "#4CAF50",
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 30,
+    marginTop: 20,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
   iconContainer: {
     height: 50,
     width: 50,
@@ -144,18 +227,6 @@ const styles = StyleSheet.create({
   language: {
     color: "#384C3F",
     fontSize: 16,
-  },
-  button: {
-    backgroundColor: "#4CAF50",
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 30,
-    marginTop: 20,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
   },
 });
 
