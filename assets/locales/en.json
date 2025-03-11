@@ -4,7 +4,7 @@
     "description": "Stay one step ahead with early detection of chronic kidney disease. Empowering you with insights for a healthier future."
   },
   "selectLangauge": {
-    "heading": "Select Langauge",
+    "heading": "Select Language",
     "tagline": "Choose your preferred language for a better experience.",
     "continue": "Continue"
   },
@@ -13,7 +13,7 @@
     "tagline": "Predicting Kidney Health for a Better Tomorrow",
     "emailAddress": "Email Address",
     "password": "Password",
-    "forgotPassword": "Forgot Password ?",
+    "forgotPassword": "Forgot Password?",
     "unRegistered": "Don't Have An Account? Register Now"
   },
   "forgetPassword": {
@@ -31,32 +31,40 @@
   },
   "Questionnaire1": {
     "heading": "Fill The Below Input",
-    "subHeading": "Enter your medical related data for the below questions.",
-    "question1": "What is your age?",
-    "question2": "Sex (Male, Female, Other):",
-    "question3": "Do you have anemia?",
-    "question4": "Do you have high blood pressure?"
+    "subHeading": "Enter your personal information.",
+    "question1": "What is your first name?",
+    "question2": "What is your last name?",
+    "question3": "What city do you live in?",
+    "question4": "What is your address?"
   },
   "Questionnaire2": {
     "heading": "Fill The Below Input",
-    "subHeading": "Enter your medical related data for the below questions.",
-    "question1": "Are you diabetic?",
-    "question2": "Do you have a history of heart attack or stroke?",
-    "question3": "Do you have a history of congestive heart failure or heart failure?",
-    "question4": "Do you have circulation disease in your legs?"
+    "subHeading": "Enter your medical-related data for the below questions.",
+    "question1": "What is your age?",
+    "question2": "Sex (Male, Female, Other):",
+    "question3": "Do you have anemia?",
+    "question4": "Do you have high blood pressure (HBP)?"
   },
   "Questionnaire3": {
     "heading": "Fill The Below Input",
-    "subHeading": "Enter your medical related data for the below questions.",
+    "subHeading": "Enter your medical-related data for the below questions.",
+    "question1": "Do you have diabetes?",
+    "question2": "Do you have circulatory disease?",
+    "question3": "Do you have a history of heart attack or stroke?",
+    "question4": "Do you have a history of congestive heart failure?"
+  },
+  "Questionnaire4": {
+    "heading": "Fill The Below Input",
+    "subHeading": "Enter your medical-related data for the below questions.",
     "question1": "Do you have a family history of kidney disease?",
     "question2": "Do you have protein in your urine?",
     "question3": "Do you experience foamy or bubbly urine?",
     "question4": "Do you frequently wake up at night to urinate?"
   },
-  "Questionnaire4": {
+  "Questionnaire5": {
     "heading": "Fill The Below Input",
-    "subHeading": "Enter your medical related data for the below questions.",
-    "question1": "Do you experience frequent swelling in your legs, ankles, or feet?",
+    "subHeading": "Enter your general health symptoms.",
+    "question1": "Do you have frequent swelling in your legs, ankles, or feet?",
     "question2": "Do you often feel tired or have low energy levels?",
     "question3": "Do you have difficulty concentrating or experience brain fog?",
     "question4": "Have you had unexplained weight loss recently?"

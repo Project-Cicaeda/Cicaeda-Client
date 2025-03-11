@@ -39,23 +39,20 @@ const Login: React.FC = () => {
   }
 
   async function LoginClick() {
-    if (formData.email && formData.password) {
-      try {
-        // const response = await API.post(`/auth/login`,formData)
-        // const storeUser = await storeItem(response.data)
-        // ToastAndroid.show("Login Successful!",ToastAndroid.SHORT)
-        // router.replace("/landing")
-        router.push("/landing");
-      } catch (error: any) {
-        console.log(error.response.data.message);
-        if (error.response.data?.statusCode == 401) {
-          ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
-          return;
-        }
-        ToastAndroid.show(error.response.data.message[0], ToastAndroid.SHORT);
+    // if (formData.email && formData.password) {
+    try {
+      // const response = await API.post(`/auth/login`,formData)
+      // const storeUser = await storeItem(response.data)
+      // ToastAndroid.show("Login Successful!",ToastAndroid.SHORT)
+      // router.replace("/landing")
+      router.push("/landing");
+    } catch (error: any) {
+      console.log(error.response.data.message);
+      if (error.response.data?.statusCode == 401) {
+        ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
+        return;
       }
-    } else {
-      ToastAndroid.show("All The Fields Are Required", ToastAndroid.SHORT);
+      ToastAndroid.show(error.response.data.message[0], ToastAndroid.SHORT);
     }
   }
 
