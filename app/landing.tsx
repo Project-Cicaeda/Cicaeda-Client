@@ -1,4 +1,4 @@
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import React from "react";
 import {
   View,
@@ -8,7 +8,6 @@ import {
   ScrollView,
   ImageBackground,
 } from "react-native";
-import { useRouter } from "expo-router";
 
 interface CardProps {
   title: string;
@@ -26,12 +25,13 @@ const Card: React.FC<CardProps> = ({ title, description, children }) => {
   );
 };
 
-const handleProceed = () => {
-  router.push("/Questionnaire");
-};
-
 const LandingPage = () => {
   const router = useRouter();
+
+  const handleProceed = () => {
+    router.push("/Questionnaire");
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -49,7 +49,7 @@ const LandingPage = () => {
         </View>
         <View style={styles.descriptionBox}>
           <Text style={styles.descriptionText}>
-            Your ultimate companion for daily productivity and fun
+            Your ultimate companion for a better Kidney Health
           </Text>
         </View>
       </ImageBackground>
@@ -86,10 +86,7 @@ const LandingPage = () => {
           </View>
         </Card>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push("/Questionnaire")}
-        >
+        <TouchableOpacity style={styles.button} onPress={handleProceed}>
           <Text style={styles.buttonText}>Go to Questionnaire</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -116,7 +113,6 @@ const styles = StyleSheet.create({
   },
   projectTitle: {
     fontSize: 19,
-    // fontWeight: "bold",
     fontFamily: "Poppins-Light",
   },
   profileIcon: {
@@ -171,8 +167,9 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#E4F8FA",
     borderRadius: 15,
-    padding: 20,
+    padding: 15, // Reduced padding for smaller card size
     marginVertical: 10,
+    width: "90%", // Reduced width for smaller card size
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -181,13 +178,13 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    fontSize: 18,
+    fontSize: 16, // Smaller font size for title
     fontWeight: "bold",
     color: "#30363A",
     marginTop: 10,
   },
   description: {
-    fontSize: 14,
+    fontSize: 12, // Smaller font size for description
     color: "#464E56",
     textAlign: "center",
     marginTop: 5,
@@ -205,15 +202,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   iconContainer: {
-    height: 50,
-    width: 50,
+    height: 40,
+    width: 40,
     backgroundColor: "#333",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
   },
   icon: {
-    fontSize: 24,
+    fontSize: 20,
     color: "#4CAF50",
   },
   languageContainer: {
@@ -226,7 +223,7 @@ const styles = StyleSheet.create({
   },
   language: {
     color: "#384C3F",
-    fontSize: 16,
+    fontSize: 14, // Smaller font size for languages
   },
 });
 

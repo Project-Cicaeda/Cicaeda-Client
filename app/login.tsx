@@ -14,7 +14,7 @@ import {
   Text,
   TouchableOpacity,
   View,
-  ToastAndroid
+  ToastAndroid,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
@@ -26,51 +26,49 @@ import API from "@/components/Common/UpdateTokens";
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
-  const [formData,setFormData] = useState({
-    "email":"",
-    "password":"",
-})
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-    function handleInputChange(field:string,value:string){
-      setFormData((prev) =>({
-          ...prev,
-          [field] : value
-      }))
-    }
-
-  async function LoginClick(){
-    if(formData.email && formData.password){
-            try{
-            const response = await API.post(`/auth/login`,formData)
-            const storeUser = await storeItem(response.data)
-            ToastAndroid.show("Login Successful!",ToastAndroid.SHORT)
-            router.replace("/landing")
-            }
-            catch(error:any){
-                console.log(error.response.data.message)
-                if(error.response.data?.statusCode == 401){
-                  ToastAndroid.show(error.response.data.message,ToastAndroid.SHORT)
-                  return
-                }
-                ToastAndroid.show(error.response.data.message[0],ToastAndroid.SHORT)
-            }
-    }
-    else{
-      ToastAndroid.show("All The Fields Are Required",ToastAndroid.SHORT)
-    }
-}
-
-useEffect(() =>{
-  const fetchData = async() =>{
-      const storedItems:any = await AsyncStorage.getItem("user")
-      if(storeItem != null){
-        const jsonParse = JSON.parse(storedItems)
-        console.log(jsonParse)
-      }
-
+  function handleInputChange(field: string, value: string) {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
   }
-  fetchData()
-},[])
+
+  async function LoginClick() {
+    if (formData.email && formData.password) {
+      try {
+        // const response = await API.post(`/auth/login`,formData)
+        // const storeUser = await storeItem(response.data)
+        // ToastAndroid.show("Login Successful!",ToastAndroid.SHORT)
+        // router.replace("/landing")
+        router.push("/landing");
+      } catch (error: any) {
+        console.log(error.response.data.message);
+        if (error.response.data?.statusCode == 401) {
+          ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
+          return;
+        }
+        ToastAndroid.show(error.response.data.message[0], ToastAndroid.SHORT);
+      }
+    } else {
+      ToastAndroid.show("All The Fields Are Required", ToastAndroid.SHORT);
+    }
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const storedItems: any = await AsyncStorage.getItem("user");
+      if (storeItem != null) {
+        const jsonParse = JSON.parse(storedItems);
+        console.log(jsonParse);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -87,7 +85,7 @@ useEffect(() =>{
               label={t("login.emailAddress")}
               placeholder={t("login.emailAddress")}
               icon="mail"
-              onBlur={(text) => handleInputChange("email",text)}
+              onBlur={(text) => handleInputChange("email", text)}
             />
           </View>
           <View style={styles.marginLayer}>
@@ -95,13 +93,13 @@ useEffect(() =>{
               label={t("login.password")}
               placeholder={t("login.password")}
               icon="key"
-              onBlur={(text) => handleInputChange("password",text)}
+              onBlur={(text) => handleInputChange("password", text)}
             />
           </View>
           <View
             style={[styles.marginLayer, { marginVertical: 10, marginLeft: 5 }]}
           >
-            <Link href='/ForgotPassword'>           
+            <Link href="/ForgotPassword">
               <Text
                 style={{
                   fontFamily: "Poppins-Light",
@@ -130,9 +128,9 @@ useEffect(() =>{
           <OrSeparator />
         </View>
         <View style={{ marginVertical: 10 }}>
-            <Text style={{ fontFamily: "Poppins-Light", textAlign: "center" }}>
-              {t("login.unRegistered")}
-            </Text>
+          <Text style={{ fontFamily: "Poppins-Light", textAlign: "center" }}>
+            {t("login.unRegistered")}
+          </Text>
         </View>
       </View>
     </View>
