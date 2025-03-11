@@ -30,8 +30,14 @@ const Register:React.FC = () =>{
                 ToastAndroid.show("Registration Successful!",ToastAndroid.SHORT)
                 router.replace("/login")
                 }
-                catch(error){
-                    console.log(error,"ERROR")
+                catch(error:any){
+                    console.log(error?.response)
+                    if(error?.response?.data.statusCode == 400){
+                        ToastAndroid.show(error?.response?.data.message,ToastAndroid.SHORT)
+                        return;
+                    }
+                    ToastAndroid.show(error?.response?.data.message[0],ToastAndroid.SHORT)
+                    console.log(error?.response,"ERROR")
                 }
         }
         else{
