@@ -7,7 +7,12 @@ import {
   StyleSheet,
   ScrollView,
   ImageBackground,
+  Image,
+  TextInput,
 } from "react-native";
+
+const LandingPage = () => {
+  const router = useRouter();
 
 interface CardProps {
   title: string;
@@ -25,8 +30,6 @@ const Card: React.FC<CardProps> = ({ title, description, children }) => {
   );
 };
 
-const LandingPage = () => {
-  const router = useRouter();
 
   const handleProceed = () => {
     router.push("/Questionnaire");
@@ -34,10 +37,18 @@ const LandingPage = () => {
 
   return (
     <View style={styles.container}>
+      {/* Background Image */}
       <ImageBackground
         source={{ uri: "https://example.com/background.jpg" }}
         style={styles.backgroundImage}
       >
+        {/* Logo */}
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("../assets/images/image.jpg")}
+            style={styles.logo}
+            resizeMode="contain"
+          />
         <View style={styles.headerContainer}>
           <Text style={styles.projectTitle}>Project Cicaeda</Text>
           <View style={styles.profileIcon}></View>
@@ -53,43 +64,52 @@ const LandingPage = () => {
           </Text>
         </View>
       </ImageBackground>
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.header}>Features of Project Cicada</Text>
 
-        <Card
-          title="Accurate Predictions"
-          description="Our advanced algorithm analyzes your responses to the questionnaire."
-        >
-          <View style={styles.iconContainer}>
-            <Text style={styles.icon}>📈</Text>
-          </View>
-        </Card>
+      {/* Search Bar */}
+      <View style={styles.searchBarContainer}>
+        <TextInput
+          style={styles.searchBar}
+          placeholder="Search for a doctor"
+          placeholderTextColor="#888"
+        />
+      </View>
 
-        <Card
-          title="Multilingual Support"
-          description="Our app is available in multiple languages."
-        >
-          <View style={styles.languageContainer}>
-            <Text style={styles.newTag}>NEW</Text>
-            <Text style={styles.language}>සිංහල</Text>
-            <Text style={styles.language}>English</Text>
-            <Text style={styles.language}>Tamil</Text>
-          </View>
-        </Card>
+      {/* Feature Section */}
+      <View style={styles.featureSection}>
+        <View style={[styles.featureCard, { backgroundColor: "#FFE8D6" }]}>
+          <Text style={styles.featureTitle}>Consultation</Text>
+          <Text style={styles.featureSubtitle}>56 doctors</Text>
+        </View>
+        <View style={[styles.featureCard, { backgroundColor: "#E4E8FF" }]}>
+          <Text style={styles.featureTitle}>Pharmacy</Text>
+          <Text style={styles.featureSubtitle}>6 pharmacies</Text>
+        </View>
+      </View>
 
-        <Card
-          title="Recommendations"
-          description="Receive suggestions to maintain good kidney health."
-        >
-          <View style={styles.iconContainer}>
-            <Text style={styles.icon}>📊</Text>
-          </View>
-        </Card>
+      {/* Health Section */}
+      <View style={styles.healthSection}>
+        <View style={styles.healthCard}>
+          <Text style={styles.healthLabel}>Heart Rate</Text>
+          <Text style={styles.healthValue}>
+            78 <Text style={styles.healthUnit}>bpm</Text>
+          </Text>
+        </View>
+        <View style={styles.healthCard}>
+          <Text style={styles.healthLabel}>Sleep</Text>
+          <Text style={styles.healthValue}>
+            8 <Text style={styles.healthUnit}>hrs</Text>
+          </Text>
+        </View>
+      </View>
 
-        <TouchableOpacity style={styles.button} onPress={handleProceed}>
-          <Text style={styles.buttonText}>Go to Questionnaire</Text>
+      {/* Navigation Buttons */}
+      <View style={styles.navButtons}>
+        <TouchableOpacity style={styles.navButton}>
+          <Text style={styles.navText}>Chat</Text>
+        <TouchableOpacity style={styles.navButton}>
+          <Text style={styles.navText}>Profile</Text>
         </TouchableOpacity>
-      </ScrollView>
+      </View>
     </View>
   );
 };
@@ -97,73 +117,48 @@ const LandingPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 16,
+    backgroundColor: "#F8F9FA",
+    paddingHorizontal: 20,
+    paddingTop: 50,
   },
   backgroundImage: {
     width: "100%",
-    height: 250,
+    height: 180,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  headerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 10,
-  },
+  logoContainer: {
+    alignItems: "center",
   projectTitle: {
     fontSize: 19,
     fontFamily: "Poppins-Light",
   },
-  profileIcon: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: "#ccc",
+  logo: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
-  profileSection: {
-    alignItems: "center",
+  searchBarContainer: {
+    marginTop: 20,
+    backgroundColor: "#fff",
+    borderRadius: 25,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    elevation: 2,
+  },
+  searchBar: {
+    fontSize: 16,
+    color: "#333",
+  },
+  featureSection: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 20,
   },
-  profilePlaceholder: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: "#aaa",
-  },
-  welcomeText: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  buttonSmall: {
-    width: 40,
-    height: 10,
-    backgroundColor: "#ddd",
-    borderRadius: 5,
-    marginTop: 5,
-  },
-  descriptionBox: {
-    marginTop: 10,
-    padding: 15,
-    backgroundColor: "#E4F8FA",
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  descriptionText: {
-    fontSize: 16,
-    textAlign: "center",
-  },
-  content: {
-    alignItems: "center",
+  featureCard: {
+    width: "48%",
     padding: 20,
-  },
-  header: {
-    fontSize: 27,
-    fontWeight: "700",
-    color: "#555C67",
-    textAlign: "center",
-    marginBottom: 20,
-  },
+    borderRadius: 15,
   card: {
     backgroundColor: "#E4F8FA",
     borderRadius: 15,
@@ -171,31 +166,32 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: "90%", // Reduced width for smaller card size
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
   },
+  featureTitle: {
+    fontSize: 18,
   title: {
     fontSize: 16, // Smaller font size for title
     fontWeight: "bold",
-    color: "#30363A",
-    marginTop: 10,
   },
+  featureSubtitle: {
+    fontSize: 14,
+    color: "#666",
   description: {
     fontSize: 12, // Smaller font size for description
     color: "#464E56",
     textAlign: "center",
     marginTop: 5,
   },
-  button: {
-    backgroundColor: "#4CAF50",
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 30,
+  healthSection: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 20,
   },
+  healthCard: {
+    width: "48%",
+    padding: 15,
+    backgroundColor: "#FFF",
+    borderRadius: 15,
   buttonText: {
     color: "#fff",
     fontSize: 16,
@@ -207,8 +203,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#333",
     borderRadius: 10,
     alignItems: "center",
-    justifyContent: "center",
+    elevation: 2,
   },
+  healthLabel: {
+    fontSize: 14,
+    color: "#666",
   icon: {
     fontSize: 20,
     color: "#4CAF50",
@@ -216,11 +215,28 @@ const styles = StyleSheet.create({
   languageContainer: {
     alignItems: "center",
   },
-  newTag: {
-    color: "#4CAF50",
+  healthValue: {
+    fontSize: 22,
     fontWeight: "bold",
-    marginBottom: 5,
   },
+  healthUnit: {
+    fontSize: 14,
+    color: "#666",
+  },
+  navButtons: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 30,
+  },
+  navButton: {
+    backgroundColor: "#4CAF50",
+    paddingVertical: 10,
+    paddingHorizontal: 30,
+    borderRadius: 20,
+  },
+  navText: {
+    color: "#fff",
+    fontSize: 16,
   language: {
     color: "#384C3F",
     fontSize: 14, // Smaller font size for languages
