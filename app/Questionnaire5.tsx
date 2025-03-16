@@ -13,23 +13,27 @@ import { useState } from "react";
 import BackArrow from "@/components/Common/backArrow";
 import { ProgressBar } from "@/components/Forms/ProgressBar";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const MedicalForm = () => {
   const { t } = useTranslation();
   const router = useRouter();
+  const params = useLocalSearchParams();
+  const previousData =
+    typeof params.data === "string" ? JSON.parse(params.data) : {};
 
   const [formData, setFormData] = useState({
-    age: "",
-    gender: "",
-    question3: "",
-    question4: "",
+    ...previousData,
+    question17: "",
+    question18: "",
+    question19: "",
+    question20: "",
   });
 
   // Function to handle questionnaire inputs
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({
+    setFormData((prev: any) => ({
       ...prev,
       [field]: value,
     }));
@@ -37,6 +41,7 @@ const MedicalForm = () => {
 
   const handleProceed = () => {
     console.log("Form Data:", JSON.stringify(formData));
+
     router.push("/Prediction");
   };
 

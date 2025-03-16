@@ -41,7 +41,11 @@ const MedicalForm = () => {
     console.log("Procceded to page 2");
     console.log("Form Data:", JSON.stringify(formData));
 
-    router.push("/Questionnaire2");
+    const dataString = JSON.stringify(formData);
+    router.push({
+      pathname: "/Questionnaire2",
+      params: { data: dataString },
+    });
   };
 
   return (

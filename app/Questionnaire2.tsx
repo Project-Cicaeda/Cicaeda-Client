@@ -6,14 +6,19 @@ import { useState } from "react";
 import BackArrow from "@/components/Common/backArrow";
 import { ProgressBar } from "@/components/Forms/ProgressBar";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 const MedicalForm = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
+  const params = useLocalSearchParams();
+
+  const previousData =
+    typeof params.data === "string" ? JSON.parse(params.data) : {};
 
   const [formData, setFormData] = useState({
-    quetion5: "",
+    ...previousData,
+    question5: "",
     question6: "",
     question7: "",
     question8: "",
@@ -21,8 +26,8 @@ const MedicalForm = () => {
 
   //function to handle questionnaire inputs
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({
+  const handleInputChange = (field: keyof typeof formData, value: string) => {
+    setFormData((prev: FormData) => ({
       ...prev,
       [field]: value,
     }));
@@ -32,7 +37,11 @@ const MedicalForm = () => {
     console.log("Procceded to page 3");
     console.log("Form Data:", JSON.stringify(formData));
 
-    router.push("/Questionnaire3");
+    const dataString = JSON.stringify(formData);
+    router.push({
+      pathname: "/Questionnaire3",
+      params: { data: dataString },
+    });
   };
 
   return (
