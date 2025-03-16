@@ -39,27 +39,27 @@ const Login: React.FC = () => {
   }
 
   async function LoginClick() {
-    // if (formData.email && formData.password) {
-    //   try {
-    //     const response = await axios.post(
-    //       `http://${ipAddress}:3000/auth/login`,
-    //       formData
-    //     );
-    //     const storeUser = await storeItem(response.data);
-    //     ToastAndroid.show("Login Successful!", ToastAndroid.SHORT);
-    //     router.replace("/home");
-    //   } catch (error: any) {
-    //     console.log(error.response);
-    //     if (error.response.data?.statusCode == 401) {
-    //       ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
-    //       return;
-    //     }
-    //     ToastAndroid.show(error.response.data.message[0], ToastAndroid.SHORT);
-    //   }
-    // } else {
-    //   ToastAndroid.show("All The Fields Are Required", ToastAndroid.SHORT);
-    // }
-    router.replace("/home");
+
+    if (formData.email && formData.password) {
+      try {
+        const response = await axios.post(
+          `http://${ipAddress}:3000/auth/login`,
+          formData
+        );
+        const storeUser = await storeItem(response.data);
+        ToastAndroid.show("Login Successful!", ToastAndroid.SHORT);
+        router.replace("/home");
+      } catch (error: any) {
+        console.log(error.response);
+        if (error.response.data?.statusCode == 401) {
+          ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
+          return;
+        }
+        ToastAndroid.show(error.response.data.message[0], ToastAndroid.SHORT);
+      }
+    } else {
+      ToastAndroid.show("All The Fields Are Required", ToastAndroid.SHORT);
+    }
   }
 
   useEffect(() => {

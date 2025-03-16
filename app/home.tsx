@@ -64,6 +64,7 @@ const LandingPage = () => {
         </View>
       </View>
 
+
       {/* Navigation Button */}
       <View style={styles.navButtons}>
         <TouchableOpacity style={styles.navButton} onPress={handleProceed}>
@@ -119,6 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "black",
+
     marginTop: 10,
   },
   descriptionBox: {
