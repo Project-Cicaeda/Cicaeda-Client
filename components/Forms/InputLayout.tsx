@@ -31,9 +31,9 @@ export const InputLayout: React.FC<InputLayoutProps> = ({
         <View style={{flex:1}}>
             <TextInput
             placeholder={placeholder}
-            style={{ fontFamily: "Poppins-Light", marginHorizontal: 5 }}
-            onChangeText={(text) => (inputRef.current = text)}
-            onBlur={() => onBlur?.(inputRef.current)}
+            placeholderTextColor="#000"
+            style={{ fontFamily: "Poppins-Light", marginHorizontal: 5,color:"#000"}}
+            onChangeText={(text) => onBlur?.(inputRef.current = text)}
             />
         </View>
       </View>
