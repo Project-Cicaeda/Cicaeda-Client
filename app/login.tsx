@@ -38,25 +38,26 @@ const Login: React.FC = () => {
     }));
   }
 
-  async function LoginClick(){
-    if(formData.email && formData.password){
-            try{
-            const response = await axios.post(`http://${ipAddress}:3000/auth/login`,formData)
-            const storeUser = await storeItem(response.data)
-            ToastAndroid.show("Login Successful!",ToastAndroid.SHORT)
-            router.replace("/landing")
-            }
-            catch(error:any){
-                console.log(error.response)
-                if(error.response.data?.statusCode == 401){
-                  ToastAndroid.show(error.response.data.message,ToastAndroid.SHORT)
-                  return
-                }
-                ToastAndroid.show(error.response.data.message[0],ToastAndroid.SHORT)
-            }
-    }
-    else{
-      ToastAndroid.show("All The Fields Are Required",ToastAndroid.SHORT)
+  async function LoginClick() {
+    if (formData.email && formData.password) {
+      try {
+        const response = await axios.post(
+          `http://${ipAddress}:3000/auth/login`,
+          formData
+        );
+        const storeUser = await storeItem(response.data);
+        ToastAndroid.show("Login Successful!", ToastAndroid.SHORT);
+        router.replace("/Home");
+      } catch (error: any) {
+        console.log(error.response);
+        if (error.response.data?.statusCode == 401) {
+          ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
+          return;
+        }
+        ToastAndroid.show(error.response.data.message[0], ToastAndroid.SHORT);
+      }
+    } else {
+      ToastAndroid.show("All The Fields Are Required", ToastAndroid.SHORT);
     }
   }
 
@@ -70,7 +71,6 @@ const Login: React.FC = () => {
     };
     fetchData();
   }, []);
-
 
   return (
     <View style={styles.container}>
@@ -121,7 +121,7 @@ const Login: React.FC = () => {
                 fontFamily: "Poppins-Bold",
                 textAlign: "center",
               }}
-              >
+            >
               Login
             </Text>
           </TouchableOpacity>
@@ -130,11 +130,11 @@ const Login: React.FC = () => {
           <OrSeparator />
         </View>
         <View style={{ marginVertical: 10 }}>
-              <Link href='/register'>           
+          <Link href="/register">
             <Text style={{ fontFamily: "Poppins-Light", textAlign: "center" }}>
               {t("login.unRegistered")}
             </Text>
-              </Link>
+          </Link>
         </View>
       </View>
     </View>
