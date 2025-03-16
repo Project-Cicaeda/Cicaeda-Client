@@ -15,13 +15,17 @@ import { useState } from "react";
 import BackArrow from "@/components/Common/backArrow";
 import { ProgressBar } from "@/components/Forms/ProgressBar";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 const MedicalForm = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
+  const params = useLocalSearchParams();
+  const previousData =
+    typeof params.data === "string" ? JSON.parse(params.data) : {};
 
   const [formData, setFormData] = useState({
+    ...previousData,
     question9: "",
     question10: "",
     question11: "",
@@ -31,7 +35,7 @@ const MedicalForm = () => {
   //function to handle questionnaire inputs
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({
+    setFormData((prev: any) => ({
       ...prev,
       [field]: value,
     }));
@@ -41,7 +45,11 @@ const MedicalForm = () => {
     console.log("Procceded to page 4");
     console.log("Form Data:", JSON.stringify(formData));
 
-    router.push("/Questionnaire4");
+    const dataString = JSON.stringify(formData);
+    router.push({
+      pathname: "/Questionnaire4",
+      params: { data: dataString },
+    });
   };
 
   return (
@@ -69,27 +77,27 @@ const MedicalForm = () => {
               label="Age"
               placeholder={t("Questionnaire3.question1")}
               icon="user"
-              onBlur={(text) => handleInputChange("age", text)}
+              onBlur={(text) => handleInputChange("question9", text)}
             />
 
             <InputLayout
               label="Gender"
               placeholder={t("Questionnaire3.question2")}
               icon="user"
-              onBlur={(text) => handleInputChange("gender", text)}
+              onBlur={(text) => handleInputChange("question10", text)}
             />
             <InputLayout
               label="Question 3"
               placeholder={t("Questionnaire3.question3")}
               icon="user"
-              onBlur={(text) => handleInputChange("question3", text)}
+              onBlur={(text) => handleInputChange("question11", text)}
             />
             <InputLayout
               label="Question 4"
               placeholder={t("Questionnaire3.question4")}
               icon="user"
               onBlur={(text) => {
-                handleInputChange("question4", text);
+                handleInputChange("question12", text);
               }}
             />
           </View>

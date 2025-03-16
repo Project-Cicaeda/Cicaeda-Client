@@ -64,14 +64,6 @@ const LandingPage = () => {
         </View>
       </View>
 
-      {/* Search Bar */}
-      <View style={styles.searchBarContainer}>
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Search for a doctor"
-          placeholderTextColor="#888"
-        />
-      </View>
 
       {/* Navigation Button */}
       <View style={styles.navButtons}>
@@ -127,7 +119,8 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#FFFFFF",
+    color: "black",
+
     marginTop: 10,
   },
   descriptionBox: {
