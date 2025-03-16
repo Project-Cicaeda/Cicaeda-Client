@@ -57,7 +57,7 @@ const MedicalForm = () => {
           {/* Heading */}
           <Text style={styles.heading}>{t("Questionnaire4.heading")}</Text>
           <Text style={styles.subheading}>
-            {t("Questionnaire4.subheading")}
+            {t("Questionnaire4.subHeading")}
           </Text>
 
           {/* Progress Bar */}
