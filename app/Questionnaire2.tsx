@@ -27,7 +27,7 @@ const MedicalForm = () => {
   //function to handle questionnaire inputs
 
   const handleInputChange = (field: keyof typeof formData, value: string) => {
-    setFormData((prev: FormData) => ({
+    setFormData((prev: any) => ({
       ...prev,
       [field]: value,
     }));
@@ -62,27 +62,27 @@ const MedicalForm = () => {
           label="Age"
           placeholder={t("Questionnaire2.question1")}
           icon="user"
-          onBlur={(text) => handleInputChange("age", text)}
+          onBlur={(text) => handleInputChange("question5", text)}
         />
 
         <InputLayout
           label="Gender"
           placeholder={t("Questionnaire2.question2")}
           icon="user"
-          onBlur={(text) => handleInputChange("gender", text)}
+          onBlur={(text) => handleInputChange("question6", text)}
         />
         <InputLayout
           label="Question 3"
           placeholder={t("Questionnaire2.question3")}
           icon="user"
-          onBlur={(text) => handleInputChange("question3", text)}
+          onBlur={(text) => handleInputChange("question7", text)}
         />
         <InputLayout
           label="Question 4"
           placeholder={t("Questionnaire2.question4")}
           icon="user"
           onBlur={(text) => {
-            handleInputChange("question4", text);
+            handleInputChange("question8", text);
           }}
         />
       </View>

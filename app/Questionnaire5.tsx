@@ -74,27 +74,27 @@ const MedicalForm = () => {
               label="Age"
               placeholder={t("Questionnaire5.question1")}
               icon="user"
-              onBlur={(text) => handleInputChange("age", text)}
+              onBlur={(text) => handleInputChange("question17", text)}
             />
 
             <InputLayout
               label="Gender"
               placeholder={t("Questionnaire5.question2")}
               icon="user"
-              onBlur={(text) => handleInputChange("gender", text)}
+              onBlur={(text) => handleInputChange("question18", text)}
             />
             <InputLayout
               label="Question 3"
               placeholder={t("Questionnaire5.question3")}
               icon="user"
-              onBlur={(text) => handleInputChange("question3", text)}
+              onBlur={(text) => handleInputChange("question19", text)}
             />
             <InputLayout
               label="Question 4"
               placeholder={t("Questionnaire5.question4")}
               icon="user"
               onBlur={(text) => {
-                handleInputChange("question4", text);
+                handleInputChange("question20", text);
               }}
             />
           </View>
