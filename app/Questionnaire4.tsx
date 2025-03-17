@@ -8,6 +8,8 @@ import {
   Platform,
 } from "react-native";
 import { InputLayout } from "@/components/Forms/InputLayout";
+import { RadioButton } from "react-native-paper"; // Import RadioButton
+
 import { Colors } from "@/constants/Colors";
 import { useState } from "react";
 import BackArrow from "@/components/Common/backArrow";
@@ -74,33 +76,80 @@ const MedicalForm = () => {
 
           {/* Input Fields */}
           <View style={styles.inputContainer}>
-            <InputLayout
-              label="Age"
-              placeholder={t("Questionnaire4.question1")}
-              icon="user"
-              onBlur={(text) => handleInputChange("question13", text)}
-            />
+            <View style={styles.radioContainer}>
+              <Text style={styles.radioLabel}>
+                {t("Questionnaire4.question1")}
+              </Text>
+              <RadioButton.Group
+                onValueChange={(value) => {
+                  handleInputChange("question13", value);
+                }}
+                value={formData.question3}
+              >
+                <View style={styles.radioRow}>
+                  <RadioButton value="Yes" />
+                  <Text>Yes</Text>
+                  <RadioButton value="No" />
+                  <Text>No</Text>
+                </View>
+              </RadioButton.Group>
+            </View>
 
-            <InputLayout
-              label="Gender"
-              placeholder={t("Questionnaire4.question2")}
-              icon="user"
-              onBlur={(text) => handleInputChange("question14", text)}
-            />
-            <InputLayout
-              label="Question 3"
-              placeholder={t("Questionnaire4.question3")}
-              icon="user"
-              onBlur={(text) => handleInputChange("question15", text)}
-            />
-            <InputLayout
-              label="Question 4"
-              placeholder={t("Questionnaire4.question4")}
-              icon="user"
-              onBlur={(text) => {
-                handleInputChange("question16", text);
-              }}
-            />
+            <View style={styles.radioContainer}>
+              <Text style={styles.radioLabel}>
+                {t("Questionnaire4.question2")}
+              </Text>
+              <RadioButton.Group
+                onValueChange={(value) => {
+                  handleInputChange("question14", value);
+                }}
+                value={formData.question3}
+              >
+                <View style={styles.radioRow}>
+                  <RadioButton value="Yes" />
+                  <Text>Yes</Text>
+                  <RadioButton value="No" />
+                  <Text>No</Text>
+                </View>
+              </RadioButton.Group>
+            </View>
+
+            <View style={styles.radioContainer}>
+              <Text style={styles.radioLabel}>
+                {t("Questionnaire4.question3")}
+              </Text>
+              <RadioButton.Group
+                onValueChange={(value) => {
+                  handleInputChange("question15", value);
+                }}
+                value={formData.question3}
+              >
+                <View style={styles.radioRow}>
+                  <RadioButton value="Yes" />
+                  <Text>Yes</Text>
+                  <RadioButton value="No" />
+                  <Text>No</Text>
+                </View>
+              </RadioButton.Group>
+            </View>
+            <View style={styles.radioContainer}>
+              <Text style={styles.radioLabel}>
+                {t("Questionnaire4.question4")}
+              </Text>
+              <RadioButton.Group
+                onValueChange={(value) => {
+                  handleInputChange("question16", value);
+                }}
+                value={formData.question3}
+              >
+                <View style={styles.radioRow}>
+                  <RadioButton value="Yes" />
+                  <Text>Yes</Text>
+                  <RadioButton value="No" />
+                  <Text>No</Text>
+                </View>
+              </RadioButton.Group>
+            </View>
           </View>
 
           {/* Proceed Button */}
@@ -159,5 +208,19 @@ const styles = StyleSheet.create({
     color: "white",
     fontFamily: "Poppins-Bold",
     fontSize: 16,
+  },
+
+  radioContainer: {
+    marginTop: 10,
+  },
+  radioLabel: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  radioRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    marginTop: 5,
   },
 });
