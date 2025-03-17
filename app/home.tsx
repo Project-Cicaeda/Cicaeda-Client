@@ -11,6 +11,7 @@ import {
   StatusBar,
 } from "react-native";
 import * as Location from "expo-location";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LandingPage = () => {
   const router = useRouter();
@@ -34,9 +35,15 @@ const LandingPage = () => {
       // Reverse Geocoding to get the district
       let address = await Location.reverseGeocodeAsync(currentLocation.coords);
       if (address.length > 0) {
-        setDistrict(
-          address[0].subregion || address[0].region || address[0].country
-        );
+        let foundDistrict =
+          address[0].subregion ||
+          address[0].region ||
+          address[0].country ||
+          "unknown";
+        setDistrict(foundDistrict);
+
+        // Save district to AsyncStorage
+        await AsyncStorage.setItem("userDistrict", foundDistrict);
       }
     })();
   }, []);
