@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,29 +9,49 @@ import {
   Image,
   SafeAreaView,
   StatusBar,
-  TextInput,
 } from "react-native";
+import * as Location from "expo-location";
 
 const LandingPage = () => {
   const router = useRouter();
+  const [location, setLocation] = useState<Location.LocationObject | null>(
+    null
+  );
+  const [district, setDistrict] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const handleProceed = () => {
-    router.push("/Questionnaire");
-  };
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      setLocation(currentLocation);
+
+      // Reverse Geocoding to get the district
+      let address = await Location.reverseGeocodeAsync(currentLocation.coords);
+      if (address.length > 0) {
+        setDistrict(
+          address[0].subregion || address[0].region || address[0].country
+        );
+      }
+    })();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#F8F9FA" />
 
-      {/* Header Section */}
       <View style={styles.headerContainer}>
         <Text style={styles.projectTitle}>Project Cicaeda</Text>
         <View style={styles.profileIcon}></View>
       </View>
 
-      {/* Background Image with Logo */}
       <ImageBackground
-        source={{ uri: "https://example.com/background.jpg" }}
+        source={{ uri: "" }}
         style={styles.backgroundImage}
         imageStyle={styles.backgroundImageStyle}
       >
@@ -42,32 +62,27 @@ const LandingPage = () => {
             resizeMode="contain"
           />
           <Text style={styles.welcomeText}>Hello User</Text>
+          {district ? (
+            <Text style={styles.locationText}>District: {district}</Text>
+          ) : (
+            <Text style={styles.locationText}>
+              {errorMsg ? errorMsg : "Fetching location..."}
+            </Text>
+          )}
         </View>
       </ImageBackground>
 
-      {/* Description Box */}
       <View style={styles.descriptionBox}>
         <Text style={styles.descriptionText}>
           Your ultimate companion for better Kidney Health
         </Text>
       </View>
 
-      {/* Feature Section */}
-      <View style={styles.featureSection}>
-        <View style={[styles.featureCard, { backgroundColor: "#FFE8D6" }]}>
-          <Text style={styles.featureTitle}>Consultation</Text>
-          <Text style={styles.featureSubtitle}>56 doctors</Text>
-        </View>
-        <View style={[styles.featureCard, { backgroundColor: "#E4E8FF" }]}>
-          <Text style={styles.featureTitle}>Pharmacy</Text>
-          <Text style={styles.featureSubtitle}>6 pharmacies</Text>
-        </View>
-      </View>
-
-
-      {/* Navigation Button */}
       <View style={styles.navButtons}>
-        <TouchableOpacity style={styles.navButton} onPress={handleProceed}>
+        <TouchableOpacity
+          style={styles.navButton}
+          onPress={() => router.push("/Questionnaire")}
+        >
           <Text style={styles.navText}>Proceed to Questionnaire</Text>
         </TouchableOpacity>
       </View>
@@ -120,8 +135,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "black",
-
     marginTop: 10,
+  },
+  locationText: {
+    fontSize: 14,
+    color: "#333",
+    marginTop: 5,
   },
   descriptionBox: {
     marginHorizontal: 20,
@@ -135,38 +154,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     fontWeight: "500",
-  },
-  featureSection: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: 20,
-    marginTop: 20,
-  },
-  featureCard: {
-    width: "48%",
-    padding: 20,
-    borderRadius: 15,
-    elevation: 3,
-  },
-  featureTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 5,
-  },
-  featureSubtitle: {
-    fontSize: 14,
-    color: "#666",
-  },
-  searchBarContainer: {
-    marginTop: 20,
-    backgroundColor: "#fff",
-    borderRadius: 25,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-  },
-  searchBar: {
-    fontSize: 16,
-    color: "#333",
   },
   navButtons: {
     marginHorizontal: 20,
