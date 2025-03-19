@@ -53,7 +53,7 @@ const LandingPage = () => {
       </View>
 
       {/* Feature Section */}
-      <View style={styles.featureSection}>
+      {/* <View style={styles.featureSection}>
         <View style={[styles.featureCard, { backgroundColor: "#FFE8D6" }]}>
           <Text style={styles.featureTitle}>Consultation</Text>
           <Text style={styles.featureSubtitle}>56 doctors</Text>
@@ -62,15 +62,31 @@ const LandingPage = () => {
           <Text style={styles.featureTitle}>Pharmacy</Text>
           <Text style={styles.featureSubtitle}>6 pharmacies</Text>
         </View>
-      </View>
+      </View> */}
 
       {/* Search Bar */}
-      <View style={styles.searchBarContainer}>
+      {/* <View style={styles.searchBarContainer}>
         <TextInput
           style={styles.searchBar}
           placeholder="Search for a doctor"
           placeholderTextColor="#888"
         />
+      </View> */}
+
+      {/* Usage Instructions Tile */}
+      <View style={styles.usageInstructions}>
+        <Text style={styles.usageTitle}>How to Use the Cicaeda:</Text>
+        <Text style={styles.usagePoint}>
+          • Register and login if your new or else login if your already
+          registered.
+        </Text>
+        <Text style={styles.usagePoint}>
+          • Click on the "Proceed to Questionnaire" button.
+        </Text>
+        <Text style={styles.usagePoint}>• Fill in the Questionnaire.</Text>
+        <Text style={styles.usagePoint}>
+          • Get your Kidney Health Prediction.
+        </Text>
       </View>
 
       {/* Navigation Button */}
@@ -182,13 +198,30 @@ const styles = StyleSheet.create({
   navButton: {
     backgroundColor: "#4CAF50",
     paddingVertical: 14,
-    borderRadius: 12,
+    borderRadius: 20,
+
     alignItems: "center",
   },
   navText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "600",
+  },
+  usageInstructions: {
+    marginHorizontal: 20,
+    marginTop: 20,
+    padding: 15,
+    backgroundColor: "#D3D3D3", // Grey background
+    borderRadius: 15,
+  },
+  usageTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  usagePoint: {
+    fontSize: 14,
+    marginBottom: 5,
   },
 });
 
