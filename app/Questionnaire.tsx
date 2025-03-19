@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { RadioButton } from "react-native-paper"; // Import RadioButton
 import { InputLayout } from "@/components/Forms/InputLayout";
 import { Colors } from "@/constants/Colors";
 import { useState } from "react";
@@ -41,7 +42,11 @@ const MedicalForm = () => {
     console.log("Procceded to page 2");
     console.log("Form Data:", JSON.stringify(formData));
 
-    router.push("/Questionnaire2");
+    const dataString = JSON.stringify(formData);
+    router.push({
+      pathname: "/Questionnaire2",
+      params: { data: dataString },
+    });
   };
 
   return (
@@ -78,12 +83,16 @@ const MedicalForm = () => {
               icon="user"
               onBlur={(text) => handleInputChange("gender", text)}
             />
+
             <InputLayout
               label="Question 3"
               placeholder={t("Questionnaire1.question3")}
               icon="user"
-              onBlur={(text) => handleInputChange("question3", text)}
+              onBlur={(text) => {
+                handleInputChange("question3", text);
+              }}
             />
+
             <InputLayout
               label="Question 4"
               placeholder={t("Questionnaire1.question4")}
@@ -148,5 +157,19 @@ const styles = StyleSheet.create({
     color: "white",
     fontFamily: "Poppins-Bold",
     fontSize: 16,
+  },
+
+  radioContainer: {
+    marginTop: 10,
+  },
+  radioLabel: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  radioRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    marginTop: 5,
   },
 });
