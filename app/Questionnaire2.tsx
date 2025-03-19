@@ -1,7 +1,15 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { RadioButton } from "react-native-paper"; // Import RadioButton
-
 import { InputLayout } from "@/components/Forms/InputLayout";
 import { Colors } from "@/constants/Colors";
 import { useState } from "react";
@@ -26,8 +34,7 @@ const MedicalForm = () => {
     question8: "",
   });
 
-  //function to handle questionnaire inputs
-
+  // Function to handle questionnaire inputs
   const handleInputChange = (field: keyof typeof formData, value: string) => {
     setFormData((prev: any) => ({
       ...prev,
@@ -36,7 +43,7 @@ const MedicalForm = () => {
   };
 
   const handleProceed = () => {
-    console.log("Procceded to page 3");
+    console.log("Proceeded to page 3");
     console.log("Form Data:", JSON.stringify(formData));
 
     const dataString = JSON.stringify(formData);
@@ -47,83 +54,102 @@ const MedicalForm = () => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Back Button */}
-      <BackArrow />
+    <SafeAreaView style={styles.safeContainer}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.keyboardContainer}
+      >
+        <ScrollView style={styles.container}>
+          {/* Back Button */}
+          <BackArrow />
 
-      {/* Heading */}
-      <Text style={styles.heading}>{t("Questionnaire2.heading")}</Text>
-      <Text style={styles.subheading}>{t("Questionnaire2.subHeading")}</Text>
+          {/* Heading */}
+          <Text style={styles.heading}>{t("Questionnaire2.heading")}</Text>
+          <Text style={styles.subheading}>
+            {t("Questionnaire2.subHeading")}
+          </Text>
 
-      {/* Progress Bar */}
-      <ProgressBar progress={0.25} />
+          {/* Progress Bar */}
+          <ProgressBar progress={0.25} />
 
-      {/* Input Fields */}
-      <View style={styles.inputContainer}>
-        <InputLayout
-          label="Age"
-          placeholder={t("Questionnaire2.question1")}
-          icon="user"
-          onBlur={(text) => handleInputChange("question5", text)}
-        />
+          {/* Input Fields */}
+          <View style={styles.inputContainer}>
+            <InputLayout
+              label="Age"
+              placeholder={t("Questionnaire2.question1")}
+              icon="user"
+              onBlur={(text) => handleInputChange("question5", text)}
+            />
 
-        <View style={styles.radioContainer}>
-          <Text style={styles.radioLabel}>{t("Questionnaire2.question2")}</Text>
-          <RadioButton.Group
-            onValueChange={(value) => {
-              handleInputChange("question6", value);
-            }}
-            value={formData.question3}
-          >
-            <View style={styles.radioRow}>
-              <RadioButton value="Male" />
-              <Text>Male</Text>
-              <RadioButton value="Female" />
-              <Text>Female</Text>
+            <View style={styles.radioContainer}>
+              <Text style={styles.radioLabel}>
+                {t("Questionnaire2.question2")}
+              </Text>
+              <RadioButton.Group
+                onValueChange={(value) => {
+                  handleInputChange("question6", value);
+                }}
+                value={formData.question6}
+              >
+                <View style={styles.radioRow}>
+                  <View style={styles.radioOption}>
+                    <RadioButton value="Male" color={Colors.light.primary} />
+                    <Text style={styles.radioText}>Male</Text>
+                  </View>
+                  <View style={styles.radioOption}>
+                    <RadioButton value="Female" color={Colors.light.primary} />
+                    <Text style={styles.radioText}>Female</Text>
+                  </View>
+                </View>
+              </RadioButton.Group>
             </View>
-          </RadioButton.Group>
-        </View>
 
-        <View style={styles.radioContainer}>
-          <Text style={styles.radioLabel}>{t("Questionnaire2.question3")}</Text>
-          <RadioButton.Group
-            onValueChange={(value) => {
-              handleInputChange("question7", value);
-            }}
-            value={formData.question3}
-          >
-            <View style={styles.radioRow}>
-              <RadioButton value="Yes" />
-              <Text>Yes</Text>
-              <RadioButton value="No" />
-              <Text>No</Text>
+            <View style={styles.radioContainer}>
+              <Text style={styles.radioLabel}>
+                {t("Questionnaire2.question3")}
+              </Text>
+              <RadioButton.Group
+                onValueChange={(value) => {
+                  handleInputChange("question7", value);
+                }}
+                value={formData.question7}
+              >
+                <View style={styles.radioRow}>
+                  <RadioButton value="Yes" color={Colors.light.primary} />
+                  <Text style={styles.radioText}>Yes</Text>
+                  <RadioButton value="No" color={Colors.light.primary} />
+                  <Text style={styles.radioText}>No</Text>
+                </View>
+              </RadioButton.Group>
             </View>
-          </RadioButton.Group>
-        </View>
 
-        <View style={styles.radioContainer}>
-          <Text style={styles.radioLabel}>{t("Questionnaire2.question4")}</Text>
-          <RadioButton.Group
-            onValueChange={(value) => {
-              handleInputChange("question8", value);
-            }}
-            value={formData.question3}
-          >
-            <View style={styles.radioRow}>
-              <RadioButton value="Yes" />
-              <Text>Yes</Text>
-              <RadioButton value="No" />
-              <Text>No</Text>
+            <View style={styles.radioContainer}>
+              <Text style={styles.radioLabel}>
+                {t("Questionnaire2.question4")}
+              </Text>
+              <RadioButton.Group
+                onValueChange={(value) => {
+                  handleInputChange("question8", value);
+                }}
+                value={formData.question8}
+              >
+                <View style={styles.radioRow}>
+                  <RadioButton value="Yes" color={Colors.light.primary} />
+                  <Text style={styles.radioText}>Yes</Text>
+                  <RadioButton value="No" color={Colors.light.primary} />
+                  <Text style={styles.radioText}>No</Text>
+                </View>
+              </RadioButton.Group>
             </View>
-          </RadioButton.Group>
-        </View>
-      </View>
+          </View>
 
-      {/* Proceed Button */}
-      <TouchableOpacity style={styles.button} onPress={handleProceed}>
-        <Text style={styles.buttonText}>Proceed</Text>
-      </TouchableOpacity>
-    </View>
+          {/* Proceed Button */}
+          <TouchableOpacity style={styles.button} onPress={handleProceed}>
+            <Text style={styles.buttonText}>Proceed</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
@@ -131,10 +157,17 @@ export default MedicalForm;
 
 // Styles
 const styles = StyleSheet.create({
+  safeContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  keyboardContainer: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    padding: 15,
+    padding: 20,
   },
   heading: {
     fontSize: 22,
@@ -150,7 +183,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginTop: 10,
-    gap: 10,
+    gap: 20,
   },
   button: {
     backgroundColor: Colors.light.primary,
@@ -164,18 +197,25 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Bold",
     fontSize: 16,
   },
-
   radioContainer: {
     marginTop: 10,
   },
   radioLabel: {
     fontSize: 16,
     fontWeight: "500",
+    marginBottom: 10,
   },
   radioRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
-    marginTop: 5,
+    gap: 30, // Increased gap between radio buttons
+  },
+  radioOption: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  radioText: {
+    fontSize: 16,
+    marginLeft: 8, // Space between radio button and text
   },
 });
