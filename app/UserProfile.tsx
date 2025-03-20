@@ -29,7 +29,7 @@ const ProfileScreen = () => {
         </View>
         <View style={styles.logoTile}>
           <Image
-            source={require("../assets/images/landing.jpg")}
+            source={require("../assets/images/image.jpg")}
             style={styles.logoImage}
           />
         </View>
@@ -45,10 +45,17 @@ const ProfileScreen = () => {
 
       {/* Buttons Container */}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push("/ResetPassword")}
+        >
           <Text style={styles.buttonText}>Reset Password</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push("/login")}
+        >
           <Text style={styles.buttonText}>LogOut</Text>
         </TouchableOpacity>
       </View>
