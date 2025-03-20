@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import * as Location from "expo-location";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FontAwesome } from "@expo/vector-icons";
 
 const LandingPage = () => {
   const router = useRouter();
@@ -54,7 +55,13 @@ const LandingPage = () => {
 
       <View style={styles.headerContainer}>
         <Text style={styles.projectTitle}>Project Cicaeda</Text>
-        <View style={styles.profileIcon}></View>
+        {/* Profile Image with Navigation */}
+        <TouchableOpacity onPress={() => router.push("/UserProfile")}>
+          <Image
+            source={require("../assets/images/profileicon.png")} // Replace with actual profile image
+            style={styles.profileIcon}
+          />
+        </TouchableOpacity>
       </View>
 
       <ImageBackground
@@ -85,7 +92,6 @@ const LandingPage = () => {
         </Text>
       </View>
 
-
       {/* Feature Section */}
       {/* <View style={styles.featureSection}>
         <View style={[styles.featureCard, { backgroundColor: "#FFE8D6" }]}>
@@ -107,20 +113,35 @@ const LandingPage = () => {
         />
       </View> */}
 
-      {/* Usage Instructions Tile */}
+      {/* Usage Instructions Tile - Improved Design */}
       <View style={styles.usageInstructions}>
-        <Text style={styles.usageTitle}>How to Use the Cicaeda:</Text>
-        <Text style={styles.usagePoint}>
-          • Register and login if your new or else login if your already
-          registered.
-        </Text>
-        <Text style={styles.usagePoint}>
-          • Click on the "Proceed to Questionnaire" button.
-        </Text>
-        <Text style={styles.usagePoint}>• Fill in the Questionnaire.</Text>
-        <Text style={styles.usagePoint}>
-          • Get your Kidney Health Prediction.
-        </Text>
+        <Text style={styles.usageTitle}>📌 How to Use the Cicaeda</Text>
+
+        <View style={styles.usagePointContainer}>
+          <FontAwesome name="user-plus" size={20} color="#4CAF50" />
+          <Text style={styles.usagePoint}>
+            Register and login if you're new, or login if already registered.
+          </Text>
+        </View>
+
+        <View style={styles.usagePointContainer}>
+          <FontAwesome name="file-text" size={20} color="#FF9800" />
+          <Text style={styles.usagePoint}>
+            Click on the "Proceed to Questionnaire" button.
+          </Text>
+        </View>
+
+        <View style={styles.usagePointContainer}>
+          <FontAwesome name="pencil" size={20} color="#03A9F4" />
+          <Text style={styles.usagePoint}>Fill in the Questionnaire.</Text>
+        </View>
+
+        <View style={styles.usagePointContainer}>
+          <FontAwesome name="heartbeat" size={20} color="#E91E63" />
+          <Text style={styles.usagePoint}>
+            Get your Kidney Health Prediction.
+          </Text>
+        </View>
       </View>
 
       {/* Navigation Button */}
@@ -193,7 +214,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 20,
     padding: 15,
-    backgroundColor: "#E4F8FA",
+    backgroundColor: "#D3D3D3",
     borderRadius: 15,
     alignItems: "center",
   },
@@ -221,18 +242,33 @@ const styles = StyleSheet.create({
   usageInstructions: {
     marginHorizontal: 20,
     marginTop: 20,
-    padding: 15,
-    backgroundColor: "#D3D3D3", // Grey background
+    padding: 20,
+    backgroundColor: "#D3D3D3",
     borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 4,
   },
   usageTitle: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 8,
   },
+  usagePointContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 8,
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E0E0E0",
+  },
   usagePoint: {
     fontSize: 14,
-    marginBottom: 5,
+    marginLeft: 10,
+    color: "#555",
+    flexShrink: 1,
   },
 });
 
