@@ -21,16 +21,18 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Top Header Section */}
+      {/* Header Section with Tiles */}
       <View style={styles.header}>
-        <View style={styles.userShape}>
+        <View style={styles.userTile}>
           <AntDesign name="user" size={16} color="white" />
           <Text style={styles.userText}> Hello, {userName}</Text>
         </View>
-        <Image
-          source={{ uri: "https://via.placeholder.com/40" }}
-          style={styles.icon}
-        />
+        <View style={styles.logoTile}>
+          <Image
+            source={require("../assets/images/landing.jpg")}
+            style={styles.logoImage}
+          />
+        </View>
       </View>
 
       {/* Kidney Health Data Tile */}
@@ -69,22 +71,39 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 40,
   },
-  userShape: {
+  userTile: {
     flexDirection: "row",
     backgroundColor: "black",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
     alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  logoTile: {
+    backgroundColor: "#f0f0f0",
+    padding: 10,
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
   userText: {
     color: "white",
     fontSize: 14,
     marginLeft: 5,
   },
-  icon: {
-    width: 50,
-    height: 50,
+  logoImage: {
+    width: 40,
+    height: 40,
     borderRadius: 10,
   },
   healthTile: {
