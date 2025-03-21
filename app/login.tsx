@@ -21,7 +21,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { storeItem } from "@/components/Common/StorageOperations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import API from "@/components/Common/UpdateTokens";
 
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
