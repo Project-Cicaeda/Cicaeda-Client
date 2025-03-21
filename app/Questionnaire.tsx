@@ -85,7 +85,7 @@ const MedicalForm = () => {
             />
 
             <InputLayout
-              label="Question 3"
+              label="City"
               placeholder={t("Questionnaire1.question3")}
               icon="user"
               onBlur={(text) => {
@@ -94,7 +94,7 @@ const MedicalForm = () => {
             />
 
             <InputLayout
-              label="Question 4"
+              label="Address"
               placeholder={t("Questionnaire1.question4")}
               icon="user"
               onBlur={(text) => {

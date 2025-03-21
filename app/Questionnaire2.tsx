@@ -8,8 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import { RadioButton } from "react-native-paper"; // Import RadioButton
+import { RadioButton } from "react-native-paper";
 import { InputLayout } from "@/components/Forms/InputLayout";
 import { Colors } from "@/constants/Colors";
 import { useState } from "react";
@@ -19,7 +18,7 @@ import { useTranslation } from "react-i18next";
 import { useLocalSearchParams, useRouter } from "expo-router";
 
 const MedicalForm = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const router = useRouter();
   const params = useLocalSearchParams();
 
@@ -34,15 +33,59 @@ const MedicalForm = () => {
     question8: "",
   });
 
-  // Function to handle questionnaire inputs
+  const [errors, setErrors] = useState({
+    age: "",
+    gender: "",
+    anemia: "",
+    question8: "",
+  });
+
+  // Function to handle input change
   const handleInputChange = (field: keyof typeof formData, value: string) => {
     setFormData((prev: any) => ({
       ...prev,
       [field]: value,
     }));
+    setErrors((prev) => ({
+      ...prev,
+      [field]: "", // Clear error when user starts typing
+    }));
+  };
+
+  const validateForm = () => {
+    let valid = true;
+    let newErrors = { age: "", gender: "", anemia: "", question8: "" };
+
+    if (!formData.age) {
+      newErrors.age = "Age is required.";
+      valid = false;
+    } else if (isNaN(Number(formData.age)) || Number(formData.age) <= 0) {
+      newErrors.age = "Enter a valid number.";
+      valid = false;
+    }
+
+    if (!formData.gender) {
+      newErrors.gender = "Gender is required.";
+      valid = false;
+    }
+
+    if (!formData.anemia) {
+      newErrors.anemia = "Please select an option.";
+      valid = false;
+    }
+
+    if (!formData.question8) {
+      newErrors.question8 = "Please select an option.";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
   };
 
   const handleProceed = () => {
+    if (!validateForm()) return;
+
     console.log("Proceeded to page 3");
     console.log("Form Data:", JSON.stringify(formData));
 
@@ -81,6 +124,10 @@ const MedicalForm = () => {
               onBlur={(text) => handleInputChange("age", text)}
             />
 
+            {errors.age ? (
+              <Text style={styles.errorText}>{errors.age}</Text>
+            ) : null}
+
             <View style={styles.radioContainer}>
               <Text style={styles.radioLabel}>
                 {t("Questionnaire2.question2")}
@@ -104,6 +151,10 @@ const MedicalForm = () => {
               </RadioButton.Group>
             </View>
 
+            {errors.gender ? (
+              <Text style={styles.errorText}>{errors.gender}</Text>
+            ) : null}
+
             <View style={styles.radioContainer}>
               <Text style={styles.radioLabel}>
                 {t("Questionnaire2.question3")}
@@ -123,6 +174,10 @@ const MedicalForm = () => {
               </RadioButton.Group>
             </View>
 
+            {errors.anemia ? (
+              <Text style={styles.errorText}>{errors.anemia}</Text>
+            ) : null}
+
             <View style={styles.radioContainer}>
               <Text style={styles.radioLabel}>
                 {t("Questionnaire2.question4")}
@@ -140,6 +195,10 @@ const MedicalForm = () => {
                   <Text style={styles.radioText}>No</Text>
                 </View>
               </RadioButton.Group>
+
+              {errors.question8 ? (
+                <Text style={styles.errorText}>{errors.question8}</Text>
+              ) : null}
             </View>
           </View>
 
@@ -217,5 +276,11 @@ const styles = StyleSheet.create({
   radioText: {
     fontSize: 16,
     marginLeft: 8, // Space between radio button and text
+  },
+
+  errorText: {
+    color: "red",
+    fontSize: 14,
+    marginTop: 5,
   },
 });

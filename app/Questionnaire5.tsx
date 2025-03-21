@@ -22,24 +22,29 @@ import { fetchData } from "@/components/Common/StorageOperations";
 import API from "@/components/Common/UpdateTokens";
 import { ipAddress } from "@/components/Common/ipAddress";
 
-const API_URL = "https://10.0.2.2:3000"; 
+const API_URL = "https://10.0.2.2:3000";
 
+  
 export const submitQuestionnaire = async (formData: Record<string, any>, token: string) => {
     console.log(formData,token + "D")
   try{
+    
     const response = await API.post(`http://${ipAddress}:3000/questionnaire/submit`, formData, {
       headers: {
         Authorization: `Bearer ${token}`,
         // "Content-Type": "application/json",
       },
+          await AsyncStorage.setItem("results", response.data);
+
     });
 
     return response.data;
   }catch(error:any){
     console.error("Error submitting questionnaire:", error.response);
+
     return null;
   }
-}
+};
 
 const MedicalForm = () => {
   const { t } = useTranslation();
@@ -64,7 +69,6 @@ const MedicalForm = () => {
     }));
   };
 
-
   const handleProceed = async () => {
     console.log("Form Data:", JSON.stringify(formData));
 
@@ -75,12 +79,13 @@ const MedicalForm = () => {
       alert("You need to log in first!");
       return;
     }
+
     
     const response = await submitQuestionnaire(formData, token.accessToken);
     if(response){
+
       router.push("/Prediction");
-    }
-    else{
+    } else {
       alert("Error submitting questionnaire. Please try again later.");
     }
   };
