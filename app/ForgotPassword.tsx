@@ -14,6 +14,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -37,8 +38,17 @@ const ForgotPassword: React.FC = () => {
       }))
     }
 
-    function SendResetCode(){
-        router.navigate("/ResetPassword")
+    async function SendResetCode(){
+      console.log("INSIDE",formData)
+      try{
+        const response =  await axios.post(`http://${ipAddress}:3000/auth/forgot-password`,formData)
+        console.log(response.data)
+        ToastAndroid.show("Email Sent Successfully",ToastAndroid.SHORT)
+        // router.navigate("/ResetPassword")
+      }
+      catch(error){
+        console.log(error)
+      }
     }   
 
 
