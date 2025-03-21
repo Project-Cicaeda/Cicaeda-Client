@@ -31,15 +31,57 @@ const MedicalForm = () => {
     question12: "",
   });
 
+  const [errors, setErrors] = useState({
+    diabetes: "",
+    cvd: "",
+    heartattacks: "",
+    question12: "",
+  });
+
+  const validateForm = () => {
+    let valid = true;
+    let newErrors = { diabetes: "", cvd: "", heartattacks: "", question12: "" };
+
+    if (!formData.diabetes) {
+      newErrors.diabetes = "Please select an option.";
+      valid = false;
+    }
+
+    if (!formData.cvd) {
+      newErrors.cvd = "Please select an option.";
+      valid = false;
+    }
+
+    if (!formData.heartattacks) {
+      newErrors.heartattacks = "Please select an option.";
+      valid = false;
+    }
+
+    if (!formData.question12) {
+      newErrors.question12 = "Please select an option.";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
   // Function to handle questionnaire inputs
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev: any) => ({
       ...prev,
       [field]: value,
     }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [field]: "", // Clear error when user starts typing
+    }));
   };
 
   const handleProceed = () => {
+    if (!validateForm()) return;
+
     console.log("Proceeded to page 4");
     console.log("Form Data:", JSON.stringify(formData));
 
@@ -76,6 +118,7 @@ const MedicalForm = () => {
               <Text style={styles.radioLabel}>
                 {t("Questionnaire3.question1")}
               </Text>
+
               <RadioButton.Group
                 onValueChange={(value) => handleInputChange("diabetes", value)}
                 value={formData.diabetes}
@@ -92,6 +135,10 @@ const MedicalForm = () => {
                 </View>
               </RadioButton.Group>
             </View>
+
+            {errors.diabetes ? (
+              <Text style={styles.errorText}>{errors.diabetes}</Text>
+            ) : null}
 
             {/* Question 2 */}
             <View style={styles.radioContainer}>
@@ -114,6 +161,10 @@ const MedicalForm = () => {
                 </View>
               </RadioButton.Group>
             </View>
+
+            {errors.cvd ? (
+              <Text style={styles.errorText}>{errors.cvd}</Text>
+            ) : null}
 
             {/* Question 3 */}
             <View style={styles.radioContainer}>
@@ -139,6 +190,10 @@ const MedicalForm = () => {
               </RadioButton.Group>
             </View>
 
+            {errors.heartattacks ? (
+              <Text style={styles.errorText}>{errors.heartattacks}</Text>
+            ) : null}
+
             {/* Question 4 */}
             <View style={styles.radioContainer}>
               <Text style={styles.radioLabel}>
@@ -161,6 +216,10 @@ const MedicalForm = () => {
                   </View>
                 </View>
               </RadioButton.Group>
+
+              {errors.question12 ? (
+                <Text style={styles.errorText}>{errors.question12}</Text>
+              ) : null}
             </View>
           </View>
 
@@ -238,5 +297,11 @@ const styles = StyleSheet.create({
   radioText: {
     fontSize: 16,
     marginLeft: 20, // Space between radio button and text
+  },
+
+  errorText: {
+    color: "red",
+    fontSize: 14,
+    marginTop: 5,
   },
 });
