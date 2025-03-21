@@ -23,8 +23,8 @@ const MedicalForm = () => {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
-    age: "",
-    gender: "",
+    question1: "",
+    question2: "",
     question3: "",
     question4: "",
   });
@@ -71,17 +71,17 @@ const MedicalForm = () => {
           {/* Input Fields */}
           <View style={styles.inputContainer}>
             <InputLayout
-              label="Age"
+              label="First Name"
               placeholder={t("Questionnaire1.question1")}
               icon="user"
-              onBlur={(text) => handleInputChange("age", text)}
+              onBlur={(text) => handleInputChange("question1", text)}
             />
 
             <InputLayout
-              label="Gender"
+              label="Last Name"
               placeholder={t("Questionnaire1.question2")}
               icon="user"
-              onBlur={(text) => handleInputChange("gender", text)}
+              onBlur={(text) => handleInputChange("question2", text)}
             />
 
             <InputLayout

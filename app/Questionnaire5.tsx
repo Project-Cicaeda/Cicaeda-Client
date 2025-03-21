@@ -7,9 +7,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { InputLayout } from "@/components/Forms/InputLayout";
 import { RadioButton } from "react-native-paper"; // Import RadioButton
-
 import { Colors } from "@/constants/Colors";
 import { useState } from "react";
 import BackArrow from "@/components/Common/backArrow";
@@ -17,6 +15,28 @@ import { ProgressBar } from "@/components/Forms/ProgressBar";
 import { useTranslation } from "react-i18next";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ELEVATION_LEVELS_MAP } from "react-native-paper/lib/typescript/components/Menu/Menu";
+
+const API_URL = "https://10.0.2.2:3000"; 
+
+export const submitQuestionnaire = async (formData: Record<string, any>, token: string) => {
+      
+  try{
+    const response = await axios.post(`${API_URL}/questionnaire/submit`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    return response.data;
+  }catch(error){
+    console.error("Error submitting questionnaire:", error);
+    return null;
+  }
+}
 
 const MedicalForm = () => {
   const { t } = useTranslation();
@@ -30,7 +50,7 @@ const MedicalForm = () => {
     question17: "",
     question18: "",
     question19: "",
-    question20: "",
+    question20: "", // Ensure the question20 field is initialized
   });
 
   // Function to handle questionnaire inputs
@@ -41,10 +61,24 @@ const MedicalForm = () => {
     }));
   };
 
-  const handleProceed = () => {
+
+  const handleProceed = async () => {
     console.log("Form Data:", JSON.stringify(formData));
 
-    router.push("/Prediction");
+    const token = await AsyncStorage.getItem("token");
+
+    if (!token) {
+      alert("You need to log in first!");
+      return;
+    }
+    
+    const response = await submitQuestionnaire(formData, token);
+    if(response){
+      router.push("/Prediction");
+    }
+    else{
+      alert("Error submitting questionnaire. Please try again later.");
+    }
   };
 
   return (
@@ -72,6 +106,7 @@ const MedicalForm = () => {
 
           {/* Input Fields */}
           <View style={styles.inputContainer}>
+            {/* Question 1 */}
             <View style={styles.radioContainer}>
               <Text style={styles.radioLabel}>
                 {t("Questionnaire5.question1")}
@@ -80,7 +115,7 @@ const MedicalForm = () => {
                 onValueChange={(value) => {
                   handleInputChange("question17", value);
                 }}
-                value={formData.question3}
+                value={formData.question17}
               >
                 <View style={styles.radioRow}>
                   <RadioButton value="Yes" />
@@ -91,6 +126,7 @@ const MedicalForm = () => {
               </RadioButton.Group>
             </View>
 
+            {/* Question 2 */}
             <View style={styles.radioContainer}>
               <Text style={styles.radioLabel}>
                 {t("Questionnaire5.question2")}
@@ -99,7 +135,7 @@ const MedicalForm = () => {
                 onValueChange={(value) => {
                   handleInputChange("question18", value);
                 }}
-                value={formData.question3}
+                value={formData.question18}
               >
                 <View style={styles.radioRow}>
                   <RadioButton value="Yes" />
@@ -109,6 +145,8 @@ const MedicalForm = () => {
                 </View>
               </RadioButton.Group>
             </View>
+
+            {/* Question 3 */}
             <View style={styles.radioContainer}>
               <Text style={styles.radioLabel}>
                 {t("Questionnaire5.question3")}
@@ -117,7 +155,7 @@ const MedicalForm = () => {
                 onValueChange={(value) => {
                   handleInputChange("question19", value);
                 }}
-                value={formData.question3}
+                value={formData.question19}
               >
                 <View style={styles.radioRow}>
                   <RadioButton value="Yes" />
@@ -127,15 +165,17 @@ const MedicalForm = () => {
                 </View>
               </RadioButton.Group>
             </View>
+
+            {/* Question 4 */}
             <View style={styles.radioContainer}>
               <Text style={styles.radioLabel}>
                 {t("Questionnaire5.question4")}
               </Text>
               <RadioButton.Group
                 onValueChange={(value) => {
-                  handleInputChange("question20", value);
+                  handleInputChange("question20", value); // Corrected here
                 }}
-                value={formData.question3}
+                value={formData.question20} // Corrected here
               >
                 <View style={styles.radioRow}>
                   <RadioButton value="Yes" />
@@ -180,7 +220,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     fontFamily: "Poppins-Bold",
-    marginTop: 27.5,
+    marginTop: 30,
   },
   subheading: {
     fontSize: 14,
@@ -190,7 +230,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginTop: 10,
-    gap: 10,
+    gap: 20,
   },
   button: {
     backgroundColor: Colors.light.primary,
@@ -204,18 +244,21 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Bold",
     fontSize: 16,
   },
-
   radioContainer: {
     marginTop: 10,
   },
   radioLabel: {
     fontSize: 16,
     fontWeight: "500",
+    marginBottom: 10,
   },
   radioRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 10,
-    marginTop: 5,
+    gap: 30, // Increased gap between radio buttons
+  },
+  radioText: {
+    fontSize: 16,
+    marginLeft: 6, // Space between radio button and text
   },
 });

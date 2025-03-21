@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign } from "@expo/vector-icons";
-
+import { removeUser } from "@/components/Common/StorageOperations";
 const ProfileScreen = () => {
   const router = useRouter();
   const [userName, setUserName] = useState("User");
@@ -43,7 +43,13 @@ const ProfileScreen = () => {
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Reset Password</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={async () => {
+            await removeUser(); // Call removeUser function
+            router.push("/login"); // Navigate to login page
+          }}
+        >
           <Text style={styles.buttonText}>LogOut</Text>
         </TouchableOpacity>
       </View>

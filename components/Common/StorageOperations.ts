@@ -17,3 +17,10 @@ export const fetchData = async() =>{
     }
 
 }
+export const removeUser = async () => {
+    try {
+      await AsyncStorage.removeItem("user");
+    } catch (error) {
+      console.log(error);
+    }
+  };
