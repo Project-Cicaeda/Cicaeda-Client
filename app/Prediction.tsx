@@ -112,7 +112,7 @@ const CKDPrediction: React.FC = () => {
 
           {/* Button */}
           <View style={styles.buttonContainer}>
-            <Button title="Get Recommendations" color={Colors.light.primary} />
+            <Text>More Statistics</Text>
           </View>
         </View>
       </ScrollView>
