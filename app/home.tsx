@@ -116,7 +116,7 @@ const LandingPage = () => {
       {/* Usage Instructions Tile - Improved Design */}
       <View style={styles.usageInstructions}>
         <Text style={styles.usageTitle}>📌 How to Use the Cicaeda</Text>
-
+        {/* font awesome */}
         <View style={styles.usagePointContainer}>
           <FontAwesome name="user-plus" size={20} color="#4CAF50" />
           <Text style={styles.usagePoint}>
