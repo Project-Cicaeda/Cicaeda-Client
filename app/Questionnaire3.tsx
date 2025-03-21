@@ -25,9 +25,9 @@ const MedicalForm = () => {
 
   const [formData, setFormData] = useState({
     ...previousData,
-    question9: "",
-    question10: "",
-    question11: "",
+    diabetes: "",
+    cvd: "",
+    heartattacks: "",
     question12: "",
   });
 
@@ -77,8 +77,8 @@ const MedicalForm = () => {
                 {t("Questionnaire3.question1")}
               </Text>
               <RadioButton.Group
-                onValueChange={(value) => handleInputChange("question9", value)}
-                value={formData.question9}
+                onValueChange={(value) => handleInputChange("diabetes", value)}
+                value={formData.diabetes}
               >
                 <View style={styles.radioRow}>
                   <View style={styles.radioOption}>
@@ -99,10 +99,8 @@ const MedicalForm = () => {
                 {t("Questionnaire3.question2")}
               </Text>
               <RadioButton.Group
-                onValueChange={(value) =>
-                  handleInputChange("question10", value)
-                }
-                value={formData.question10}
+                onValueChange={(value) => handleInputChange("cvd", value)}
+                value={formData.cvd}
               >
                 <View style={styles.radioRow}>
                   <View style={styles.radioOption}>
@@ -124,9 +122,9 @@ const MedicalForm = () => {
               </Text>
               <RadioButton.Group
                 onValueChange={(value) =>
-                  handleInputChange("question11", value)
+                  handleInputChange("heartattacks", value)
                 }
-                value={formData.question11}
+                value={formData.heartattacks}
               >
                 <View style={styles.radioRow}>
                   <View style={styles.radioOption}>

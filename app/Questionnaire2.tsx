@@ -28,9 +28,9 @@ const MedicalForm = () => {
 
   const [formData, setFormData] = useState({
     ...previousData,
-    question5: "",
-    question6: "",
-    question7: "",
+    age: "",
+    gender: "",
+    anemia: "",
     question8: "",
   });
 
@@ -78,7 +78,7 @@ const MedicalForm = () => {
               label="Age"
               placeholder={t("Questionnaire2.question1")}
               icon="user"
-              onBlur={(text) => handleInputChange("question5", text)}
+              onBlur={(text) => handleInputChange("age", text)}
             />
 
             <View style={styles.radioContainer}>
@@ -87,9 +87,9 @@ const MedicalForm = () => {
               </Text>
               <RadioButton.Group
                 onValueChange={(value) => {
-                  handleInputChange("question6", value);
+                  handleInputChange("gender", value);
                 }}
-                value={formData.question6}
+                value={formData.gender}
               >
                 <View style={styles.radioRow}>
                   <View style={styles.radioOption}>
@@ -110,9 +110,9 @@ const MedicalForm = () => {
               </Text>
               <RadioButton.Group
                 onValueChange={(value) => {
-                  handleInputChange("question7", value);
+                  handleInputChange("anemia", value);
                 }}
-                value={formData.question7}
+                value={formData.anemia}
               >
                 <View style={styles.radioRow}>
                   <RadioButton value="Yes" color={Colors.light.primary} />
