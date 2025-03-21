@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign } from "@expo/vector-icons";
-
+import { removeUser } from "@/components/Common/StorageOperations";
 const ProfileScreen = () => {
   const router = useRouter();
   const [userName, setUserName] = useState("User");
@@ -21,40 +21,34 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header Section with Tiles */}
+      {/* Top Header Section */}
       <View style={styles.header}>
-        <View style={styles.userTile}>
+        <View style={styles.userShape}>
           <AntDesign name="user" size={16} color="white" />
           <Text style={styles.userText}> Hello, {userName}</Text>
         </View>
-        <View style={styles.logoTile}>
-          <Image
-            source={require("../assets/images/image.jpg")}
-            style={styles.logoImage}
-          />
-        </View>
+        <Image
+          source={{ uri: "https://via.placeholder.com/40" }}
+          style={styles.icon}
+        />
       </View>
 
       {/* Kidney Health Data Tile */}
       <View style={styles.healthTile}>
         <Text style={styles.tileTitle}>Previous Predictions</Text>
-        <View style={styles.tileContent}>
-          {/* Add any content for the health tile here */}
-        </View>
       </View>
 
       {/* Buttons Container */}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push("/ResetPassword")}
-        >
+        <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Reset Password</Text>
         </TouchableOpacity>
-
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push("/login")}
+          onPress={async () => {
+            await removeUser(); // Call removeUser function
+            router.push("/login"); // Navigate to login page
+          }}
         >
           <Text style={styles.buttonText}>LogOut</Text>
         </TouchableOpacity>
@@ -70,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     padding: 20,
-    paddingTop: 50,
+    paddingTop: 50, // Added this to push content down
   },
   header: {
     flexDirection: "row",
@@ -78,67 +72,43 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 40,
   },
-  userTile: {
+  userShape: {
     flexDirection: "row",
     backgroundColor: "black",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  logoTile: {
-    backgroundColor: "#f0f0f0",
-    padding: 10,
-    borderRadius: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3,
   },
   userText: {
     color: "white",
     fontSize: 14,
     marginLeft: 5,
   },
-  logoImage: {
-    width: 40,
-    height: 40,
+  icon: {
+    width: 50,
+    height: 50,
     borderRadius: 10,
   },
   healthTile: {
     backgroundColor: "#d3f2d3",
+    paddingVertical: 80,
     borderRadius: 20,
+    alignItems: "flex-end", // Changed from "right" to "flex-end"
+    justifyContent: "flex-start",
     marginBottom: 60,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 4,
-    paddingBottom: 20,
-    overflow: "hidden",
   },
   tileTitle: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#555",
     textAlign: "center",
-    width: "100%",
-    backgroundColor: "rgba(255, 255, 255, 0.4)",
-    paddingVertical: 15,
-    marginBottom: 20,
-  },
-  tileContent: {
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-    height: 100, // Adjust this as needed
+    marginTop: 10,
   },
   buttonContainer: {
     flexDirection: "row",
