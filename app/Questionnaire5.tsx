@@ -19,24 +19,32 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ELEVATION_LEVELS_MAP } from "react-native-paper/lib/typescript/components/Menu/Menu";
 
-const API_URL = "https://10.0.2.2:3000"; 
+const API_URL = "https://10.0.2.2:3000";
 
-export const submitQuestionnaire = async (formData: Record<string, any>, token: string) => {
-      
-  try{
-    const response = await axios.post(`${API_URL}/questionnaire/submit`, formData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+export const submitQuestionnaire = async (
+  formData: Record<string, any>,
+  token: string
+) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/questionnaire/submit`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    await AsyncStorage.setItem("results", response.data);
 
     return response.data;
-  }catch(error){
+  } catch (error) {
     console.error("Error submitting questionnaire:", error);
     return null;
   }
-}
+};
 
 const MedicalForm = () => {
   const { t } = useTranslation();
@@ -61,7 +69,6 @@ const MedicalForm = () => {
     }));
   };
 
-
   const handleProceed = async () => {
     console.log("Form Data:", JSON.stringify(formData));
 
@@ -71,12 +78,11 @@ const MedicalForm = () => {
       alert("You need to log in first!");
       return;
     }
-    
+
     const response = await submitQuestionnaire(formData, token);
-    if(response){
+    if (response) {
       router.push("/Prediction");
-    }
-    else{
+    } else {
       alert("Error submitting questionnaire. Please try again later.");
     }
   };
