@@ -29,6 +29,20 @@
     "newPassword": "Enter Your New Password",
     "confirmNewPassword": "Confirm Your New Password"
   },
+
+  "Home": {
+    "heading": "Project Cicaeda",
+    "welcomeText": "Hello User",
+    "district": "District:",
+    "description": "Your ultimate companion for better Kidney Health",
+    "usageTitle": "📌 How to Use the Cicaeda",
+    "point1": "Register and login if you're new, or login if already registered.",
+    "point2": " Click on the 'Proceed to Questionnaire' button.",
+    "point3": "Fill in the Questionnaire.",
+    "point4": "Get your Kidney Health Prediction.",
+    "button": "Proceed to Questionnaire"
+  },
+
   "Questionnaire1": {
     "heading": "Fill The Below Input",
     "subHeading": "Enter your personal information.",
@@ -68,5 +82,36 @@
     "question2": "Do you often feel tired or have low energy levels?",
     "question3": "Do you have difficulty concentrating or experience brain fog?",
     "question4": "Have you had unexplained weight loss recently?"
+  },
+
+  "Prediction": {
+    "title1": "Risk Factors Analysis",
+    "title2": "Hydration Level",
+    "title3": "Lifestyle & Diet Tips",
+    "title4": "Medication Reminder"
+  },
+
+  "LowRisk": {
+    "message": "You are mostly Safe!",
+    "risk": "No significant risks detected. Maintain a healthy diet and hydration.",
+    "hydration": "You are well hydrated. Keep up the good work!",
+    "lifestyle": "Maintain a healthy lifestyle with a balanced diet and regular exercise.",
+    "medication": "No medications required. Keep up the good work!"
+  },
+
+  "HighRisk": {
+    "message": "Seek Medical Attention!",
+    "risk": "High blood pressure and sugar levels detected. Consult a doctor immediately.",
+    "hydration": "Your hydration is low. Increase water intake to at least 2.5L daily.",
+    "lifestyle": "Reduce sodium and processed foods immediately. Regular check-ups are necessary.",
+    "medication": "Strictly adhere to prescribed medications. Set daily reminders."
+  },
+
+  "Moderate Risk": {
+    "message": "Monitor Your Health!",
+    "risk": "Mild risks detected. Keep an eye on your blood pressure and sugar levels.",
+    "hydration": "You're not drinking enough water daily. Increase to 2L for better kidney function.",
+    "lifestyle": "Start incorporating kidney-friendly foods like fresh fruits and lean proteins.",
+    "medication": "If prescribed, follow up with your doctor about your medication routine."
   }
 }

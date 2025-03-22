@@ -9,10 +9,12 @@ import {
   Image,
   SafeAreaView,
   StatusBar,
+  ScrollView,
 } from "react-native";
 import * as Location from "expo-location";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FontAwesome } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 
 const LandingPage = () => {
   const router = useRouter();
@@ -21,6 +23,7 @@ const LandingPage = () => {
   );
   const [district, setDistrict] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     (async () => {
@@ -53,47 +56,48 @@ const LandingPage = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#F8F9FA" />
 
-      <View style={styles.headerContainer}>
-        <Text style={styles.projectTitle}>Project Cicaeda</Text>
-        {/* Profile Image with Navigation */}
-        <TouchableOpacity onPress={() => router.push("/UserProfile")}>
-          <Image
-            source={require("../assets/images/profileicon.png")} // Replace with actual profile image
-            style={styles.profileIcon}
-          />
-        </TouchableOpacity>
-      </View>
-
-      <ImageBackground
-        source={{ uri: "" }}
-        style={styles.backgroundImage}
-        imageStyle={styles.backgroundImageStyle}
-      >
-        <View style={styles.logoContainer}>
-          <Image
-            source={require("../assets/images/image.jpg")}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <Text style={styles.welcomeText}>Hello User</Text>
-          {district ? (
-            <Text style={styles.locationText}>District: {district}</Text>
-          ) : (
-            <Text style={styles.locationText}>
-              {errorMsg ? errorMsg : "Fetching location..."}
-            </Text>
-          )}
+      <ScrollView>
+        <View style={styles.headerContainer}>
+          <Text style={styles.projectTitle}>{t("Home.heading")}</Text>
+          {/* Profile Image with Navigation */}
+          <TouchableOpacity onPress={() => router.push("/UserProfile")}>
+            <Image
+              source={require("../assets/images/profileicon.png")}
+              style={styles.profileIcon}
+            />
+          </TouchableOpacity>
         </View>
-      </ImageBackground>
 
-      <View style={styles.descriptionBox}>
-        <Text style={styles.descriptionText}>
-          Your ultimate companion for better Kidney Health
-        </Text>
-      </View>
+        <ImageBackground
+          source={{ uri: "" }}
+          style={styles.backgroundImage}
+          imageStyle={styles.backgroundImageStyle}
+        >
+          <View style={styles.logoContainer}>
+            <Image
+              source={require("../assets/images/image.jpg")}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+            <Text style={styles.welcomeText}>{t("Home.welcomeText")}</Text>
+            {district ? (
+              <Text style={styles.locationText}>
+                {t("Home.district")} {district}
+              </Text>
+            ) : (
+              <Text style={styles.locationText}>
+                {errorMsg ? errorMsg : "Fetching location..."}
+              </Text>
+            )}
+          </View>
+        </ImageBackground>
 
-      {/* Feature Section */}
-      {/* <View style={styles.featureSection}>
+        <View style={styles.descriptionBox}>
+          <Text style={styles.descriptionText}>{t("Home.description")}</Text>
+        </View>
+
+        {/* Feature Section */}
+        {/* <View style={styles.featureSection}>
         <View style={[styles.featureCard, { backgroundColor: "#FFE8D6" }]}>
           <Text style={styles.featureTitle}>Consultation</Text>
           <Text style={styles.featureSubtitle}>56 doctors</Text>
@@ -104,8 +108,8 @@ const LandingPage = () => {
         </View>
       </View> */}
 
-      {/* Search Bar */}
-      {/* <View style={styles.searchBarContainer}>
+        {/* Search Bar */}
+        {/* <View style={styles.searchBarContainer}>
         <TextInput
           style={styles.searchBar}
           placeholder="Search for a doctor"
@@ -113,47 +117,42 @@ const LandingPage = () => {
         />
       </View> */}
 
-      {/* Usage Instructions Tile - Improved Design */}
-      <View style={styles.usageInstructions}>
-        <Text style={styles.usageTitle}>📌 How to Use the Cicaeda</Text>
-        {/* font awesome */}
-        <View style={styles.usagePointContainer}>
-          <FontAwesome name="user-plus" size={20} color="#4CAF50" />
-          <Text style={styles.usagePoint}>
-            Register and login if you're new, or login if already registered.
-          </Text>
+        {/* Usage Instructions Tile - Improved Design */}
+        <View style={styles.usageInstructions}>
+          <Text style={styles.usageTitle}>{t("Home.usageTitle")}</Text>
+          {/* font awesome */}
+          <View style={styles.usagePointContainer}>
+            <FontAwesome name="user-plus" size={20} color="#4CAF50" />
+            <Text style={styles.usagePoint}>{t("Home.point1")}</Text>
+          </View>
+
+          <View style={styles.usagePointContainer}>
+            <FontAwesome name="file-text" size={20} color="#FF9800" />
+            <Text style={styles.usagePoint}>{t("Home.point2")}</Text>
+          </View>
+
+          <View style={styles.usagePointContainer}>
+            <FontAwesome name="pencil" size={20} color="#03A9F4" />
+            <Text style={styles.usagePoint}>{t("Home.point3")}</Text>
+          </View>
+
+          <View style={styles.usagePointContainer}>
+            <FontAwesome name="heartbeat" size={20} color="#E91E63" />
+            <Text style={styles.usagePoint}>{t("Home.point4")}</Text>
+          </View>
         </View>
 
-        <View style={styles.usagePointContainer}>
-          <FontAwesome name="file-text" size={20} color="#FF9800" />
-          <Text style={styles.usagePoint}>
-            Click on the "Proceed to Questionnaire" button.
-          </Text>
+        {/* Navigation Button */}
+
+        <View style={styles.navButtons}>
+          <TouchableOpacity
+            style={styles.navButton}
+            onPress={() => router.push("/Questionnaire")}
+          >
+            <Text style={styles.navText}>{t("Home.button")}</Text>
+          </TouchableOpacity>
         </View>
-
-        <View style={styles.usagePointContainer}>
-          <FontAwesome name="pencil" size={20} color="#03A9F4" />
-          <Text style={styles.usagePoint}>Fill in the Questionnaire.</Text>
-        </View>
-
-        <View style={styles.usagePointContainer}>
-          <FontAwesome name="heartbeat" size={20} color="#E91E63" />
-          <Text style={styles.usagePoint}>
-            Get your Kidney Health Prediction.
-          </Text>
-        </View>
-      </View>
-
-      {/* Navigation Button */}
-
-      <View style={styles.navButtons}>
-        <TouchableOpacity
-          style={styles.navButton}
-          onPress={() => router.push("/Questionnaire")}
-        >
-          <Text style={styles.navText}>Proceed to Questionnaire</Text>
-        </TouchableOpacity>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -226,6 +225,7 @@ const styles = StyleSheet.create({
   navButtons: {
     marginHorizontal: 20,
     marginTop: 30,
+    marginBottom: 20,
   },
   navButton: {
     backgroundColor: "#4CAF50",

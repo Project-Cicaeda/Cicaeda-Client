@@ -3,83 +3,76 @@ import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "@/constants/Colors";
 import BackArrow from "@/components/Common/backArrow";
+import { useTranslation } from "react-i18next";
 
 const CKDPrediction: React.FC = () => {
   const score = 80.2; // Example score
+  const { t, i18n } = useTranslation();
 
   let riskLevel = "Low Risk";
   let bgColor = Colors.light.success;
-  let message = "You're Safe";
+  let message = t("LowRisk.message");
   let summary = [
     {
-      title: "Risk Factors Analysis",
-      value:
-        "No significant risks detected. Maintain a healthy diet and hydration.",
+      title: t("Prediction.title1"),
+      value: t("LowRisk.risk"),
     },
     {
-      title: "Hydration Level",
-      value: "You need to drink 2L today, which is optimal for kidney health.",
+      title: t("Prediction.title2"),
+      value: t("LowRisk.hydration"),
     },
     {
-      title: "Lifestyle & Diet Tips",
-      value: "Continue exercising regularly and avoid excessive salt intake.",
+      title: t("Prediction.title3"),
+      value: t("LowRisk.lifestyle"),
     },
     {
-      title: "Medication Reminder",
-      value: "No medication reminders needed at this stage.",
+      title: t("Prediction.title4"),
+      value: t("LowRisk.medication"),
     },
   ];
 
   if (score >= 70) {
     riskLevel = "High Risk";
     bgColor = Colors.light.danger;
-    message = "Seek Medical Attention";
+    message = t("HighRisk.message");
     summary = [
       {
-        title: "Risk Factors Analysis",
-        value:
-          "High blood pressure and sugar levels detected. Consult a doctor immediately.",
+        title: t("Prediction.title1"),
+        value: t("HighRisk.risk"),
       },
       {
-        title: "Hydration Level",
-        value:
-          "Your hydration is low. Increase water intake to at least 2.5L daily.",
+        title: t("Prediction.title2"),
+        value: t("HighRisk.hydration"),
       },
       {
-        title: "Lifestyle & Diet Tips",
-        value:
-          "Reduce sodium and processed foods immediately. Regular check-ups are necessary.",
+        title: t("Prediction.title3"),
+        value: t("HighRisk.lifestyle"),
       },
       {
-        title: "Medication Reminder",
-        value:
-          "Strictly adhere to prescribed medications. Set daily reminders.",
+        title: t("Prediction.title4"),
+        value: t("HighRisk.medication"),
       },
     ];
   } else if (score >= 30) {
     riskLevel = "Moderate Risk";
     bgColor = Colors.light.warning;
-    message = "Monitor Your Health";
+    message = t("ModerateRisk.message");
     summary = [
       {
-        title: "Risk Factors Analysis",
-        value:
-          "Mild risks detected. Keep an eye on your blood pressure and sugar levels.",
+        title: t("Prediction.title1"),
+        value: t("ModerateRisk.risk"),
       },
       {
-        title: "Hydration Level",
-        value:
-          "You're not drinking enough water daily. Increase to 2L for better kidney function.",
+        title: t("Prediction.title2"),
+        value: t("ModerateRisk.hydration"),
       },
       {
-        title: "Lifestyle & Diet Tips",
-        value:
-          "Start incorporating kidney-friendly foods like fresh fruits and lean proteins.",
+        title: t("Prediction.title3"),
+        value: t("ModerateRisk.lifestyle"),
       },
       {
-        title: "Medication Reminder",
-        value:
-          "If prescribed, follow up with your doctor about your medication routine.",
+        title: t("Prediction.title4"),
+        value: t("ModerateRisk.medication"),
       },
     ];
   }
