@@ -41,7 +41,7 @@
     "heading": "Fill The Below Input",
     "subHeading": "Enter your medical-related data for the below questions.",
     "question1": "What is your age?",
-    "question2": "Sex (Male, Female, Other):",
+    "question2": "Gender (Male, Female, Other):",
     "question3": "Do you have anemia?",
     "question4": "Do you have high blood pressure (HBP)?"
   },
