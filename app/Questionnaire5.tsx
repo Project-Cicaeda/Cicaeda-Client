@@ -22,7 +22,7 @@ import { fetchData } from "@/components/Common/StorageOperations";
 import API from "@/components/Common/UpdateTokens";
 import { ipAddress } from "@/components/Common/ipAddress";
 
-const API_URL = "https://10.0.2.2:3000";
+const API_URL = "https://cicaeda-me-539607477024.us-central1.run.app ";
 
 export const submitQuestionnaire = async (
   formData: Record<string, any>,
