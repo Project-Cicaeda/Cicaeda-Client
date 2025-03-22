@@ -40,7 +40,7 @@ export const submitQuestionnaire = async (
       }
     );
 
-    await AsyncStorage.setItem("results", response.data);
+    await AsyncStorage.setItem("results", JSON.stringify(response.data));
 
     return response.data;
   } catch (error) {
