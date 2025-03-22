@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { storeItem } from "@/components/Common/StorageOperations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import LoadingScreen from "./LoadingScreen";
 
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -29,6 +30,7 @@ const Login: React.FC = () => {
     email: "",
     password: "",
   });
+  const [loadingVisible, setLoadingVisible] = useState(false);
 
   function handleInputChange(field: string, value: string) {
     setFormData((prev) => ({
@@ -38,28 +40,34 @@ const Login: React.FC = () => {
   }
 
   async function LoginClick() {
-
-    if (formData.email && formData.password) {
-      try {
-        const response = await axios.post(
-          `http://${ipAddress}:3000/auth/login`,
-          formData
-        );
-        const storeUser = await storeItem(response.data);
-        ToastAndroid.show("Login Successful!", ToastAndroid.SHORT);
-        router.replace("/home");
-      } catch (error: any) {
-        console.log(error.response);
-        if (error.response.data?.statusCode == 401) {
-          ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
-          return;
-        }
-        ToastAndroid.show(error.response.data.message[0], ToastAndroid.SHORT);
-      }
-    } else {
-      ToastAndroid.show("All The Fields Are Required", ToastAndroid.SHORT);
-    }
+    // if (formData.email && formData.password) {
+    //   try {
+    //     const response = await axios.post(
+    //       `http://${ipAddress}:3000/auth/login`,
+    //       formData
+    //     );
+    //     const storeUser = await storeItem(response.data);
+    //     ToastAndroid.show("Login Successful!", ToastAndroid.SHORT);
+    //     router.replace("/home");
+    //   } catch (error: any) {
+    //     console.log(error.response);
+    //     if (error.response.data?.statusCode == 401) {
+    //       ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
+    //       return;
+    //     }
+    //     ToastAndroid.show(error.response.data.message[0], ToastAndroid.SHORT);
+    //   }
+    // } else {
+    //   ToastAndroid.show("All The Fields Are Required", ToastAndroid.SHORT);
+    // }
+    setLoadingVisible(true);
   }
+
+  const handleLoadingComplete = () => {
+    // Hide the loading screen
+    setLoadingVisible(false);
+    router.replace("/home");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -137,6 +145,10 @@ const Login: React.FC = () => {
           </Link>
         </View>
       </View>
+      <LoadingScreen
+        isVisible={loadingVisible}
+        onLoadingComplete={handleLoadingComplete}
+      />
     </View>
   );
 };
