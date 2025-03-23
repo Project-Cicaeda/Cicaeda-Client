@@ -22,30 +22,27 @@ import { fetchData } from "@/components/Common/StorageOperations";
 import API from "@/components/Common/UpdateTokens";
 import { ipAddress } from "@/components/Common/ipAddress";
 
-
-const API_URL = "https://cicaeda-me-539607477024.us-central1.run.app ";
-
 export const submitQuestionnaire = async (
   formData: Record<string, any>,
   token: string
 ) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/questionnaire/submit`,
+    console.log(token,formData)
+    const response = await API.post(
+      `${ipAddress}/questionnaire/submit`,
       formData,
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+          // "Content-Type": "application/json",
         },
       }
     );
-
     await AsyncStorage.setItem("results", JSON.stringify(response.data));
 
     return response.data;
-  } catch (error) {
-    console.error("Error submitting questionnaire:", error);
+  } catch (error:any) {
+    console.error("Error submitting questionnaire:", error.message);
     return null;
   }
 };
@@ -62,7 +59,7 @@ const MedicalForm = () => {
     question17: "",
     question18: "",
     question19: "",
-    question20: "", // Ensure the question20 field is initialized
+    question20: "", 
   });
 
   // Function to handle questionnaire inputs
@@ -74,7 +71,6 @@ const MedicalForm = () => {
   };
 
   const handleProceed = async () => {
-    console.log("Form Data:", JSON.stringify(formData));
     const token = await fetchData("user")
     if (!token) {
       alert("You need to log in first!");
@@ -149,7 +145,7 @@ const MedicalForm = () => {
                   <RadioButton value="Yes" />
                   <Text>Yes</Text>
                   <RadioButton value="No" />
-                  <Text>No</Text>
+                  <Text>N</Text>
                 </View>
               </RadioButton.Group>
             </View>

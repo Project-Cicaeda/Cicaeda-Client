@@ -18,7 +18,7 @@
   },
   "forgetPassword": {
     "title": "Forgot Password?",
-    "tagline": "Lost access? Enter your email and let’s get you back in with a secure reset code!",
+    "tagline": "Lost access? Enter your email and let's get you back in with a secure reset code!",
     "emailAddress": "Enter Your Email Address"
   },
   "resetPassword": {
@@ -29,9 +29,9 @@
     "newPassword": "Enter Your New Password",
     "confirmNewPassword": "Confirm Your New Password"
   },
-  "Otp":{
-    "title":"Verify The Otp",
-    "tagline":"Enter The Verification Code That Has Been Sent To Your Email"
+  "Otp": {
+    "title": "Verify The Otp",
+    "tagline": "Enter The Verification Code That Has Been Sent To Your Email"
   },
   "Home": {
     "heading": "Project Cicaeda",
@@ -40,10 +40,21 @@
     "description": "Your ultimate companion for better Kidney Health",
     "usageTitle": "📌 How to Use the Cicaeda",
     "point1": "Register and login if you're new, or login if already registered.",
-    "point2": " Click on the 'Proceed to Questionnaire' button.",
+    "point2": "Click on the 'Proceed to Questionnaire' button.",
     "point3": "Fill in the Questionnaire.",
     "point4": "Get your Kidney Health Prediction.",
-    "button": "Proceed to Questionnaire"
+    "button": "Proceed to Questionnaire",
+    "aboutServiceTitle": "About Our Service",
+    "featuresSectionTitle": "Key Features",
+    "mlAnalysisTitle": "ML Time Series Analysis",
+    "mlAnalysisDescription": "Advanced machine learning analytics to track health patterns over time",
+    "ckdPredictionTitle": "CKD Risk Prediction",
+    "ckdPredictionDescription": "Accurate prediction of chronic kidney disease risk factors",
+    "usageCreateProfileTitle": "Create Your Profile",
+    "usageFillQuestionnaireTitle": "Fill Out Questionnaire",
+    "usageGetPredictionTitle": "Get Your Prediction",
+    "ctaTitle": "Ready to get started?",
+    "ctaDescription": "Begin your health journey today with our comprehensive questionnaire"
   },
   "Questionnaire1": {
     "heading": "Fill The Below Input",
@@ -109,7 +120,7 @@
     "medication": "Strictly adhere to prescribed medications. Set daily reminders."
   },
 
-  "Moderate Risk": {
+  "ModerateRisk": {
     "message": "Monitor Your Health!",
     "risk": "Mild risks detected. Keep an eye on your blood pressure and sugar levels.",
     "hydration": "You're not drinking enough water daily. Increase to 2L for better kidney function.",
