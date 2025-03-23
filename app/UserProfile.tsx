@@ -32,6 +32,7 @@ const ProfileScreen = () => {
   }, []);
 
   async function getResults(accessToken: String) {
+
     const response = await axios.get(`${ipAddress}/questionnaire/history`, {
       headers: { Authorization: `bearer ${accessToken}` },
     });
@@ -44,6 +45,7 @@ const ProfileScreen = () => {
       getResults(token.accessToken);
     }
     endpoint();
+    
   }, []);
 
   return (
