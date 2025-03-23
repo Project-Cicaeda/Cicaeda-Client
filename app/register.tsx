@@ -26,7 +26,7 @@ const Register:React.FC = () =>{
     async function RegisterClick(){
         if(formData.email && formData.name && formData.password){
                 try{
-                const response = await axios.post(`http://${ipAddress}:3000/auth/signup`,formData)
+                const response = await axios.post(`${ipAddress}/auth/signup`,formData)
                 ToastAndroid.show("Registration Successful!",ToastAndroid.SHORT)
                 router.replace("/login")
                 }
