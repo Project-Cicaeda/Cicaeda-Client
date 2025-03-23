@@ -15,6 +15,7 @@ import { OrSeparator } from "@/components/Forms/OrSeparator";
 import axios from "axios";
 import { useState } from "react";
 import { ipAddress } from "@/components/Common/ipAddress";
+import { SecuredInput } from "@/components/Forms/SecuredInput";
 const Register: React.FC = () => {
   // State to manage form data (name, email, and password)
   const [formData, setFormData] = useState({
@@ -96,7 +97,8 @@ const Register: React.FC = () => {
             />
           </View>
           <View style={styles.marginLayer}>
-            <InputLayout
+            <SecuredInput
+              secureTextEntry={true}
               label="Password"
               placeholder="Password"
               icon="key"
