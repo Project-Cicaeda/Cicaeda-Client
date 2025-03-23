@@ -21,13 +21,12 @@ import { storeItem } from "@/components/Common/StorageOperations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import API from "@/components/Common/UpdateTokens";
 import { SecuredInput } from "@/components/Forms/SecuredInput";
-import { ipAddress } from "@/components/Common/ipAddress";
 
 const ForgotPassword: React.FC = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
-  const { email } = useLocalSearchParams();
   const [formData, setFormData] = useState({
+    oldPassword: "",
     newPassword: "",
   });
 
@@ -38,15 +37,14 @@ const ForgotPassword: React.FC = () => {
     }));
   }
 
-  console.log(formData);
   async function SendResetCode() {
-    if (formData.newPassword) {
+    if (formData.newPassword && formData.oldPassword) {
       try {
-        const data = { email, newPassword: formData.newPassword };
-        const response = await axios.put(
-          `${ipAddress}/auth/reset-password`,
-          data
-        );
+        const data = {
+          oldPassword: formData.oldPassword,
+          newPassword: formData.newPassword,
+        };
+        const response = await API.put("/auth/change-password", data);
         ToastAndroid.show("Password Changed Successfully!", ToastAndroid.SHORT);
         router.push("/login");
       } catch (error: any) {
@@ -56,6 +54,21 @@ const ForgotPassword: React.FC = () => {
       ToastAndroid.show("All Fields Are Required!", ToastAndroid.SHORT);
     }
   }
+
+  const getInitialURL = async () => {
+    const url = await Linking.getInitialURL();
+    if (url) {
+      console.log("Opened From URL: ", url);
+    }
+  };
+
+  useEffect(() => {
+    const subscription = Linking.addEventListener("url", ({ url }) => {
+      console.log("Opened from URL:", url);
+    });
+
+    return () => subscription.remove();
+  }, []);
 
   return (
     <View style={styles.container}>
