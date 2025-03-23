@@ -113,7 +113,7 @@ function TimeSeries(){
   const [currentData, setCurrentData] = useState(latestData);
 
       async function GetTimeSeriesPrediction(){
-        const response = await axios.get(`http://${ipAddress}:3000/forecast?city=${city}`)
+        const response = await axios.get(`${ipAddress}/forecast?city=${city}`)
         const timeSeries = response.data
         const toInt = timeSeries.map((value:number,index:number) => (
           Math.floor(value)
@@ -160,7 +160,7 @@ function TimeSeries(){
       },[])
 
     return(
-        <View style={{paddingHorizontal:20,paddingVertical:50}}>
+        <View style={{paddingHorizontal:20,paddingVertical:20,backgroundColor:"#fff",height:"100%"}}>
             <BackArrow/>
             <View style={styles.title}>
                 <Text  style={{fontFamily:"Poppins-Bold",fontSize:20}}>Forecasting In {city}</Text>

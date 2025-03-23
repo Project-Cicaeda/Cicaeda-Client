@@ -42,7 +42,7 @@ const Login: React.FC = () => {
     if (formData.email && formData.password) {
       try {
         const response = await axios.post(
-          `http://${ipAddress}:3000/auth/login`,
+          `${ipAddress}/auth/login`,
           formData
         );
         const storeUser = await storeItem(response.data);

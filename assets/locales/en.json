@@ -29,6 +29,10 @@
     "newPassword": "Enter Your New Password",
     "confirmNewPassword": "Confirm Your New Password"
   },
+  "Otp":{
+    "title":"Verify The Otp",
+    "tagline":"Enter The Verification Code That Has Been Sent To Your Email"
+  },
   "Questionnaire1": {
     "heading": "Fill The Below Input",
     "subHeading": "Enter your personal information.",

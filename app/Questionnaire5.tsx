@@ -21,26 +21,22 @@ import { ELEVATION_LEVELS_MAP } from "react-native-paper/lib/typescript/componen
 import { fetchData } from "@/components/Common/StorageOperations";
 import API from "@/components/Common/UpdateTokens";
 import { ipAddress } from "@/components/Common/ipAddress";
-
-const API_URL = "https://10.0.2.2:3000";
-
   
 export const submitQuestionnaire = async (formData: Record<string, any>, token: string) => {
-    console.log(formData,token + "D")
   try{
     
-    const response = await API.post(`http://${ipAddress}:3000/questionnaire/submit`, formData, {
+    const response = await API.post(`${ipAddress}/questionnaire/submit`, formData, {
       headers: {
         Authorization: `Bearer ${token}`,
-        // "Content-Type": "application/json",
+        "Content-Type": "application/json",
       },
-          await AsyncStorage.setItem("results", response.data);
-
+      
     });
-
+    console.log(response.data,"from server")
+    const storeResult = await AsyncStorage.setItem("results", JSON.stringify(response.data));
     return response.data;
   }catch(error:any){
-    console.error("Error submitting questionnaire:", error.response);
+    console.error("Error submitting questionnaire:", error);
 
     return null;
   }

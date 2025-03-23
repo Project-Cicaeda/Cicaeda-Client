@@ -12,6 +12,7 @@ export const storeItem = async(items:any) => {
 
 export const fetchData = async() =>{
     const storedItems:any = await AsyncStorage.getItem("user")
+    console.log(storedItems,"STORED")
     if(storeItem != null){
       const jsonParse = JSON.parse(storedItems)
       return jsonParse

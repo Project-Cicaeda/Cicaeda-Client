@@ -1,8 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Button, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "@/constants/Colors";
 import BackArrow from "@/components/Common/backArrow";
+import { router } from "expo-router";
 
 const CKDPrediction: React.FC = () => {
   const score = 80.2; // Example score
@@ -111,9 +112,9 @@ const CKDPrediction: React.FC = () => {
           ))}
 
           {/* Button */}
-          <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={()=> router.push("/time-series")}>
             <Text>More Statistics</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>

@@ -4,7 +4,7 @@ import { ipAddress } from './ipAddress';
 import { storeItem } from './StorageOperations';
 
 const API = axios.create({
-  baseURL: `http://${ipAddress}:3000`,
+  baseURL: `${ipAddress}`,
 });
 
 API.interceptors.request.use(
