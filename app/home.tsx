@@ -25,6 +25,7 @@ const LandingPage = () => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const { t, i18n } = useTranslation();
 
+  //Effect to request location permission and get user's district
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -34,6 +35,8 @@ const LandingPage = () => {
       }
 
       let currentLocation = await Location.getCurrentPositionAsync({});
+
+      //Get current Location
       setLocation(currentLocation);
 
       // Reverse Geocoding to get the district
@@ -57,8 +60,10 @@ const LandingPage = () => {
       <StatusBar barStyle="dark-content" backgroundColor="#F8F9FA" />
 
       <ScrollView>
+        {/* Header Section */}
         <View style={styles.headerContainer}>
           <Text style={styles.projectTitle}>{t("Home.heading")}</Text>
+
           {/* Profile Image with Navigation */}
           <TouchableOpacity onPress={() => router.push("/UserProfile")}>
             <Image
@@ -68,12 +73,14 @@ const LandingPage = () => {
           </TouchableOpacity>
         </View>
 
+        {/* Background Image Section */}
         <ImageBackground
           source={{ uri: "" }}
           style={styles.backgroundImage}
           imageStyle={styles.backgroundImageStyle}
         >
           <View style={styles.logoContainer}>
+            {/* App Logo */}
             <Image
               source={require("../assets/images/image.jpg")}
               style={styles.logo}
@@ -170,6 +177,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   projectTitle: {
+    fontFamily: "Poppins-Bold",
     fontSize: 22,
     fontWeight: "500",
   },
@@ -199,6 +207,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   welcomeText: {
+    fontFamily: "Poppins-Bold",
     fontSize: 20,
     fontWeight: "bold",
     color: "black",
@@ -252,6 +261,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   usageTitle: {
+    fontFamily: "Poppins-medium",
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 8,
@@ -265,6 +275,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#E0E0E0",
   },
   usagePoint: {
+    fontFamily: "Poppins-Regular",
     fontSize: 14,
     marginLeft: 10,
     color: "#555",
