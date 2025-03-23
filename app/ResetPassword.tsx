@@ -14,19 +14,20 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { storeItem } from "@/components/Common/StorageOperations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import API from "@/components/Common/UpdateTokens";
+import { ipAddress } from "@/components/Common/ipAddress";
 
 const ForgotPassword: React.FC = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
+  const {email} = useLocalSearchParams()
   const [formData,setFormData] = useState({
-    "oldPassword":"",
-    "newPassword":""
+    "newPassword":"",
 })
 
     function handleInputChange(field:string,value:string){
@@ -36,11 +37,12 @@ const ForgotPassword: React.FC = () => {
       }))
     }
 
+    console.log(formData)
     async function SendResetCode(){
-      if(formData.newPassword && formData.oldPassword){
+      if(formData.newPassword){
           try{
-          const data = {"oldPassword":formData.oldPassword,"newPassword":formData.newPassword}
-          const response = await API.put("/auth/change-password",data)
+          const data = {email,"newPassword":formData.newPassword}
+          const response = await axios.put(`${ipAddress}/auth/reset-password`,data)
           ToastAndroid.show("Password Changed Successfully!", ToastAndroid.SHORT)
           router.push("/login")
           
@@ -54,21 +56,6 @@ const ForgotPassword: React.FC = () => {
       }
 
     }   
-
-    const getInitialURL = async() =>{
-      const url = await Linking.getInitialURL();
-      if(url){
-        console.log("Opened From URL: ",url)
-      }
-    }
-
-    useEffect(() => {
-      const subscription = Linking.addEventListener('url', ({ url }) => {
-        console.log("Opened from URL:", url);
-      });
-    
-      return () => subscription.remove();
-    }, []);
 
     
   return (
@@ -86,17 +73,10 @@ const ForgotPassword: React.FC = () => {
               label={t("resetPassword.password")}
               placeholder={t("resetPassword.newPassword")}
               icon="mail"
-              onBlur={(text) => handleInputChange("oldPassword",text)}
-            />
-          </View>
-          <View style={styles.marginLayer}>
-            <InputLayout
-              label={t("resetPassword.confirmPassword")}
-              placeholder={t("resetPassword.confirmNewPassword")}
-              icon="mail"
               onBlur={(text) => handleInputChange("newPassword",text)}
             />
           </View>
+
         </View>
         <View style={styles.button}>
           <TouchableOpacity onPress={SendResetCode}>

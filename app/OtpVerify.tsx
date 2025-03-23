@@ -1,16 +1,18 @@
-import { router } from "expo-router"
+import { router, useLocalSearchParams } from "expo-router"
 import { useRef, useState } from "react"
-import { View,Text, StyleSheet, TextInput,TouchableOpacity} from "react-native"
+import { View,Text, StyleSheet, TextInput,TouchableOpacity, ToastAndroid} from "react-native"
 import { Colors } from "@/constants/Colors"
 import { Headings } from "@/components/Heading/headings"
 import { useTranslation } from "react-i18next"
 import BackArrow from "@/components/Common/backArrow"
+import axios from "axios"
+import { ipAddress } from "@/components/Common/ipAddress"
 
 const OtpAuth:React.FC = () =>{
-    const [digits,setDigits] = useState(['','','',''])
-    const InputRef = useRef([])
+    const [digits,setDigits] = useState(['','','','','',''])
+    const { email } = useLocalSearchParams();
+    const InputRef = useRef<(any | null)[]>([])
       const { t, i18n } = useTranslation();
-
 
     function HandleOtpChange(value:string,index:number){
         const newData = [...digits]
@@ -24,10 +26,22 @@ const OtpAuth:React.FC = () =>{
             InputRef.current[index-1].focus()
         }
     }   
-    function VerifyOtp(){
-        router.push(`/ResetPassword`)
+    async function VerifyOtp(){
+        try{            
+                const digitsJoin = digits.join("")
+                const data = {"OTP":digitsJoin,email}
+                const response = await axios.post(`${ipAddress}/auth/verify-otp`,data)
+                ToastAndroid.show(response.data.message,ToastAndroid.SHORT)
+                router.push({pathname:`/ResetPassword`,params:{email:email}})
+        }
+        catch(error:any){
+            ToastAndroid.show(error.response.data.message,ToastAndroid.SHORT)
+                console.log(error.response)
+        }
 
     }
+
+    console.log(digits)
     return(
         <View style={styles.container}>
             <BackArrow/>
@@ -42,7 +56,7 @@ const OtpAuth:React.FC = () =>{
             
                     return(
                         <View key={index}>
-                            <TextInput  ref={(value) => InputRef.current[index] =value} keyboardType="numeric" maxLength={1} value={digits[index]} style={{fontFamily:"Poppins-Light",borderWidth:1,width:65,height:65,margin:5,borderRadius:5,textAlign:"center"}} onChangeText={(e) =>HandleOtpChange(e,index)}/>
+                            <TextInput  ref={(value) => InputRef.current[index] =value} keyboardType="numeric" maxLength={1} value={digits[index]} style={{fontFamily:"Poppins-Light",borderWidth:1,width:50,height:65,margin:5,borderRadius:5,textAlign:"center"}} onChangeText={(e) =>HandleOtpChange(e,index)}/>
                         </View>
                     )
                 })}
