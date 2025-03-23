@@ -4,6 +4,10 @@ import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AntDesign } from "@expo/vector-icons";
 import { removeUser } from "@/components/Common/StorageOperations";
+import axios from "axios";
+import { ipAddress } from "@/components/Common/ipAddress";
+import { fetchData } from "@/components/Common/StorageOperations";
+
 const ProfileScreen = () => {
   const router = useRouter();
   const [userName, setUserName] = useState("User");
@@ -18,7 +22,19 @@ const ProfileScreen = () => {
     };
     fetchUserData();
   }, []);
-
+  const [predictions, setPredictions] = useState();
+  async function getresults(accessToken: String) {
+    const response = await axios.get(`${ipAddress}questionnaire/history`, {
+      headers: { Authorization: `bearer ${accessToken}` },
+    });
+    setPredictions(response.data);
+  }
+  useEffect(() => {
+    async function endpoint() {
+      const token = await fetchData("user");
+      getresults(token.accessToken);
+    }
+  });
   return (
     <View style={styles.container}>
       {/* Top Header Section */}
