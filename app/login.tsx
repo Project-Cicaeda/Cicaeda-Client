@@ -25,11 +25,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
+
+  // State to manage form data (email and password)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  // Function to handle input changes and update form data
   function handleInputChange(field: string, value: string) {
     setFormData((prev) => ({
       ...prev,
@@ -37,18 +40,25 @@ const Login: React.FC = () => {
     }));
   }
 
+  // Function to handle login button click
   async function LoginClick() {
-
+    // Check if both email and password are provided
     if (formData.email && formData.password) {
       try {
+        // Make a POST request to the login API endpoint
         const response = await axios.post(
-          `${ipAddress}/auth/login`,
+          `https://cicaeda-me-539607477024.us-central1.run.app/auth/login `,
           formData
         );
+
+        // Store the user data in AsyncStorage
         const storeUser = await storeItem(response.data);
+
+        // Show success toast and navigate to the home screen
         ToastAndroid.show("Login Successful!", ToastAndroid.SHORT);
         router.replace("/home");
       } catch (error: any) {
+        // Handle errors from the API
         console.log(error.response);
         if (error.response.data?.statusCode == 401) {
           ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
@@ -61,6 +71,7 @@ const Login: React.FC = () => {
     }
   }
 
+  // useEffect to fetch stored user data from AsyncStorage
   useEffect(() => {
     const fetchData = async () => {
       const storedItems: any = await AsyncStorage.getItem("user");
@@ -74,20 +85,26 @@ const Login: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      {/* Back arrow for navigation */}
       <View>
         <BackArrow />
       </View>
+
+      {/* Main content */}
       <View style={styles.inputContent}>
+        {/* Headings for the login screen */}
         <View style={styles.inputTexts}>
           <Headings heading={t("login.title")} tagLine={t("login.tagline")} />
         </View>
+
+        {/* Input forms for email and password */}
         <View style={styles.inputForms}>
           <View style={styles.marginLayer}>
             <InputLayout
               label={t("login.emailAddress")}
               placeholder={t("login.emailAddress")}
               icon="mail"
-              onBlur={(text) => handleInputChange("email", text)}
+              onBlur={(text) => handleInputChange("email", text)} // Update email on blur
             />
           </View>
           <View style={styles.marginLayer}>
@@ -95,7 +112,7 @@ const Login: React.FC = () => {
               label={t("login.password")}
               placeholder={t("login.password")}
               icon="key"
-              onBlur={(text) => handleInputChange("password", text)}
+              onBlur={(text) => handleInputChange("password", text)} // Update password on blur
             />
           </View>
           <View
@@ -113,6 +130,8 @@ const Login: React.FC = () => {
             </Link>
           </View>
         </View>
+
+        {/* Login button */}
         <View style={styles.button}>
           <TouchableOpacity onPress={LoginClick}>
             <Text
@@ -129,6 +148,8 @@ const Login: React.FC = () => {
         <View>
           <OrSeparator />
         </View>
+
+        {/* Link to the registration screen */}
         <View style={{ marginVertical: 10 }}>
           <Link href="/register">
             <Text style={{ fontFamily: "Poppins-Light", textAlign: "center" }}>
