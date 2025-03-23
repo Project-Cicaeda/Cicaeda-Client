@@ -10,8 +10,8 @@ export const storeItem = async(items:any) => {
     }
 }
 
-export const fetchData = async() =>{
-    const storedItems:any = await AsyncStorage.getItem("user")
+export const fetchData = async(key:string) =>{
+    const storedItems:any = await AsyncStorage.getItem(key)
     console.log(storedItems,"STORED")
     if(storeItem != null){
       const jsonParse = JSON.parse(storedItems)

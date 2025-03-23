@@ -33,7 +33,7 @@ export default function RootLayout() {
 
   useEffect(() =>{
     async function getUser(){
-      const user = await fetchData()
+      const user = await fetchData("user")
       if(user){
         router.replace("/home")
       }

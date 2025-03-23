@@ -68,7 +68,7 @@ const MedicalForm = () => {
   const handleProceed = async () => {
     console.log("Form Data:", JSON.stringify(formData));
 
-    const token = await fetchData()
+    const token = await fetchData("user")
     console.log(token.accessToken)
 
     if (!token) {
