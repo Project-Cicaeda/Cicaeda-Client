@@ -2,9 +2,10 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ipAddress } from './ipAddress';
 import { storeItem } from './StorageOperations';
+import { router } from 'expo-router';
 
 const API = axios.create({
-  baseURL: `http://${ipAddress}:3000`,
+  baseURL: `${ipAddress}`,
 });
 
 API.interceptors.request.use(
@@ -30,7 +31,7 @@ API.interceptors.response.use(
         const user:any = await AsyncStorage.getItem('user');
         const userString = user? JSON.parse(user) : null
         const data = {"refreshToken":userString?.refreshToken}
-        const response = await axios.post(`http://${ipAddress}:3000/auth/refresh`, data);
+        const response = await axios.post(`${ipAddress}/auth/refresh`, data);
 
         const { accessToken, refreshToken: newRefreshToken } = response.data;
 
@@ -41,8 +42,8 @@ API.interceptors.response.use(
         return axios(originalRequest);
       } catch (err) {
         console.log('Refresh token expired or invalid. Logging out...');
-        await AsyncStorage.removeItem('accessToken');
-        return Promise.reject(err);
+        await AsyncStorage.removeItem('user');
+        router.push("/")
       }
     }
 

@@ -29,7 +29,10 @@
     "newPassword": "Enter Your New Password",
     "confirmNewPassword": "Confirm Your New Password"
   },
-
+  "Otp":{
+    "title":"Verify The Otp",
+    "tagline":"Enter The Verification Code That Has Been Sent To Your Email"
+  },
   "Home": {
     "heading": "Project Cicaeda",
     "welcomeText": "Hello User",
@@ -42,7 +45,6 @@
     "point4": "Get your Kidney Health Prediction.",
     "button": "Proceed to Questionnaire"
   },
-
   "Questionnaire1": {
     "heading": "Fill The Below Input",
     "subHeading": "Enter your personal information.",

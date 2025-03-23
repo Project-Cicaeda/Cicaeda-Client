@@ -2,7 +2,7 @@ import BackArrow from "@/components/Common/backArrow";
 import { InputLayout } from "@/components/Forms/InputLayout";
 import { Headings } from "@/components/Heading/headings";
 import { Colors } from "@/constants/Colors";
-
+import * as Linking from 'expo-linking';
 import { useTranslation } from "react-i18next";
 
 import {
@@ -55,7 +55,22 @@ const ForgotPassword: React.FC = () => {
 
     }   
 
+    const getInitialURL = async() =>{
+      const url = await Linking.getInitialURL();
+      if(url){
+        console.log("Opened From URL: ",url)
+      }
+    }
 
+    useEffect(() => {
+      const subscription = Linking.addEventListener('url', ({ url }) => {
+        console.log("Opened from URL:", url);
+      });
+    
+      return () => subscription.remove();
+    }, []);
+
+    
   return (
     <View style={styles.container}>
       <View>

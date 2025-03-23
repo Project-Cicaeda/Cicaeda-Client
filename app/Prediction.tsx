@@ -1,12 +1,16 @@
-import React from "react";
-import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Button, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "@/constants/Colors";
 import BackArrow from "@/components/Common/backArrow";
 import { useTranslation } from "react-i18next";
 
+import { router } from "expo-router";
+import { fetchData } from "@/components/Common/StorageOperations";
+
 const CKDPrediction: React.FC = () => {
-  const score = 80.2; // Example score
+  const [score,setScore] = useState(0)
+
   const { t, i18n } = useTranslation();
 
   let riskLevel = "Low Risk";
@@ -77,6 +81,19 @@ const CKDPrediction: React.FC = () => {
     ];
   }
 
+  useEffect(() =>{
+    async function getResultData(){
+
+      const resultsData = await fetchData("results")
+      if(resultsData){
+        setScore(Math.floor(resultsData.percentage))
+        return;
+      }
+      return null;
+    }
+    getResultData()
+  },[])
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -104,9 +121,9 @@ const CKDPrediction: React.FC = () => {
           ))}
 
           {/* Button */}
-          <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={()=> router.push("/time-series")}>
             <Text>More Statistics</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>

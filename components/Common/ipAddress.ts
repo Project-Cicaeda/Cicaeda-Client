@@ -1,1 +1,1 @@
-export const ipAddress = "192.168.1.99"
+export const ipAddress = "https://cicaeda-me-539607477024.us-central1.run.app"

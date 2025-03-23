@@ -22,6 +22,7 @@ import { fetchData } from "@/components/Common/StorageOperations";
 import API from "@/components/Common/UpdateTokens";
 import { ipAddress } from "@/components/Common/ipAddress";
 
+
 const API_URL = "https://cicaeda-me-539607477024.us-central1.run.app ";
 
 export const submitQuestionnaire = async (
@@ -74,10 +75,7 @@ const MedicalForm = () => {
 
   const handleProceed = async () => {
     console.log("Form Data:", JSON.stringify(formData));
-
-    const token = await fetchData();
-    console.log(token.accessToken);
-
+    const token = await fetchData("user")
     if (!token) {
       alert("You need to log in first!");
       return;

@@ -1,11 +1,12 @@
 import { i18n } from "@/assets/locales/i18n";
+import { fetchData } from "@/components/Common/StorageOperations";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
@@ -23,11 +24,24 @@ export default function RootLayout() {
     wondra: require("../assets/fonts/Wondra.ttf"),
   });
 
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
+
+  useEffect(() =>{
+    async function getUser(){
+      const user = await fetchData("user")
+      if(user){
+        router.replace("/home")
+      }
+    }
+
+    getUser()
+  },[loaded])
+
 
   if (!loaded) {
     return null;

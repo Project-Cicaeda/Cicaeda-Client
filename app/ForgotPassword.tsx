@@ -37,8 +37,16 @@ const ForgotPassword: React.FC = () => {
       }))
     }
 
-    function SendResetCode(){
-        router.navigate("/ResetPassword")
+    async function SendResetCode(){
+      // try{
+      //   const response  = await axios.post(`http://192.168.8.106:3000/auth/forgot-password`,formData)
+      //   console.log(response.data)
+      // }
+      // catch(error:any){
+      //   console.log(error.response)
+      // }
+      
+      router.navigate("/OtpVerify")
     }   
 
 

@@ -29,26 +29,25 @@ const Register: React.FC = () => {
     }));
   }
 
-  async function RegisterClick() {
-    if (formData.email && formData.name && formData.password) {
-      try {
-        const response = await axios.post(
-          `https://cicaeda-me-539607477024.us-central1.run.app/auth/signup `,
-          formData
-        );
-        ToastAndroid.show("Registration Successful!", ToastAndroid.SHORT);
-        router.replace("/login");
-      } catch (error: any) {
-        console.log(error?.response);
-        if (error?.response?.data.statusCode == 400) {
-          ToastAndroid.show(error?.response?.data.message, ToastAndroid.SHORT);
-          return;
+    async function RegisterClick(){
+        if(formData.email && formData.name && formData.password){
+                try{
+                const response = await axios.post(`${ipAddress}/auth/signup`,formData)
+                ToastAndroid.show("Registration Successful!",ToastAndroid.SHORT)
+                router.replace("/login")
+                }
+                catch(error:any){
+                    console.log(error?.response)
+                    if(error?.response?.data.statusCode == 400){
+                        ToastAndroid.show(error?.response?.data.message,ToastAndroid.SHORT)
+                        return;
+                    }
+                    ToastAndroid.show(error?.response?.data.message[0],ToastAndroid.SHORT)
+                    console.log(error?.response,"ERROR")
+                }
         }
-        ToastAndroid.show(error?.response?.data.message[0], ToastAndroid.SHORT);
-        console.log(error?.response, "ERROR");
-      }
-    } else {
-      ToastAndroid.show("All The Fields Are Required", ToastAndroid.SHORT);
+        else{
+            ToastAndroid.show("All The Fields Are Required",ToastAndroid.SHORT)
     }
   }
 

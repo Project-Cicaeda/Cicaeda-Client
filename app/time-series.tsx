@@ -1,5 +1,6 @@
 import BackArrow from "@/components/Common/backArrow";
 import { ipAddress } from "@/components/Common/ipAddress";
+import { Colors } from "@/constants/Colors";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { View,Text, StyleSheet } from "react-native"
@@ -113,19 +114,30 @@ function TimeSeries(){
   const [currentData, setCurrentData] = useState(latestData);
 
       async function GetTimeSeriesPrediction(){
-        const response = await axios.get(`http://${ipAddress}:3000/forecast?city=${city}`)
+        const response = await axios.get(`${ipAddress}/forecast?city=${city}`)
         const timeSeries = response.data
         const toInt = timeSeries.map((value:number,index:number) => (
           Math.floor(value)
         ))
+        const currentMonthIndex = new Date().getMonth(); // Get current month index (0-based)
+        const reorderedMonths = [...months.slice(currentMonthIndex + 1), ...months.slice(0, currentMonthIndex + 1)];
+
         const formattedData = toInt.map((value:number, index:number) => ({
           value,
           frontColor: '#006DFF',
           gradientColor: '#009FFF',
           spacing: 13,
-          label: months[index],
+          label: reorderedMonths[index], 
         }));
+
         setTimeData(formattedData)
+
+      const transformedTimeData = timeData.map((item:any, index) => ({
+        value: item.value, 
+        ...(index % 2 === 0 ? { customDataPoint: dPoint } : { hideDataPoint: true }) 
+      }));
+        setCurrentData(transformedTimeData)
+
       }
 
       const maxDataValue = Math.max(...timeData.map((item:any) => item.value));
@@ -160,12 +172,12 @@ function TimeSeries(){
       },[])
 
     return(
-        <View style={{paddingHorizontal:20,paddingVertical:50}}>
+        <View style={{paddingHorizontal:20,paddingVertical:20,backgroundColor:"#fff",height:"100%"}}>
             <BackArrow/>
             <View style={styles.title}>
                 <Text  style={{fontFamily:"Poppins-Bold",fontSize:20}}>Forecasting In {city}</Text>
             </View>
-            <View style={styles.barChart}>
+            <View>
               {timeData.length>0 &&             
                 <BarChart
                   data={timeData}
@@ -204,33 +216,11 @@ function TimeSeries(){
                     endFillColor={'rgb(84,219,234)'}
                     startOpacity={0.4}
                     endOpacity={0.1}
-                    spacing={7}
-                    initialSpacing={0}
+                    spacing={15}
+                    initialSpacing={10}
                     yAxisThickness={0}
                     xAxisThickness={0}
                   />
-              </View>
-              <View style={styles.lineChart}>
-                <View  style={{marginLeft:5}}>
-                    <PieChart
-                      data={pieChartData}
-                      radius={90}
-                      donut
-                      showText
-                      showValuesAsLabels
-                      showTextBackground
-                      textBackgroundColor="#333"
-                      textBackgroundRadius={11}
-                      textColor="white"
-                      textSize={7}
-                      fontWeight="bold"
-                      strokeWidth={2}
-                      strokeColor="#333"
-                      innerCircleBorderWidth={10}
-                      innerCircleBorderColor="#333"
-                      showGradient
-                    />
-                </View>
               </View>
             </View>
         </View>
@@ -242,20 +232,17 @@ const styles  = StyleSheet.create({
     paddingVertical:15
   },
   subCharts:{
-    flexDirection:"row",
-    justifyContent:"space-between",
-    alignItems:"center",
-    width:"100%",
     marginVertical:20
   },
   lineChart:{
-    width:"50%",
-    backgroundColor:"#e2e2e2",
-    justifyContent:"center",
-    // alignSelf:"center",
+    width:"100%",
+    borderWidth:1,
+    borderColor:Colors.light.primary,
     borderRadius:20,
     height:230,
-    marginRight:10
+    marginVertical:10,
+    justifyContent:"center",
+    alignItems:"center"
   }
 })
 
