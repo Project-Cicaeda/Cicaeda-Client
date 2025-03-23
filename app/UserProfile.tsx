@@ -7,6 +7,7 @@ import { removeUser } from "@/components/Common/StorageOperations";
 import axios from "axios";
 import { ipAddress } from "@/components/Common/ipAddress";
 import { fetchData } from "@/components/Common/StorageOperations";
+import moment from "moment";
 
 const ProfileScreen = () => {
   const router = useRouter();
@@ -54,11 +55,17 @@ const ProfileScreen = () => {
       <View style={styles.healthTile}>
         <Text style={styles.tileTitle}>Previous Predictions</Text>
         {predictions.length > 0 ? (
-          predictions.map((prediction, index) => (
-            <Text key={index} style={styles.predictionText}>
-              {prediction.date}: {prediction.result}
-            </Text>
-          ))
+          predictions.map((prediction, index) => {
+            const formattedDate = moment(prediction.date).format(
+              "YYYY-MM-DD HH:mm:ss"
+            );
+            const number = (prediction.total / 11) * 100;
+            return (
+              <Text key={index} style={styles.predictionText}>
+                {formattedDate}: {Math.floor(number)}%
+              </Text>
+            );
+          })
         ) : (
           <Text style={styles.noDataText}>No predictions available</Text>
         )}
