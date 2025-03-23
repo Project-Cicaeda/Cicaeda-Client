@@ -21,23 +21,31 @@ import { ELEVATION_LEVELS_MAP } from "react-native-paper/lib/typescript/componen
 import { fetchData } from "@/components/Common/StorageOperations";
 import API from "@/components/Common/UpdateTokens";
 import { ipAddress } from "@/components/Common/ipAddress";
-  
-export const submitQuestionnaire = async (formData: Record<string, any>, token: string) => {
-  try{
-    
-    const response = await API.post(`${ipAddress}/questionnaire/submit`, formData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      
-    });
-    console.log(response.data,"from server")
-    const storeResult = await AsyncStorage.setItem("results", JSON.stringify(response.data));
-    return response.data;
-  }catch(error:any){
-    console.error("Error submitting questionnaire:", error);
 
+
+const API_URL = "https://cicaeda-me-539607477024.us-central1.run.app ";
+
+export const submitQuestionnaire = async (
+  formData: Record<string, any>,
+  token: string
+) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/questionnaire/submit`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    await AsyncStorage.setItem("results", JSON.stringify(response.data));
+
+    return response.data;
+  } catch (error) {
+    console.error("Error submitting questionnaire:", error);
     return null;
   }
 };
@@ -67,19 +75,14 @@ const MedicalForm = () => {
 
   const handleProceed = async () => {
     console.log("Form Data:", JSON.stringify(formData));
-
     const token = await fetchData("user")
-    console.log(token.accessToken)
-
     if (!token) {
       alert("You need to log in first!");
       return;
     }
 
-    
     const response = await submitQuestionnaire(formData, token.accessToken);
-    if(response){
-
+    if (response) {
       router.push("/Prediction");
     } else {
       alert("Error submitting questionnaire. Please try again later.");
