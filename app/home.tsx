@@ -10,11 +10,14 @@ import {
   SafeAreaView,
   StatusBar,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import * as Location from "expo-location";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FontAwesome } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
+
+const { width } = Dimensions.get("window");
 
 const LandingPage = () => {
   const router = useRouter();
@@ -25,6 +28,7 @@ const LandingPage = () => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const { t, i18n } = useTranslation();
 
+  //Effect to request location permission and get user's district
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -34,6 +38,8 @@ const LandingPage = () => {
       }
 
       let currentLocation = await Location.getCurrentPositionAsync({});
+
+      //Get current Location
       setLocation(currentLocation);
 
       // Reverse Geocoding to get the district
@@ -56,9 +62,11 @@ const LandingPage = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#F8F9FA" />
 
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* Header Section */}
         <View style={styles.headerContainer}>
           <Text style={styles.projectTitle}>{t("Home.heading")}</Text>
+
           {/* Profile Image with Navigation */}
           <TouchableOpacity onPress={() => router.push("/UserProfile")}>
             <Image
@@ -68,88 +76,130 @@ const LandingPage = () => {
           </TouchableOpacity>
         </View>
 
-        <ImageBackground
-          source={{ uri: "" }}
-          style={styles.backgroundImage}
-          imageStyle={styles.backgroundImageStyle}
-        >
-          <View style={styles.logoContainer}>
-            <Image
-              source={require("../assets/images/image.jpg")}
-              style={styles.logo}
-              resizeMode="contain"
-            />
-            <Text style={styles.welcomeText}>{t("Home.welcomeText")}</Text>
-            {district ? (
+        {/* Hero Section with Background */}
+        <View style={styles.heroSection}>
+          <Image
+            source={require("../assets/images/image.jpg")}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+          <Text style={styles.welcomeText}>{t("Home.welcomeText")}</Text>
+          {district ? (
+            <View style={styles.locationContainer}>
+              <FontAwesome name="map-marker" size={16} color="#555" />
               <Text style={styles.locationText}>
                 {t("Home.district")} {district}
               </Text>
-            ) : (
-              <Text style={styles.locationText}>
-                {errorMsg ? errorMsg : "Fetching location..."}
-              </Text>
-            )}
-          </View>
-        </ImageBackground>
+            </View>
+          ) : (
+            <Text style={styles.locationText}>
+              {errorMsg ? errorMsg : "Fetching location..."}
+            </Text>
+          )}
+        </View>
 
-        <View style={styles.descriptionBox}>
+        {/* Description Box with enhanced styling */}
+        {/* <View style={styles.descriptionBox}>
+          <Text style={styles.descriptionTitle}>
+            {t("Home.aboutServiceTitle")}
+          </Text>
           <Text style={styles.descriptionText}>{t("Home.description")}</Text>
+        </View> */}
+
+        {/* Feature Cards */}
+        <View style={styles.featureSection}>
+          {/* <Text style={styles.sectionTitle}>
+            {t("Home.featuresSectionTitle")}
+          </Text> */}
+          <View style={styles.cardsContainer}>
+            <View style={styles.featureCard}>
+              <View style={[styles.iconCircle, { backgroundColor: "#4CAF50" }]}>
+                <FontAwesome name="line-chart" size={20} color="#fff" />
+              </View>
+              <Text style={styles.featureTitle}>
+                {t("Home.mlAnalysisTitle")}
+              </Text>
+              <Text style={styles.featureDescription}>
+                {t("Home.mlAnalysisDescription")}
+              </Text>
+            </View>
+
+            <View style={styles.featureCard}>
+              <View style={[styles.iconCircle, { backgroundColor: "#FF9800" }]}>
+                <FontAwesome name="heartbeat" size={20} color="#fff" />
+              </View>
+              <Text style={styles.featureTitle}>
+                {t("Home.ckdPredictionTitle")}
+              </Text>
+              <Text style={styles.featureDescription}>
+                {t("Home.ckdPredictionDescription")}
+              </Text>
+            </View>
+          </View>
         </View>
 
-        {/* Feature Section */}
-        {/* <View style={styles.featureSection}>
-        <View style={[styles.featureCard, { backgroundColor: "#FFE8D6" }]}>
-          <Text style={styles.featureTitle}>Consultation</Text>
-          <Text style={styles.featureSubtitle}>56 doctors</Text>
-        </View>
-        <View style={[styles.featureCard, { backgroundColor: "#E4E8FF" }]}>
-          <Text style={styles.featureTitle}>Pharmacy</Text>
-          <Text style={styles.featureSubtitle}>6 pharmacies</Text>
-        </View>
-      </View> */}
-
-        {/* Search Bar */}
-        {/* <View style={styles.searchBarContainer}>
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Search for a doctor"
-          placeholderTextColor="#888"
-        />
-      </View> */}
-
-        {/* Usage Instructions Tile - Improved Design */}
+        {/* Usage Instructions with improved design */}
         <View style={styles.usageInstructions}>
           <Text style={styles.usageTitle}>{t("Home.usageTitle")}</Text>
-          {/* font awesome */}
+
           <View style={styles.usagePointContainer}>
-            <FontAwesome name="user-plus" size={20} color="#4CAF50" />
-            <Text style={styles.usagePoint}>{t("Home.point1")}</Text>
+            <View
+              style={[styles.usageIconCircle, { backgroundColor: "#4CAF50" }]}
+            >
+              <FontAwesome name="user-plus" size={16} color="#fff" />
+            </View>
+            <View style={styles.usageTextContainer}>
+              <Text style={styles.usagePointTitle}>
+                {t("Home.usageCreateProfileTitle")}
+              </Text>
+              <Text style={styles.usagePoint}>{t("Home.point1")}</Text>
+            </View>
           </View>
 
           <View style={styles.usagePointContainer}>
-            <FontAwesome name="file-text" size={20} color="#FF9800" />
-            <Text style={styles.usagePoint}>{t("Home.point2")}</Text>
+            <View
+              style={[styles.usageIconCircle, { backgroundColor: "#FF9800" }]}
+            >
+              <FontAwesome name="file-text" size={16} color="#fff" />
+            </View>
+            <View style={styles.usageTextContainer}>
+              <Text style={styles.usagePointTitle}>
+                {t("Home.usageFillQuestionnaireTitle")}
+              </Text>
+              <Text style={styles.usagePoint}>{t("Home.point2")}</Text>
+            </View>
           </View>
 
           <View style={styles.usagePointContainer}>
-            <FontAwesome name="pencil" size={20} color="#03A9F4" />
-            <Text style={styles.usagePoint}>{t("Home.point3")}</Text>
-          </View>
-
-          <View style={styles.usagePointContainer}>
-            <FontAwesome name="heartbeat" size={20} color="#E91E63" />
-            <Text style={styles.usagePoint}>{t("Home.point4")}</Text>
+            <View
+              style={[styles.usageIconCircle, { backgroundColor: "#E91E63" }]}
+            >
+              <FontAwesome name="heartbeat" size={16} color="#fff" />
+            </View>
+            <View style={styles.usageTextContainer}>
+              <Text style={styles.usagePointTitle}>
+                {t("Home.usageGetPredictionTitle")}
+              </Text>
+              <Text style={styles.usagePoint}>{t("Home.point4")}</Text>
+            </View>
           </View>
         </View>
 
-        {/* Navigation Button */}
-
-        <View style={styles.navButtons}>
+        {/* Call to Action Section */}
+        <View style={styles.ctaSection}>
+          <Text style={styles.ctaTitle}>{t("Home.ctaTitle")}</Text>
+          <Text style={styles.ctaDescription}>{t("Home.ctaDescription")}</Text>
           <TouchableOpacity
             style={styles.navButton}
             onPress={() => router.push("/Questionnaire")}
           >
             <Text style={styles.navText}>{t("Home.button")}</Text>
+            <FontAwesome
+              name="arrow-right"
+              size={16}
+              color="#fff"
+              style={{ marginLeft: 8 }}
+            />
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -168,107 +218,252 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
     paddingTop: 50,
+    paddingBottom: 10,
   },
   projectTitle: {
     fontSize: 22,
-    fontWeight: "500",
+    fontWeight: "600",
+    color: "#333",
   },
   profileIcon: {
-    width: 35,
-    height: 35,
-    borderRadius: 17.5,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     backgroundColor: "#E0E0E0",
+    borderWidth: 2,
+    borderColor: "#4CAF50",
   },
-  backgroundImage: {
+  heroSection: {
     width: "100%",
-    height: 180,
+    height: 200,
+    left: -20,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
-  },
-  backgroundImageStyle: {
+    backgroundColor: "#F2F7FD",
     borderRadius: 15,
-    opacity: 0.9,
-  },
-  logoContainer: {
-    alignItems: "center",
+    marginHorizontal: 20,
   },
   logo: {
     width: 100,
     height: 100,
     borderRadius: 50,
+    borderWidth: 3,
+    borderColor: "white",
+    alignSelf: "center",
   },
   welcomeText: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
-    color: "black",
-    marginTop: 10,
+    color: "#333",
+    marginTop: 15,
+    alignItems: "center",
+  },
+  locationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 8,
+    justifyContent: "center",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    backgroundColor: "rgba(255,255,255,0.8)",
+    borderRadius: 16,
   },
   locationText: {
     fontSize: 14,
-    color: "#333",
-    marginTop: 5,
+    color: "#555",
+    marginLeft: 5,
   },
   descriptionBox: {
     marginHorizontal: 20,
     marginTop: 20,
-    padding: 15,
-    backgroundColor: "#D3D3D3",
-    borderRadius: 15,
-    alignItems: "center",
-  },
-  descriptionText: {
-    fontSize: 16,
-    textAlign: "center",
-    fontWeight: "500",
-  },
-  navButtons: {
-    marginHorizontal: 20,
-    marginTop: 30,
-    marginBottom: 20,
-  },
-  navButton: {
-    backgroundColor: "#4CAF50",
-    paddingVertical: 14,
-    borderRadius: 20,
-
-    alignItems: "center",
-  },
-  navText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  usageInstructions: {
-    marginHorizontal: 20,
-    marginTop: 20,
     padding: 20,
-    backgroundColor: "#D3D3D3",
+    backgroundColor: "#fff",
     borderRadius: 15,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 4,
+    elevation: 3,
+  },
+  descriptionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 10,
+  },
+  descriptionText: {
+    fontSize: 16,
+    color: "#555",
+    lineHeight: 24,
+  },
+  sectionTitle: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 15,
+    marginHorizontal: 20,
+  },
+  featureSection: {
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  cardsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+  },
+  featureCard: {
+    width: (width - 50) / 2,
+    backgroundColor: "#fff",
+    padding: 15,
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+    alignItems: "center",
+  },
+  iconCircle: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  featureTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#333",
+    marginBottom: 5,
+    textAlign: "center",
+  },
+  featureDescription: {
+    fontSize: 12,
+    color: "#666",
+    textAlign: "center",
+  },
+  usageInstructions: {
+    marginHorizontal: 20,
+    marginTop: 20,
+    padding: 20,
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
   },
   usageTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 8,
+    color: "#333",
+    marginBottom: 15,
   },
   usagePointContainer: {
     flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 8,
-    paddingVertical: 8,
+    alignItems: "flex-start",
+    marginBottom: 15,
+    paddingBottom: 15,
     borderBottomWidth: 1,
-    borderBottomColor: "#E0E0E0",
+    borderBottomColor: "#F0F0F0",
+  },
+  usageIconCircle: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 12,
+    marginTop: 2,
+  },
+  usageTextContainer: {
+    flex: 1,
+  },
+  usagePointTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#333",
+    marginBottom: 5,
   },
   usagePoint: {
     fontSize: 14,
-    marginLeft: 10,
     color: "#555",
-    flexShrink: 1,
+    lineHeight: 20,
+  },
+  statsSection: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginHorizontal: 20,
+    marginTop: 20,
+    padding: 15,
+    backgroundColor: "#4CAF50",
+    borderRadius: 15,
+  },
+  statItem: {
+    alignItems: "center",
+  },
+  statNumber: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fff",
+  },
+  statLabel: {
+    fontSize: 12,
+    color: "#fff",
+    marginTop: 5,
+  },
+  statDivider: {
+    height: 30,
+    width: 1,
+    backgroundColor: "rgba(255,255,255,0.5)",
+  },
+  ctaSection: {
+    marginHorizontal: 20,
+    marginTop: 20,
+    marginBottom: 30,
+    padding: 20,
+    backgroundColor: "#fff",
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+    alignItems: "center",
+  },
+  ctaTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  ctaDescription: {
+    fontSize: 16,
+    color: "#555",
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  navButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#4CAF50",
+    paddingVertical: 14,
+    paddingHorizontal: 25,
+    borderRadius: 25,
+    width: "100%",
+  },
+  navText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
 

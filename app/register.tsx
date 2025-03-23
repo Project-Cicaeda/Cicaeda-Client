@@ -16,12 +16,14 @@ import axios from "axios";
 import { useState } from "react";
 import { ipAddress } from "@/components/Common/ipAddress";
 const Register: React.FC = () => {
+  // State to manage form data (name, email, and password)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
+  // Function to handle input changes and update form data
   function handleInputChange(field: string, value: string) {
     setFormData((prev) => ({
       ...prev,
@@ -29,40 +31,53 @@ const Register: React.FC = () => {
     }));
   }
 
-    async function RegisterClick(){
-        if(formData.email && formData.name && formData.password){
-                try{
-                const response = await axios.post(`${ipAddress}/auth/signup`,formData)
-                ToastAndroid.show("Registration Successful!",ToastAndroid.SHORT)
-                router.replace("/login")
-                }
-                catch(error:any){
-                    console.log(error?.response)
-                    if(error?.response?.data.statusCode == 400){
-                        ToastAndroid.show(error?.response?.data.message,ToastAndroid.SHORT)
-                        return;
-                    }
-                    ToastAndroid.show(error?.response?.data.message[0],ToastAndroid.SHORT)
-                    console.log(error?.response,"ERROR")
-                }
+  // Function to handle registration button click
+  async function RegisterClick() {
+    // Check if all fields are provided
+    if (formData.email && formData.name && formData.password) {
+      try {
+        // Make a POST request to the registration API endpoint
+        const response = await axios.post(
+          `https://cicaeda-me-539607477024.us-central1.run.app/auth/signup `,
+          formData
+        );
+
+        // Show success toast and navigate to the login screen
+        ToastAndroid.show("Registration Successful!", ToastAndroid.SHORT);
+        router.replace("/login");
+      } catch (error: any) {
+        // Handle errors from the API
+        console.log(error?.response);
+        if (error?.response?.data.statusCode == 400) {
+          ToastAndroid.show(error?.response?.data.message, ToastAndroid.SHORT);
+          return;
         }
-        else{
-            ToastAndroid.show("All The Fields Are Required",ToastAndroid.SHORT)
+        ToastAndroid.show(error?.response?.data.message[0], ToastAndroid.SHORT);
+        console.log(error?.response, "ERROR");
+      }
+    } else {
+      ToastAndroid.show("All The Fields Are Required", ToastAndroid.SHORT);
     }
   }
 
   return (
     <View style={styles.container}>
+      {/* Back arrow for navigation */}
       <View>
         <BackArrow />
       </View>
+
+      {/* Main content container */}
       <View style={styles.inputContent}>
+        {/* Headings for the registration screen */}
         <View style={styles.inputTexts}>
           <Headings
             heading="Register To Cicaeda!"
             tagLine="Predicting Kidney Health for a Better Tomorrow"
           />
         </View>
+
+        {/* Input forms for name, email, and password */}
         <View style={styles.inputForms}>
           <View style={styles.marginLayer}>
             <InputLayout
@@ -88,6 +103,8 @@ const Register: React.FC = () => {
               onBlur={(text) => handleInputChange("password", text)}
             />
           </View>
+
+          {/* Link to the login screen */}
           <View
             style={[styles.marginLayer, { marginVertical: 10, marginLeft: 5 }]}
           >
@@ -101,6 +118,8 @@ const Register: React.FC = () => {
             </Text>
           </View>
         </View>
+
+        {/* Register button */}
         <TouchableOpacity style={styles.button} onPress={RegisterClick}>
           <Text
             style={{

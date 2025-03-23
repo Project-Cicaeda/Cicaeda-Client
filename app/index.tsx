@@ -13,27 +13,41 @@ import {
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 export default function Index() {
+  {
+    /* for Language translation */
+  }
+
   const { t, i18n } = useTranslation();
+
   return (
     <View style={styles.container}>
+      {/* Logo Image */}
       <Image
         source={require("../assets/images/logo.jpg")} //logo added
         style={styles.logo}
       />
 
+      {/* Globe Icon */}
       <TouchableOpacity
         style={styles.globeIcon}
         onPress={() => router.push("/selectLanguage")}
       >
         <Entypo name="globe" size={24} color="black" />
       </TouchableOpacity>
+
+      {/* Main Content */}
       <View style={styles.centerContent}>
         <View>
+          {/*Landing page */}
+
           <Image
             source={require("../assets/images/landing.jpg")}
             style={{ width: SCREEN_WIDTH, height: 250 }}
           />
         </View>
+
+        {/* Headings*/}
+
         <View style={styles.headings}>
           <Text
             style={[

@@ -1,1 +1,1 @@
-export const ipAddress = "https://cicaeda-me-539607477024.us-central1.run.app"
+export const ipAddress = "https://cicaeda-server-441263950103.us-central1.run.app"

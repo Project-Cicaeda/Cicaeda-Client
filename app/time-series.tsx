@@ -160,13 +160,6 @@ function TimeSeries(){
         ];
         return colors[index % colors.length]; 
       }
-      const pieChartData = timeData.map((item:any, index) => ({
-        value: item.value,
-        color: getColorByIndex(index), 
-        text: `${item.value}`,
-      }));
-    
-
       useEffect(() =>{
         GetTimeSeriesPrediction()
       },[])
@@ -200,29 +193,6 @@ function TimeSeries(){
                   />
               }
             </View>
-            <View style={styles.subCharts}>
-              <View style={styles.lineChart}>
-              <LineChart
-                    isAnimated
-                    thickness={3}
-                    color="#07BAD1"
-                    animateOnDataChange
-                    animationDuration={1000}
-                    onDataChangeAnimationDuration={300}
-                    areaChart
-                    yAxisTextStyle={{display: 'none'}}
-                    data={currentData}
-                    startFillColor={'rgb(84,219,234)'}
-                    endFillColor={'rgb(84,219,234)'}
-                    startOpacity={0.4}
-                    endOpacity={0.1}
-                    spacing={15}
-                    initialSpacing={10}
-                    yAxisThickness={0}
-                    xAxisThickness={0}
-                  />
-              </View>
-            </View>
         </View>
     )
 }
@@ -232,7 +202,7 @@ const styles  = StyleSheet.create({
     paddingVertical:15
   },
   subCharts:{
-    marginVertical:20
+    marginVertical:20,
   },
   lineChart:{
     width:"100%",
