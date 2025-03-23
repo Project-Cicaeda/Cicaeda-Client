@@ -2,7 +2,7 @@ import BackArrow from "@/components/Common/backArrow";
 import { InputLayout } from "@/components/Forms/InputLayout";
 import { Headings } from "@/components/Heading/headings";
 import { Colors } from "@/constants/Colors";
-import * as Linking from 'expo-linking';
+import * as Linking from "expo-linking";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -20,57 +20,56 @@ import axios from "axios";
 import { storeItem } from "@/components/Common/StorageOperations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import API from "@/components/Common/UpdateTokens";
+import { SecuredInput } from "@/components/Forms/SecuredInput";
 
 const ForgotPassword: React.FC = () => {
   const { t, i18n } = useTranslation();
   const router = useRouter();
-  const [formData,setFormData] = useState({
-    "oldPassword":"",
-    "newPassword":""
-})
+  const [formData, setFormData] = useState({
+    oldPassword: "",
+    newPassword: "",
+  });
 
-    function handleInputChange(field:string,value:string){
-      setFormData((prev) =>({
-          ...prev,
-          [field] : value
-      }))
+  function handleInputChange(field: string, value: string) {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  }
+
+  async function SendResetCode() {
+    if (formData.newPassword && formData.oldPassword) {
+      try {
+        const data = {
+          oldPassword: formData.oldPassword,
+          newPassword: formData.newPassword,
+        };
+        const response = await API.put("/auth/change-password", data);
+        ToastAndroid.show("Password Changed Successfully!", ToastAndroid.SHORT);
+        router.push("/login");
+      } catch (error: any) {
+        console.log(error.response.data);
+      }
+    } else {
+      ToastAndroid.show("All Fields Are Required!", ToastAndroid.SHORT);
     }
+  }
 
-    async function SendResetCode(){
-      if(formData.newPassword && formData.oldPassword){
-          try{
-          const data = {"oldPassword":formData.oldPassword,"newPassword":formData.newPassword}
-          const response = await API.put("/auth/change-password",data)
-          ToastAndroid.show("Password Changed Successfully!", ToastAndroid.SHORT)
-          router.push("/login")
-          
-        }
-        catch(error:any){
-          console.log(error.response.data)
-        }
-      }
-      else{
-        ToastAndroid.show("All Fields Are Required!", ToastAndroid.SHORT)
-      }
-
-    }   
-
-    const getInitialURL = async() =>{
-      const url = await Linking.getInitialURL();
-      if(url){
-        console.log("Opened From URL: ",url)
-      }
+  const getInitialURL = async () => {
+    const url = await Linking.getInitialURL();
+    if (url) {
+      console.log("Opened From URL: ", url);
     }
+  };
 
-    useEffect(() => {
-      const subscription = Linking.addEventListener('url', ({ url }) => {
-        console.log("Opened from URL:", url);
-      });
-    
-      return () => subscription.remove();
-    }, []);
+  useEffect(() => {
+    const subscription = Linking.addEventListener("url", ({ url }) => {
+      console.log("Opened from URL:", url);
+    });
 
-    
+    return () => subscription.remove();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View>
@@ -78,7 +77,10 @@ const ForgotPassword: React.FC = () => {
       </View>
       <View style={styles.inputContent}>
         <View style={styles.inputTexts}>
-          <Headings heading={t("resetPassword.title")} tagLine={t("resetPassword.tagline")} />
+          <Headings
+            heading={t("resetPassword.title")}
+            tagLine={t("resetPassword.tagline")}
+          />
         </View>
         <View style={styles.inputForms}>
           <View style={styles.marginLayer}>
@@ -86,15 +88,16 @@ const ForgotPassword: React.FC = () => {
               label={t("resetPassword.password")}
               placeholder={t("resetPassword.newPassword")}
               icon="mail"
-              onBlur={(text) => handleInputChange("oldPassword",text)}
+              onBlur={(text) => handleInputChange("oldPassword", text)}
             />
           </View>
           <View style={styles.marginLayer}>
-            <InputLayout
+            <SecuredInput
+              secureTextEntry={true}
               label={t("resetPassword.confirmPassword")}
               placeholder={t("resetPassword.confirmNewPassword")}
               icon="mail"
-              onBlur={(text) => handleInputChange("newPassword",text)}
+              onBlur={(text) => handleInputChange("newPassword", text)}
             />
           </View>
         </View>

@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { storeItem } from "@/components/Common/StorageOperations";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SecuredInput } from "@/components/Forms/SecuredInput";
 
 const Login: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -108,7 +109,8 @@ const Login: React.FC = () => {
             />
           </View>
           <View style={styles.marginLayer}>
-            <InputLayout
+            <SecuredInput
+              secureTextEntry={true}
               label={t("login.password")}
               placeholder={t("login.password")}
               icon="key"
