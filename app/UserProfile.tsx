@@ -22,7 +22,7 @@ const ProfileScreen = () => {
     };
     fetchUserData();
   }, []);
-  const [predictions, setPredictions] = useState();
+  const [predictions, setPredictions] = useState<any[]>([]);
   async function getresults(accessToken: String) {
     const response = await axios.get(`${ipAddress}questionnaire/history`, {
       headers: { Authorization: `bearer ${accessToken}` },
@@ -52,6 +52,15 @@ const ProfileScreen = () => {
       {/* Kidney Health Data Tile */}
       <View style={styles.healthTile}>
         <Text style={styles.tileTitle}>Previous Predictions</Text>
+        {predictions.length > 0 ? (
+          predictions.map((prediction, index) => (
+            <Text key={index} style={styles.predictionText}>
+              {prediction.date}: {prediction.result}
+            </Text>
+          ))
+        ) : (
+          <Text style={styles.noDataText}>No predictions available</Text>
+        )}
       </View>
 
       {/* Buttons Container */}
@@ -124,7 +133,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#555",
     textAlign: "center",
-    marginTop: 10,
+    width: "100%",
+    backgroundColor: "rgba(255, 255, 255, 0.4)",
+    paddingVertical: 15,
+    marginBottom: 20,
   },
   buttonContainer: {
     flexDirection: "row",
@@ -144,5 +156,21 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+  },
+  predictionText: {
+    fontSize: 14,
+    color: "#333",
+    marginVertical: 5,
+    textAlign: "left",
+    paddingHorizontal: 10,
+  },
+  noDataText: {
+    fontSize: 14,
+    color: "#777",
+    marginTop: 10,
+    textAlign: "center",
+    width: "100%",
+    paddingVertical: 15,
+    marginBottom: 20,
   },
 });
