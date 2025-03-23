@@ -120,7 +120,7 @@
     "medication": "Strictly adhere to prescribed medications. Set daily reminders."
   },
 
-  "Moderate Risk": {
+  "ModerateRisk": {
     "message": "Monitor Your Health!",
     "risk": "Mild risks detected. Keep an eye on your blood pressure and sugar levels.",
     "hydration": "You're not drinking enough water daily. Increase to 2L for better kidney function.",
