@@ -24,7 +24,7 @@ const ProfileScreen = () => {
   }, []);
   const [predictions, setPredictions] = useState<any[]>([]);
   async function getresults(accessToken: String) {
-    const response = await axios.get(`${ipAddress}questionnaire/history`, {
+    const response = await axios.get(`${ipAddress}/questionnaire/history`, {
       headers: { Authorization: `bearer ${accessToken}` },
     });
     setPredictions(response.data);
@@ -34,6 +34,7 @@ const ProfileScreen = () => {
       const token = await fetchData("user");
       getresults(token.accessToken);
     }
+    endpoint();
   });
   return (
     <View style={styles.container}>
