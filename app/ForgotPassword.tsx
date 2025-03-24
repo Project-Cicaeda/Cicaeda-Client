@@ -39,13 +39,18 @@ const ForgotPassword: React.FC = () => {
     }
 
     async function SendResetCode(){
-      try{
-        const response  = await axios.post(`${ipAddress}/auth/forgot-password`,formData)
-        ToastAndroid.show("Email Sent Successfully",ToastAndroid.SHORT)
-        router.push({pathname:"/OtpVerify",params:{email:formData.email}})
+      if(formData.email){
+        try{
+          const response  = await axios.post(`${ipAddress}/auth/forgot-password`,formData)
+          ToastAndroid.show("Email Sent Successfully",ToastAndroid.SHORT)
+          router.push({pathname:"/OtpVerify",params:{email:formData.email}})
+        }
+        catch(error:any){
+          console.log(error.response)
+        }
       }
-      catch(error:any){
-        console.log(error.response)
+      else{
+        ToastAndroid.show("All Fields Are Required", ToastAndroid.SHORT)
       }
       
     }   
