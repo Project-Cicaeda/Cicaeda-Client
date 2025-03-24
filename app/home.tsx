@@ -53,7 +53,7 @@ const LandingPage = () => {
         setDistrict(foundDistrict);
 
         // Save district to AsyncStorage
-        await AsyncStorage.setItem("userDistrict", foundDistrict);
+        await AsyncStorage.setItem("userDistrict", JSON.stringify(foundDistrict));
       }
     })();
   }, []);

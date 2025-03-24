@@ -1,5 +1,6 @@
 import BackArrow from "@/components/Common/backArrow";
 import { ipAddress } from "@/components/Common/ipAddress";
+import { fetchData } from "@/components/Common/StorageOperations";
 import { Colors } from "@/constants/Colors";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -8,7 +9,7 @@ import { BarChart, LineChart, PieChart, PopulationPyramid, RadarChart } from "re
 
 function TimeSeries(){
   const [timeData,setTimeData] = useState([])
-  const [city,setCity] = useState("Colombo")
+  const [city,setCity] = useState("")
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   
   const calculateStepValue = (data:any) => {
@@ -160,9 +161,21 @@ function TimeSeries(){
         ];
         return colors[index % colors.length]; 
       }
-      useEffect(() =>{
-        GetTimeSeriesPrediction()
-      },[])
+      useEffect(() => {
+        async function fetchLocation() {
+          const userCity = await fetchData("userDistrict");
+          setCity(userCity);
+        }
+        fetchLocation();
+      }, []);
+      
+      useEffect(() => {
+        if (city) {
+          GetTimeSeriesPrediction();
+        }
+      }, [city]);
+
+
 
     return(
         <View style={{paddingHorizontal:20,paddingVertical:20,backgroundColor:"#fff",height:"100%"}}>

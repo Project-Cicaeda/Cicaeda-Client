@@ -28,19 +28,26 @@ export const submitQuestionnaire = async (
 ) => {
   try {
     console.log(token,formData)
-    const response = await API.post(
-      `${ipAddress}/questionnaire/submit`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          // "Content-Type": "application/json",
-        },
-      }
-    );
-    await AsyncStorage.setItem("results", JSON.stringify(response.data));
+    try{
+      const response = await API.post(
+        `/questionnaire/submit`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            // "Content-Type": "application/json",
+          },
+        }
+      );
+      
+      await AsyncStorage.setItem("results", JSON.stringify(response.data));
+  
+      return response.data;
+    }
+    catch(error){
+      console.log(error)
+    }
 
-    return response.data;
   } catch (error:any) {
     console.error("Error submitting questionnaire:", error.message);
     return null;

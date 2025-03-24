@@ -43,7 +43,7 @@ API.interceptors.response.use(
       } catch (err) {
         console.log('Refresh token expired or invalid. Logging out...');
         await AsyncStorage.removeItem('user');
-        router.push("/")
+        router.push("/login")
       }
     }
 
