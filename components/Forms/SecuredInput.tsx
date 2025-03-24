@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 30,
     borderWidth: 1,
+    minHeight: 50, 
     borderColor: Colors.light.primary,
   },
 });
