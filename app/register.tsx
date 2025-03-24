@@ -39,7 +39,7 @@ const Register: React.FC = () => {
       try {
         // Make a POST request to the registration API endpoint
         const response = await axios.post(
-          `https://cicaeda-me-539607477024.us-central1.run.app/auth/signup `,
+          `${ipAddress}/auth/signup `,
           formData
         );
 
@@ -47,14 +47,13 @@ const Register: React.FC = () => {
         ToastAndroid.show("Registration Successful!", ToastAndroid.SHORT);
         router.replace("/login");
       } catch (error: any) {
-        // Handle errors from the API
-        console.log(error?.response);
-        if (error?.response?.data.statusCode == 400) {
-          ToastAndroid.show(error?.response?.data.message, ToastAndroid.SHORT);
-          return;
+        console.log(error?.response?.data, "ERROR RESPONSE");
+        const errorMessage = error?.response?.data?.message || "Something went wrong";
+        if (Array.isArray(errorMessage)) {
+          ToastAndroid.show(errorMessage[0], ToastAndroid.SHORT);
+        } else {
+          ToastAndroid.show(errorMessage, ToastAndroid.SHORT);
         }
-        ToastAndroid.show(error?.response?.data.message[0], ToastAndroid.SHORT);
-        console.log(error?.response, "ERROR");
       }
     } else {
       ToastAndroid.show("All The Fields Are Required", ToastAndroid.SHORT);
