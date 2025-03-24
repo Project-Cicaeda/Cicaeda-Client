@@ -14,6 +14,8 @@ import { useTranslation } from "react-i18next";
 
 import { router } from "expo-router";
 import { fetchData } from "@/components/Common/StorageOperations";
+import { Octicons } from "@expo/vector-icons"
+
 
 const CKDPrediction: React.FC = () => {
   const [score, setScore] = useState(0);
@@ -108,9 +110,11 @@ const CKDPrediction: React.FC = () => {
       >
         {/* CKD Score Section */}
         <View style={[styles.scoreContainer, { backgroundColor: bgColor }]}>
-          <View style={styles.arrow}>
-            <BackArrow />
-          </View>
+          <TouchableOpacity style={styles.arrow} onPress={()=>router.replace("/")}>
+              <TouchableOpacity style={styles.arrowBg} onPress={() => router.replace("/home")}>
+                <Octicons name="arrow-left" size={24} color="black" />
+            </TouchableOpacity>
+          </TouchableOpacity>
           <Text style={styles.scoreTitle}>CKD SCORE</Text>
           <Text style={styles.scoreValue}>{score}%</Text>
           <Text style={styles.scoreMessage}>{message}</Text>
@@ -222,4 +226,12 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     top: -30,
   },
+  arrowBg:{
+    width:40,
+    height:40,
+    borderRadius:"50%",
+    backgroundColor:"#E4E4E4",
+    justifyContent:"center",
+    alignItems:"center"
+}
 });

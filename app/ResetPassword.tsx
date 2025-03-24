@@ -71,14 +71,6 @@ const ForgotPassword: React.FC = () => {
         </View>
         <View style={styles.inputForms}>
           <View style={styles.marginLayer}>
-            <InputLayout
-              label={t("resetPassword.password")}
-              placeholder={t("resetPassword.newPassword")}
-              icon="mail"
-              onBlur={(text) => handleInputChange("oldPassword", text)}
-            />
-          </View>
-          <View style={styles.marginLayer}>
             <SecuredInput
               secureTextEntry={true}
               label={t("resetPassword.confirmPassword")}

@@ -66,15 +66,19 @@ const ProfileScreen = () => {
         <Text style={styles.descriptionTitle}>Previous Predictions</Text>
         {predictions.length > 0 ? (
           predictions.map((prediction, index) => {
-            const formattedDate = moment(prediction.date).format(
-              "YYYY-MM-DD HH:mm:ss"
+            const formattedDate = moment(prediction.createdAt).format(
+              "YYYY-MM-DD HH:mm"
             );
+            console.log(prediction)
             const number = (prediction.total / 11) * 100;
-            return (
-              <Text key={index} style={styles.predictionText}>
-                {formattedDate}: {Math.floor(number)}%
-              </Text>
-            );
+            if(number){
+              return (
+                <Text key={index} style={styles.predictionText}>
+  
+                  {formattedDate}: {Math.floor(number)}%
+                </Text>
+              );
+            }
           })
         ) : (
           <Text style={styles.noDataText}>No predictions available</Text>
@@ -82,7 +86,7 @@ const ProfileScreen = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => router.push("/ForgotPassword")}>
           <Text style={styles.buttonText}>Reset Password</Text>
         </TouchableOpacity>
         <TouchableOpacity

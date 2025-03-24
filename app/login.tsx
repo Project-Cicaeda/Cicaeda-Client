@@ -48,7 +48,7 @@ const Login: React.FC = () => {
       try {
         // Make a POST request to the login API endpoint
         const response = await axios.post(
-          `https://cicaeda-me-539607477024.us-central1.run.app/auth/login `,
+          `${ipAddress}/auth/login `,
           formData
         );
 
@@ -60,7 +60,6 @@ const Login: React.FC = () => {
         router.replace("/home");
       } catch (error: any) {
         // Handle errors from the API
-        console.log(error.response);
         if (error.response.data?.statusCode == 401) {
           ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
           return;
